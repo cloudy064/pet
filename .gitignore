@@ -1,0 +1,39 @@
+# Local browser profiles contain browsing state and are never project assets.
+/edge-*/
+
+# Downloaded tools, dependencies and Python caches.
+/.tools/
+node_modules/
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Private machine configuration and credentials.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Reproducible browser screenshots and run reports at the project root.
+/*-preview.png
+/preview*.png
+/free-in-progress.png
+/rhythm-review.jpg
+/*-check.json
+/*-check-result.json
+/*-playback-performance.json
+/playback-performance.json
+/player-check-result.txt
+
+# Editor, OS and interrupted-write files.
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.log
+*.tmp
+*.swp
+*.swo

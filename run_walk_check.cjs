@@ -1,0 +1,27 @@
+const {spawn}=require('node:child_process'),fs=require('node:fs'),path=require('node:path'),{pathToFileURL}=require('node:url');
+const delay=ms=>new Promise(r=>setTimeout(r,ms));
+(async()=>{
+ const port=9343,child=spawn('C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe',['--headless','--disable-gpu','--no-first-run','--disable-background-timer-throttling','--disable-renderer-backgrounding','--disable-backgrounding-occluded-windows','--disable-features=CalculateNativeWinOcclusion','--allow-file-access-from-files','--remote-debugging-port='+port,'--user-data-dir='+path.resolve('edge-walk-cdp'),'about:blank'],{windowsHide:true,stdio:'ignore'});let ws;
+ try{
+  let targets;for(let i=0;i<100;i++){try{targets=await(await fetch('http://127.0.0.1:'+port+'/json')).json();if(targets.length)break;}catch{}await delay(100);}if(!targets?.length)throw Error('Debug port unavailable');
+  ws=new WebSocket(targets.find(t=>t.type==='page').webSocketDebuggerUrl);await new Promise((r,j)=>{ws.onopen=r;ws.onerror=j;});let id=0;const pending=new Map(),errors=[];
+  ws.onmessage=e=>{const m=JSON.parse(e.data);if(m.method==='Runtime.exceptionThrown')errors.push(m.params.exceptionDetails);if(pending.has(m.id)){const {r,j}=pending.get(m.id);pending.delete(m.id);m.error?j(m.error):r(m.result);}};
+  const send=(method,params={})=>new Promise((r,j)=>{const key=++id;pending.set(key,{r,j});ws.send(JSON.stringify({id:key,method,params}));});
+  const evaluate=async(expression,awaitPromise=false)=>{const r=await send('Runtime.evaluate',{expression,awaitPromise,returnByValue:true});if(r.exceptionDetails)throw Error(JSON.stringify(r.exceptionDetails));return r.result.value;};
+  await send('Runtime.enable');await send('Page.enable');await send('Emulation.setFocusEmulationEnabled',{enabled:true});await send('Emulation.setDeviceMetricsOverride',{width:1400,height:1450,deviceScaleFactor:1,mobile:false});
+  const hook=await send('Page.addScriptToEvaluateOnNewDocument',{source:'window.__walkNow=0;window.__walkRAFs=new Map();let walkRAFId=0;requestAnimationFrame=cb=>{const i=++walkRAFId;__walkRAFs.set(i,cb);return i;};cancelAnimationFrame=i=>__walkRAFs.delete(i);window.__walkPump=dt=>{__walkNow+=dt;const c=[...__walkRAFs.values()];__walkRAFs.clear();c.forEach(cb=>cb(__walkNow));};'});
+  const url=pathToFileURL(path.resolve('皮皮_走路调试台.html')).href;
+  async function ready(){for(let i=0;i<300;i++){if(await evaluate('window.PipiWalkDebug?.snapshot().ready'))return;await delay(50);}throw Error('Walk not ready: '+await evaluate("document.getElementById('walkStatus').textContent"));}
+  await send('Page.navigate',{url});await ready();let shot;
+  if(!process.argv.includes('--native-only')){
+  const report=await evaluate(fs.readFileSync('walk-browser-tests.js','utf8'),true);report.runtimeErrors=errors;fs.writeFileSync('walk-check-result.json',JSON.stringify(report,null,2));console.log(JSON.stringify(report,null,2));
+  shot=await send('Page.captureScreenshot',{format:'png'});fs.writeFileSync('walk-inspector-preview.png',Buffer.from(shot.data,'base64'));if(report.result!=='PASS'||errors.length)throw Error(report.error||'Runtime errors');
+  }
+  await send('Page.removeScriptToEvaluateOnNewDocument',{identifier:hook.identifier});await send('Page.navigate',{url});await ready();const playback=await evaluate(fs.readFileSync('walk-real-playback.js','utf8'),true);fs.writeFileSync('walk-playback-performance.json',JSON.stringify(playback,null,2));console.log(JSON.stringify(playback,null,2));if(playback.result!=='PASS')throw Error('Native walk playback skipped frames');
+  await evaluate("document.getElementById('resetWalk').click()");const point=await evaluate("(()=>{const r=document.querySelector('[data-walk-dir=ne]').getBoundingClientRect();return {x:r.x+r.width/2,y:r.y+r.height/2};})()");
+  await send('Input.dispatchMouseEvent',{type:'mousePressed',x:point.x,y:point.y,button:'left',clickCount:1});await delay(1850);const held=await evaluate('PipiWalkDebug.snapshot()');await send('Input.dispatchMouseEvent',{type:'mouseReleased',x:5,y:5,button:'left',clickCount:1});await delay(2100);const released=await evaluate('PipiWalkDebug.snapshot()');
+  const pointer={heading:held.dir==='ne',moved:held.x>500&&held.y<560,held:held.requested==='ne',released:released.phase==='idle'&&!released.requested};fs.writeFileSync('walk-pointer-check.json',JSON.stringify(pointer,null,2));console.log('Pointer:',JSON.stringify(pointer));if(Object.values(pointer).some(v=>!v))throw Error('Walk pointer controls failed');
+  await evaluate("document.getElementById('walkDirection').value='sw';document.getElementById('startWalk').click()");await delay(900);await evaluate("document.getElementById('pauseWalk').click()");shot=await send('Page.captureScreenshot',{format:'png'});fs.writeFileSync('walk-preview.png',Buffer.from(shot.data,'base64'));
+  await send('Emulation.setDeviceMetricsOverride',{width:390,height:844,deviceScaleFactor:1,mobile:true});const mobile=await evaluate('({width:innerWidth,scrollWidth:document.documentElement.scrollWidth})');console.log('Mobile:',JSON.stringify(mobile));if(mobile.scrollWidth>mobile.width+1)throw Error('Mobile overflow');shot=await send('Page.captureScreenshot',{format:'png'});fs.writeFileSync('walk-mobile-preview.png',Buffer.from(shot.data,'base64'));await send('Browser.close');
+ }catch(error){console.error(error);process.exitCode=1;}finally{ws?.close();child.kill();}
+})();

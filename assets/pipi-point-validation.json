@@ -1,0 +1,10 @@
+{
+  "result": "PASS",
+  "frames": 37,
+  "uniqueFrames": 19,
+  "durationMs": 3300,
+  "sourceFramesUnchanged": true,
+  "neutralEndpointsExact": true,
+  "runtimeBytes": 552209,
+  "miniprogramLeftArtworkAdditionalPngBytes": 0
+}

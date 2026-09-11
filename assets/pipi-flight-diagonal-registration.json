@@ -1,0 +1,18 @@
+[
+  {
+    "direction": "up-right",
+    "source": "pipi-flight-right.png",
+    "bakedAngleDegrees": 22,
+    "frames": 32,
+    "rejectedCandidate": "pipi-flight-up-right-generated.png",
+    "reason": "Generated variant changed wing/body proportions; stabilized existing cycle preserves identity and phase."
+  },
+  {
+    "direction": "down-right",
+    "source": "pipi-flight-right.png",
+    "bakedAngleDegrees": -22,
+    "frames": 32,
+    "rejectedCandidate": "pipi-flight-down-right-generated.png",
+    "reason": "Generated variant changed wing/body proportions; stabilized existing cycle preserves identity and phase."
+  }
+]

@@ -1,0 +1,328 @@
+{
+  "version": 1,
+  "id": "takeoff",
+  "label": "起飞蓄力",
+  "image": "pipi-flight-takeoff.png",
+  "frameWidth": 704,
+  "frameHeight": 576,
+  "frameCount": 29,
+  "columns": 29,
+  "anchor": {
+    "x": 352,
+    "y": 486.45303867403317
+  },
+  "subjectHeight": 387.5359116022099,
+  "bounds": [
+    80,
+    96,
+    633,
+    489
+  ],
+  "frameDurationsMs": [
+    30,
+    30,
+    30,
+    30,
+    30,
+    30,
+    30,
+    30,
+    30,
+    30,
+    30,
+    30,
+    30,
+    30,
+    30,
+    30,
+    25,
+    25,
+    25,
+    25,
+    25,
+    25,
+    25,
+    25,
+    25,
+    25,
+    25,
+    25,
+    25
+  ],
+  "durationMs": 805,
+  "loop": false,
+  "frameRate": 30,
+  "frames": [
+    {
+      "x": 0,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 30
+    },
+    {
+      "x": 704,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 30
+    },
+    {
+      "x": 1408,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 30
+    },
+    {
+      "x": 2112,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 30
+    },
+    {
+      "x": 2816,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 30
+    },
+    {
+      "x": 3520,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 30
+    },
+    {
+      "x": 4224,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 30
+    },
+    {
+      "x": 4928,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 30
+    },
+    {
+      "x": 5632,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 30
+    },
+    {
+      "x": 6336,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 30
+    },
+    {
+      "x": 7040,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 30
+    },
+    {
+      "x": 7744,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 30
+    },
+    {
+      "x": 8448,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 30
+    },
+    {
+      "x": 9152,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 30
+    },
+    {
+      "x": 9856,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 30
+    },
+    {
+      "x": 10560,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 30
+    },
+    {
+      "x": 11264,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25
+    },
+    {
+      "x": 11968,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25
+    },
+    {
+      "x": 12672,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25
+    },
+    {
+      "x": 13376,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25
+    },
+    {
+      "x": 14080,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25
+    },
+    {
+      "x": 14784,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25
+    },
+    {
+      "x": 15488,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25
+    },
+    {
+      "x": 16192,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25
+    },
+    {
+      "x": 16896,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25
+    },
+    {
+      "x": 17600,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25
+    },
+    {
+      "x": 18304,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25
+    },
+    {
+      "x": 19008,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25
+    },
+    {
+      "x": 19712,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25
+    }
+  ],
+  "coordinateSpace": "Local sprite. World flight translation is separate. Anchor is the neutral sole origin; flight feet tuck above it.",
+  "provenance": {
+    "frontAtlas": "pipi-flight-front-generated.png",
+    "sideAtlas": "pipi-flight-side-generated.png",
+    "flapAtlas": "pipi-flight-flap-generated.png",
+    "turnAtlas": "pipi-flight-turn-generated.png",
+    "method": "Generated key poses, raster registration, fixed hover core and bidirectional motion-compensated inbetweens. Front eyes use complete approved expression frames outside general optical flow."
+  },
+  "restPose": {
+    "image": "pipi-idle.png",
+    "scale": 0.7071823204419889,
+    "x": 224,
+    "y": 48,
+    "width": 256,
+    "height": 512,
+    "frames": [
+      0
+    ]
+  },
+  "phases": [
+    {
+      "label": "蓄力",
+      "start": 0,
+      "end": 16
+    },
+    {
+      "label": "蹬地展翅",
+      "start": 17,
+      "end": 28
+    }
+  ],
+  "originalTiming": {
+    "durationMs": 966.6666666666671,
+    "frameDurationsMs": [
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336
+    ]
+  },
+  "timingRevision": 1,
+  "timingNote": "Clear anticipation, brisk lift / touchdown, and a soft final settle.",
+  "timingMode": "per-frame"
+}

@@ -1,0 +1,168 @@
+{
+  "version": 1,
+  "id": "bank-up-right",
+  "label": "右侧转向右上",
+  "image": "pipi-flight-bank-up-right.png",
+  "frameWidth": 704,
+  "frameHeight": 640,
+  "frameCount": 17,
+  "columns": 17,
+  "anchor": {
+    "x": 352,
+    "y": 518.4530386740332
+  },
+  "subjectHeight": 387.5359116022099,
+  "bounds": [
+    34,
+    132,
+    604,
+    496
+  ],
+  "frameRate": 40,
+  "frameDurationsMs": [
+    25,
+    25,
+    25,
+    25,
+    25,
+    25,
+    25,
+    25,
+    25,
+    25,
+    25,
+    25,
+    25,
+    25,
+    25,
+    25,
+    25
+  ],
+  "durationMs": 425,
+  "loop": false,
+  "frames": [
+    {
+      "x": 0,
+      "y": 0,
+      "w": 704,
+      "h": 640,
+      "durationMs": 25
+    },
+    {
+      "x": 704,
+      "y": 0,
+      "w": 704,
+      "h": 640,
+      "durationMs": 25
+    },
+    {
+      "x": 1408,
+      "y": 0,
+      "w": 704,
+      "h": 640,
+      "durationMs": 25
+    },
+    {
+      "x": 2112,
+      "y": 0,
+      "w": 704,
+      "h": 640,
+      "durationMs": 25
+    },
+    {
+      "x": 2816,
+      "y": 0,
+      "w": 704,
+      "h": 640,
+      "durationMs": 25
+    },
+    {
+      "x": 3520,
+      "y": 0,
+      "w": 704,
+      "h": 640,
+      "durationMs": 25
+    },
+    {
+      "x": 4224,
+      "y": 0,
+      "w": 704,
+      "h": 640,
+      "durationMs": 25
+    },
+    {
+      "x": 4928,
+      "y": 0,
+      "w": 704,
+      "h": 640,
+      "durationMs": 25
+    },
+    {
+      "x": 5632,
+      "y": 0,
+      "w": 704,
+      "h": 640,
+      "durationMs": 25
+    },
+    {
+      "x": 6336,
+      "y": 0,
+      "w": 704,
+      "h": 640,
+      "durationMs": 25
+    },
+    {
+      "x": 7040,
+      "y": 0,
+      "w": 704,
+      "h": 640,
+      "durationMs": 25
+    },
+    {
+      "x": 7744,
+      "y": 0,
+      "w": 704,
+      "h": 640,
+      "durationMs": 25
+    },
+    {
+      "x": 8448,
+      "y": 0,
+      "w": 704,
+      "h": 640,
+      "durationMs": 25
+    },
+    {
+      "x": 9152,
+      "y": 0,
+      "w": 704,
+      "h": 640,
+      "durationMs": 25
+    },
+    {
+      "x": 9856,
+      "y": 0,
+      "w": 704,
+      "h": 640,
+      "durationMs": 25
+    },
+    {
+      "x": 10560,
+      "y": 0,
+      "w": 704,
+      "h": 640,
+      "durationMs": 25
+    },
+    {
+      "x": 11264,
+      "y": 0,
+      "w": 704,
+      "h": 640,
+      "durationMs": 25
+    }
+  ],
+  "provenance": {
+    "method": "Previously stabilized image-generated right flight cycle, baked fixed body pitch and continuous bank transitions. Left partners are mirrored. New candidate atlases were rejected for inconsistent proportions.",
+    "prompts": "pipi-flight-diagonal-generation.md"
+  }
+}

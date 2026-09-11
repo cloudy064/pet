@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>皮皮 · 八方向走路调试</title>
+<link rel="stylesheet" href="pipi.css"><link rel="stylesheet" href="pipi-flight.css?v=2"><link rel="stylesheet" href="pipi-walk.css?v=1">
+<main>
+  <p><a href="皮皮_自由动作.html">进入自由动作 · 随机表情、散步与飞行 →</a></p>
+  <header><div><span class="eyebrow">PIPI / MOTION LAB · WALK</span><h1>皮皮 · 八方向走路</h1><p>交替迈步，转身出发，走完一步再停下。</p></div><nav><a href="皮皮_动画调试台.html">全部动作 ↗</a>　<a href="皮皮_飞行调试台.html">飞行调试 ↗</a></nav></header>
+  <div class="layout">
+    <section class="preview card">
+      <div class="section-head"><strong id="walkMode">自由行走</strong><span id="walkStatus" role="status">正在加载走路素材…</span></div>
+      <div class="flight-stage walk-stage" id="walkStage" data-bg="checker"><canvas id="walkCanvas" width="1000" height="780" tabindex="0" aria-label="八方向走路舞台，方向键或 WASD 控制行走"></canvas><span class="flight-badge" id="walkPhase">默认站姿</span><span class="flight-coordinates" id="walkCoordinates"></span></div>
+      <div class="transport"><button class="primary" id="startWalk" disabled>开始走路</button><button id="stopWalk" disabled>停步</button><button id="oneWalk" disabled>走一轮</button><button id="pauseWalk" disabled>暂停</button><button id="resetWalk" disabled>回到起点</button></div>
+      <p class="hint" id="walkHint">选择方向后点击“开始走路”，或按住方向按钮、方向键 / WASD。两个方向键同时按下可斜向行走。</p>
+      <div id="walkInspector" hidden>
+        <div class="transport"><button id="walkPrevious">← 上一帧</button><button id="walkNext">下一帧 →</button><label class="check"><input type="checkbox" id="walkCycleOnly" checked>只循环步态</label><output id="walkFrameCounter"></output></div>
+        <input id="walkTimeline" type="range" min="0" max="60" value="0" aria-label="走路逐帧时间轴">
+        <div class="flight-filmstrip" id="walkFilmstrip"></div>
+      </div>
+    </section>
+    <aside>
+      <section class="card settings">
+        <span class="eyebrow">EIGHT DIRECTIONS</span><h2>方向与步幅</h2>
+        <label class="field">朝向 <select id="walkDirection" disabled></select></label>
+        <div class="direction-pad eight-direction-pad" aria-label="按住向八个方向走路">
+          <button data-walk-dir="nw" aria-label="向左上走路">↖<small>左上</small></button><button data-walk-dir="n" aria-label="向上走路">↑<small>向上</small></button><button data-walk-dir="ne" aria-label="向右上走路">↗<small>右上</small></button>
+          <button data-walk-dir="w" aria-label="向左走路">←<small>向左</small></button><span>按住<br>行走</span><button data-walk-dir="e" aria-label="向右走路">→<small>向右</small></button>
+          <button data-walk-dir="sw" aria-label="向左下走路">↙<small>左下</small></button><button data-walk-dir="s" aria-label="向下走路">↓<small>向下</small></button><button data-walk-dir="se" aria-label="向右下走路">↘<small>右下</small></button>
+        </div>
+        <label class="field">步速 <output id="walkSpeedValue">1×</output><input id="walkSpeed" type="range" min=".25" max="1.5" step=".25" value="1"></label>
+        <label class="check"><input type="checkbox" id="walkInPlace">原地检查脚步</label>
+        <p class="hint">向下看正面，向上看背面，左右看侧面，斜向使用侧前或侧后视角。步速同时控制脚步和移动距离。</p>
+        <label class="field">背景 <select id="walkBackground"><option value="checker">透明棋盘</option><option value="dark">深色 · 检查边缘</option><option value="white">纯白</option><option value="sky">浅蓝</option></select></label>
+        <label class="check"><input type="checkbox" id="walkGuides">显示帧边界 / 定位点</label>
+      </section>
+      <section class="card settings">
+        <span class="eyebrow">FRAMES & EXPORT</span><h2>逐帧与导出</h2>
+        <div class="exports"><button id="inspectWalk" disabled>逐帧检查</button><button id="liveWalk" disabled>返回自由行走</button></div>
+        <p id="walkAssetInfo" class="hint"></p>
+        <div class="exports"><a id="walkPng" class="flight-download" download>透明 PNG 长图 ↓</a><a id="walkJson" class="flight-download" download>方向配置 ↓</a></div>
+        <p><a href="assets/pipi-walk.json" download>完整八方向配置 ↓</a></p>
+        <p class="hint">每个方向 61 帧：起步 14 帧、连续步态 32 帧、停步 15 帧。首尾对应默认原图。连续走路只循环中间的步态区间。</p>
+      </section>
+    </aside>
+  </div>
+  <footer><strong>走路参考</strong><div class="flight-references"><figure><img src="assets/pipi-walk-contact-left-reference.png" alt="左脚前接触帧"><figcaption>左脚前</figcaption></figure><figure><img src="assets/pipi-walk-passing-reference.png" alt="侧身经过帧"><figcaption>经过帧</figcaption></figure><figure><img src="assets/pipi-walk-contact-right-reference.png" alt="右脚前接触帧"><figcaption>右脚前</figcaption></figure></div><p>PNG 为真实透明背景，所有帧使用固定格宽和定位点。画面中的背景与定位线不会导入素材。</p></footer>
+</main>
+<script src="assets/pipi-walk-assets.js?v=rhythm1"></script><script src="pipi-timing.js?v=1"></script>
+<script src="assets/pipi-runtime-assets.js?v=1"></script><script src="pipi-sprites.js?v=1"></script><script src="pipi-walk.js?v=runtime1"></script>
+</html>

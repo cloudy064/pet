@@ -1,0 +1,323 @@
+<!doctype html><meta charset="utf-8"><title>Pipi player checks</title>
+<pre id="result">RUNNING</pre><iframe style="width:1280px;height:1280px;border:0"></iframe>
+<script>
+const iframe=document.querySelector('iframe');
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+const checks=[];
+const check=(condition,name)=>{if(!condition)throw Error(name);checks.push(name);};
+// Load the real page first, then replace only the animation clock for deterministic checks.
+iframe.src='皮皮_动画调试台.html';
+iframe.onload=async()=>{
+ try{
+  const w=iframe.contentWindow,d=w.document,$=id=>d.getElementById(id),snapshot=()=>w.PipiDebug.snapshot();
+  for(let i=0;i<100&&!w.PipiDebug?.snapshot().count;i++)await wait(50);
+  check(!$('waveOnce').disabled,'assets loaded');
+  let clockCallback;w.requestAnimationFrame=callback=>{clockCallback=callback;return 1;};
+  for(let i=0;i<40&&!clockCallback;i++)await wait(25);
+  check(!!clockCallback,'animation clock attached');
+  const tick=ms=>clockCallback(ms);
+  const startClock=()=>{tick(-1000/60);tick(0);};
+  const change=(id,value)=>{$(id).value=value;$(id).dispatchEvent(new Event('change'));};
+  const seek=index=>{$('timeline').value=index;$('timeline').dispatchEvent(new Event('input'));};
+  $('autoBlink').checked=false;$('autoBlink').dispatchEvent(new Event('change'));
+  check(snapshot().count===1&&snapshot().meta.frameCount===1,'idle stores and plays one frame');
+  $('waveOnce').click();
+  const waveCount=61,waveDuration=1830;
+  check(snapshot().count===waveCount&&snapshot().meta.frameWidth===480,'wave uses its own fixed width and generated frames');
+  check(Math.abs(snapshot().durationMs-waveDuration)<.01,'wave uses individual frame durations');
+  startClock();tick(64);check(snapshot().frame===0,'initial pose lasts 65 ms after layout preparation');
+  tick(66);check(snapshot().frame===1,'advances after initial hold');
+  tick(waveDuration+100);check(!snapshot().playing&&snapshot().frame===waveCount-1,'one-shot completes at last frame');
+  $('waveOnce').click();startClock();
+  for(let i=1;i<waveCount;i++){
+   tick(snapshot().meta.frameDurationsMs.slice(0,i).reduce((a,b)=>a+b,0));
+   check(snapshot().frame===i,`rounded native clock shows frame ${i} without repeats or skips`);
+  }
+  seek(0);const first=$('preview').toDataURL();seek(waveCount-1);
+  check(first===$('preview').toDataURL(),'neutral endpoints identical');
+  const rendered=()=>$('preview').getContext('2d').getImageData(0,0,800,640).data;
+  for(const zoom of [.6,1,1.3]){
+   $('zoom').value=zoom;$('zoom').dispatchEvent(new Event('input'));
+   change('action','idle');seek(0);
+   const idlePixels=rendered(),idlePreview=$('preview').toDataURL(),idleLayout=snapshot().layout;
+   change('action','wave');seek(0);
+   const s=snapshot(),rest=s.meta.restPose,posePixels=rendered();
+   check(rest?.image==='pipi-idle.png','wave identifies its actual static source');
+   check(Math.abs(s.layout.scale*rest.scale-idleLayout.scale)<1e-9,`same character scale at ${zoom}`);
+   check(Math.abs(s.layout.x+rest.x*s.layout.scale-idleLayout.x)<1e-9&&Math.abs(s.layout.y-idleLayout.y)<1e-9,`same image origin at ${zoom}`);
+   // PNG packing uses a uniform downsample; allow its small filtering difference.
+   let error=0,visible=0;
+   for(let p=0;p<idlePixels.length;p+=4){
+    if(idlePixels[p+3]||posePixels[p+3]){
+     visible++;
+     for(let c=0;c<3;c++)error+=Math.abs(idlePixels[p+c]*idlePixels[p+3]/255-posePixels[p+c]*posePixels[p+3]/255);
+     error+=Math.abs(idlePixels[p+3]-posePixels[p+3]);
+    }
+   }
+   check(error/(visible*4)<5,`resting picture matches idle at ${zoom}, mean error ${(error/(visible*4)).toFixed(2)}/255`);
+   seek(waveCount-1);check(rendered().every((v,i)=>v===posePixels[i]),`return matches start at ${zoom}`);
+   seek(36);$('reference').checked=true;$('reference').dispatchEvent(new Event('change'));
+   check($('preview').toDataURL()===idlePreview,`reference shows the actual idle PNG at ${zoom}`);
+   $('reference').checked=false;$('reference').dispatchEvent(new Event('change'));
+  }
+  for(const zoom of [.6,1,1.3]){
+   $('zoom').value=zoom;$('zoom').dispatchEvent(new Event('input'));
+   for(let i=0;i<waveCount;i++){
+    seek(i);const s=snapshot(),p=s.layout,b=s.meta.bounds;
+    check(p.x+b[0]*p.scale>=29&&p.x+b[2]*p.scale<=771&&p.y+b[1]*p.scale>=29&&p.y+b[3]*p.scale<=611,`wave ${i} fits at ${zoom}`);
+   }
+  }
+  check($('downloadPng').href.endsWith('pipi-wave-smooth.png'),'correct reconstructed wave download');
+  check(snapshot().meta.version===8&&snapshot().meta.motionReconstruction?.keyframes.length>0,'new motion reconstruction is loaded');
+  const exported=w.PipiDebug.exportMetadata();
+  check(exported.frameWidth===480&&exported.frames.length===waveCount&&Math.abs(exported.frameDurationsMs.reduce((a,b)=>a+b,0)-waveDuration)<.01,'export geometry and timing match');
+  change('fps','24');check(snapshot().count===waveCount&&Math.abs(snapshot().durationMs-waveCount*1000/24)<.01,'fixed fps changes timing only');
+  $('blinkOnce').click();check(snapshot().count===24&&snapshot().meta.frameWidth===362,'blink keeps independent width');
+  change('fps','native');check(Math.abs(snapshot().durationMs-460)<.01,'blink timing restored');
+  check($('downloadPng').href.endsWith('pipi-blink-clean.png'),'clean blink asset active');
+  seek(5);$('onion').checked=false;$('onion').dispatchEvent(new Event('change'));const opaque=$('preview').toDataURL();
+  $('onion').checked=true;$('onion').dispatchEvent(new Event('change'));$('play').click();
+  check($('preview').toDataURL()===opaque,'onion overlay suppressed during playback');
+  $('reset').click();check(snapshot().count===26&&snapshot().meta.frameCount===1,'idle holds one pose around blink');
+  $('waveOnce').click();$('loop').checked=true;$('loop').dispatchEvent(new Event('change'));
+  startClock();tick(waveDuration+66);check(snapshot().playing&&snapshot().frame===1,'loop retains time remainder');
+  // Browser-side PNG export without triggering an actual download.
+  let blob;const create=w.URL.createObjectURL.bind(w.URL),click=w.HTMLAnchorElement.prototype.click;
+  w.URL.createObjectURL=value=>{blob=value;return create(value);};w.HTMLAnchorElement.prototype.click=()=>{};
+  $('sheet').click();for(let i=0;i<100&&!blob;i++)await wait(30);
+  check(!!blob,'PNG export succeeds');
+  const decoded=await w.createImageBitmap(blob);check(decoded.width===480*waveCount&&decoded.height===512,'export preserves full strip dimensions');
+  // Verify the exported artwork itself. Smooth clock timing alone does not
+  // detect the head/body/feet changing position and shape between source frames.
+  const regions=snapshot().meta.stabilization?.fixedRegions;
+  check(regions&&Object.keys(regions).length===6,'fixed head, body, right wing and both feet are documented');
+  const sample=d.createElement('canvas');sample.width=480;sample.height=512;
+  const pixels=sample.getContext('2d',{willReadFrequently:true}),baseline=new Map();
+  for(let i=0;i<waveCount;i++){
+   pixels.clearRect(0,0,480,512);pixels.drawImage(decoded,i*480,0,480,512,0,0,480,512);
+   for(const [name,[x,y,width,height]] of Object.entries(regions)){
+    const data=pixels.getImageData(x,y,width,height).data;
+    if(i===0)baseline.set(name,data);
+    else check(data.every((v,k)=>v===baseline.get(name)[k]),`${name} pixels remain fixed in exported frame ${i}`);
+   }
+  }
+  decoded.close();
+  w.URL.createObjectURL=create;w.HTMLAnchorElement.prototype.click=click;
+  // The wink is a fourth independent action, with a compact central hold.
+  $('winkOnce').click();
+  const winkCount=33,winkDuration=1340;
+  check(snapshot().action==='wink'&&snapshot().count===winkCount&&snapshot().meta.frameWidth===384,'wink uses its own action and cell width');
+  check($('blinkDuration').disabled&&$('autoBlink').disabled,'wink does not use the double-blink duration controls');
+  check(Math.abs(snapshot().durationMs-winkDuration)<.01,'wink native duration includes smile hold');
+  const winkMeta=w.PipiDebug.exportMetadata();
+  check(winkMeta.frameDurationsMs[16]===240&&winkMeta.frames.length===33,'wink holds one smile frame instead of duplicate images');
+  startClock();tick(69);check(snapshot().frame===0,'wink begins with static hold');
+  tick(71);check(snapshot().frame===1,'wink starts its head tilt');
+  tick(521);check(snapshot().frame===16,'wink arrives at held expression');
+  tick(759);check(snapshot().frame===16,'wink retains held expression');
+  tick(761);check(snapshot().frame===17,'wink returns after smile hold');
+  tick(winkDuration+100);check(!snapshot().playing&&snapshot().frame===32,'wink one-shot returns to neutral');
+  for(const zoom of [.6,1,1.3]){
+   $('zoom').value=zoom;$('zoom').dispatchEvent(new Event('input'));
+   change('action','wave');seek(0);const neutral=$('preview').toDataURL();
+   change('action','wink');seek(0);
+   const s=snapshot(),p=s.layout,rest=s.meta.restPose;
+   check(rest.image==='pipi-idle.png'&&rest.x===64,'wink identifies original static source');
+   check($('preview').toDataURL()===neutral,`wink matches established neutral rendering at ${zoom}`);
+   seek(32);check($('preview').toDataURL()===neutral,`wink return matches neutral at ${zoom}`);
+   for(let i=0;i<winkCount;i++){
+    seek(i);const s=snapshot(),p=s.layout,b=s.meta.bounds;
+    check(p.x+b[0]*p.scale>=29&&p.x+b[2]*p.scale<=771&&p.y+b[1]*p.scale>=29&&p.y+b[3]*p.scale<=611,`wink ${i} fits at ${zoom}`);
+   }
+  }
+  check($('downloadPng').href.endsWith('pipi-wink.png'),'wink download points to its own PNG');
+  blob=null;w.URL.createObjectURL=value=>{blob=value;return create(value);};w.HTMLAnchorElement.prototype.click=()=>{};
+  $('sheet').click();for(let i=0;i<100&&!blob;i++)await wait(30);
+  check(!!blob,'wink PNG export succeeds');
+  const winkDecoded=await w.createImageBitmap(blob);
+  check(winkDecoded.width===384*33&&winkDecoded.height===512,'wink export preserves full strip dimensions');
+  winkDecoded.close();w.URL.createObjectURL=create;w.HTMLAnchorElement.prototype.click=click;
+  change('fps','24');check(Math.abs(snapshot().durationMs-33*1000/24)<.01,'wink supports fixed fps');
+  change('fps','native');check(Math.abs(snapshot().durationMs-winkDuration)<.01,'wink restores designed timing');
+  $('talkOnce').click();
+  check(snapshot().action==='talk'&&snapshot().count===32&&snapshot().meta.frameWidth===384,'talk is a fifth independent action');
+  check(snapshot().durationMs===1820&&$('blinkDuration').disabled&&$('autoBlink').disabled,'talk uses its own speaking rhythm');
+  startClock();tick(59);check(snapshot().frame===0,'talk starts closed');
+  tick(61);check(snapshot().frame===1,'talk begins opening after its initial pause');
+  tick(1910);check(!snapshot().playing&&snapshot().frame===31,'talk one-shot finishes closed');
+  for(const zoom of [.6,1,1.3]){
+   $('zoom').value=zoom;$('zoom').dispatchEvent(new Event('input'));
+   change('action','wink');seek(0);const neutral=$('preview').toDataURL();
+   change('action','talk');seek(0);check($('preview').toDataURL()===neutral,`talk starts at actual neutral at ${zoom}`);
+   seek(31);check($('preview').toDataURL()===neutral,`talk ends at actual neutral at ${zoom}`);
+   for(let i=0;i<32;i++){
+    seek(i);const s=snapshot(),p=s.layout,b=s.meta.bounds;
+    check(p.x+b[0]*p.scale>=29&&p.x+b[2]*p.scale<=771&&p.y+b[1]*p.scale>=29&&p.y+b[3]*p.scale<=611,`talk ${i} fits at ${zoom}`);
+   }
+  }
+  check($('downloadPng').href.endsWith('pipi-talk.png'),'talk downloads its own PNG');
+  const talkMeta=w.PipiDebug.exportMetadata();
+  check(talkMeta.frames.length===32&&talkMeta.durationMs===1820&&talkMeta.frameDurationsMs[10]===150,'talk exports its designed pauses');
+  blob=null;w.URL.createObjectURL=value=>{blob=value;return create(value);};w.HTMLAnchorElement.prototype.click=()=>{};
+  $('sheet').click();for(let i=0;i<100&&!blob;i++)await wait(30);
+  check(!!blob,'talk PNG export succeeds');
+  const talkDecoded=await w.createImageBitmap(blob);
+  check(talkDecoded.width===12288&&talkDecoded.height===512,'talk export retains transparent strip dimensions');
+  const talkSample=d.createElement('canvas');talkSample.width=384;talkSample.height=512;
+  const tg=talkSample.getContext('2d',{willReadFrequently:true});let talkBase;
+  for(let i=0;i<32;i++){
+   tg.clearRect(0,0,384,512);tg.drawImage(talkDecoded,i*384,0,384,512,0,0,384,512);
+   const rgba=tg.getImageData(0,0,384,512).data;
+   if(i===0){talkBase=rgba;continue;}
+   let fixed=true,alpha=true,eyes=true,mouthChanges=0;
+   for(let p=0;p<rgba.length;p+=4){
+    const xy=p/4,x=xy%384,y=Math.floor(xy/384);
+    const same=rgba[p]===talkBase[p]&&rgba[p+1]===talkBase[p+1]&&rgba[p+2]===talkBase[p+2];
+    if(rgba[p+3]!==talkBase[p+3])alpha=false;
+    if(x<148||x>=243||y<177||y>=286){if(!same)fixed=false;}else if(!same)mouthChanges++;
+    if((((x-139)/36)**2+((y-208)/38)**2<=1||((x-252)/32)**2+((y-208)/38)**2<=1)&&!same)eyes=false;
+   }
+   check(fixed&&alpha&&eyes,`talk export frame ${i} keeps both eyes and all non-mouth artwork fixed`);
+   if(i===5)check(mouthChanges>1000,'talk visibly changes mouth artwork');
+   if(i===31)check(mouthChanges===0,'talk exported end is exactly neutral');
+  }
+  talkDecoded.close();w.URL.createObjectURL=create;w.HTMLAnchorElement.prototype.click=click;
+  change('fps','24');check(Math.abs(snapshot().durationMs-32*1000/24)<.01,'talk supports fixed fps');
+  change('fps','native');check(snapshot().durationMs===1820,'talk restores native rhythm');
+  $('petOnce').click();
+  const petCount=37,petDuration=1753.3333333333;
+  check(snapshot().action==='pet'&&snapshot().count===petCount&&snapshot().meta.frameWidth===384,'pet is an independent sixth action');
+  check(Math.abs(snapshot().durationMs-petDuration)<.01&&$('blinkDuration').disabled&&$('autoBlink').disabled,'pet uses its own timing');
+  startClock();tick(79);check(snapshot().frame===0,'pet starts with the original rest hold');
+  tick(81);check(snapshot().frame===1,'pet starts moving after the rest hold');
+  tick(648);check(snapshot().frame===18,'pet reaches the happy expression');
+  tick(1065);check(snapshot().frame===18,'pet holds one happy frame for 420 ms');
+  tick(1068);check(snapshot().frame===19,'pet begins returning after the hold');
+  tick(petDuration+10);check(!snapshot().playing&&snapshot().frame===36,'pet one-shot returns to neutral');
+  for(const zoom of [.6,1,1.3]){
+   $('zoom').value=zoom;$('zoom').dispatchEvent(new Event('input'));
+   change('action','wink');seek(0);const neutral=$('preview').toDataURL();
+   change('action','pet');seek(0);check($('preview').toDataURL()===neutral,`pet starts at neutral at ${zoom}`);
+   seek(36);check($('preview').toDataURL()===neutral,`pet ends at neutral at ${zoom}`);
+   for(let i=0;i<petCount;i++){
+    seek(i);const s=snapshot(),p=s.layout,b=s.meta.bounds;
+    check(p.x+b[0]*p.scale>=29&&p.x+b[2]*p.scale<=771&&p.y+b[1]*p.scale>=29&&p.y+b[3]*p.scale<=611,`pet ${i} fits at ${zoom}`);
+   }
+  }
+  check($('downloadPng').href.endsWith('pipi-pet.png'),'pet downloads its own PNG');
+  const petMeta=w.PipiDebug.exportMetadata();
+  check(petMeta.frames.length===37&&petMeta.frameDurationsMs[18]===420,'pet exports the single-frame happy hold');
+  blob=null;w.URL.createObjectURL=value=>{blob=value;return create(value);};w.HTMLAnchorElement.prototype.click=()=>{};
+  $('sheet').click();for(let i=0;i<100&&!blob;i++)await wait(30);
+  check(!!blob,'pet PNG export succeeds');
+  const petDecoded=await w.createImageBitmap(blob);
+  check(petDecoded.width===14208&&petDecoded.height===512,'pet export retains its native dimensions');
+  const petSample=d.createElement('canvas');petSample.width=384;petSample.height=512;
+  const pg=petSample.getContext('2d',{willReadFrequently:true});let petBase;
+  for(let i=0;i<petCount;i++){
+   pg.clearRect(0,0,384,512);pg.drawImage(petDecoded,i*384,0,384,512,0,0,384,512);
+   const rgba=pg.getImageData(0,0,384,512).data;
+   if(i===0){petBase=rgba;continue;}
+   check(rgba.slice(308*384*4).every((v,k)=>v===petBase[308*384*4+k]),`pet body and feet stay fixed in exported frame ${i}`);
+   check(rgba[3]===0&&rgba[(384*512-1)*4+3]===0,`pet exported frame ${i} has real transparent margins`);
+   if(i===18)check(rgba.some((v,k)=>v!==petBase[k]),'pet exported peak visibly changes its head');
+   if(i===36)check(rgba.every((v,k)=>v===petBase[k]),'pet exported return exactly matches neutral');
+  }
+  petDecoded.close();w.URL.createObjectURL=create;w.HTMLAnchorElement.prototype.click=click;
+  change('fps','24');check(Math.abs(snapshot().durationMs-37*1000/24)<.01,'pet supports fixed fps');
+  change('fps','native');check(Math.abs(snapshot().durationMs-petDuration)<.01,'pet restores its designed timing');
+  $('jumpOnce').click();
+  const jumpCount=49,jumpDuration=1435;
+  check(snapshot().action==='jump'&&snapshot().count===jumpCount&&snapshot().meta.frameWidth===544&&snapshot().meta.frameHeight===640,'jump has wider and taller independent cells');
+  check(Math.abs(snapshot().durationMs-jumpDuration)<.01&&$('blinkDuration').disabled&&$('autoBlink').disabled,'jump has independent native timing');
+  startClock();tick(59);check(snapshot().frame===0,'jump begins with its original neutral hold');
+  tick(61);check(snapshot().frame===1,'jump starts its anticipation after the hold');
+  tick(626);check(snapshot().frame===22,'jump reaches its airborne peak');
+  tick(jumpDuration+10);check(!snapshot().playing&&snapshot().frame===48,'jump one-shot returns to neutral');
+  for(const zoom of [.6,1,1.3]){
+   $('zoom').value=zoom;$('zoom').dispatchEvent(new Event('input'));
+   change('action','wink');seek(0);const neutral=$('preview').toDataURL();
+   change('action','jump');seek(0);
+   check($('preview').toDataURL()===neutral,`jump starts at neutral despite extra padding at ${zoom}`);
+   seek(48);check($('preview').toDataURL()===neutral,`jump lands at neutral at ${zoom}`);
+   for(let i=0;i<jumpCount;i++){
+    seek(i);const s=snapshot(),p=s.layout,b=s.meta.bounds;
+    check(p.x+b[0]*p.scale>=29&&p.x+b[2]*p.scale<=771&&p.y+b[1]*p.scale>=29&&p.y+b[3]*p.scale<=611,`jump ${i} and its wings fit at ${zoom}`);
+   }
+  }
+  check($('downloadPng').href.endsWith('pipi-jump.png'),'jump downloads its own transparent PNG');
+  const jumpMeta=w.PipiDebug.exportMetadata();
+  check(jumpMeta.restPose.y===96&&jumpMeta.frames.length===49&&jumpMeta.frameDurationsMs[0]===60,'jump exports its padding and initial hold');
+  blob=null;w.URL.createObjectURL=value=>{blob=value;return create(value);};w.HTMLAnchorElement.prototype.click=()=>{};
+  $('sheet').click();for(let i=0;i<100&&!blob;i++)await wait(30);
+  check(!!blob,'jump PNG export succeeds');
+  const jumpDecoded=await w.createImageBitmap(blob);
+  check(jumpDecoded.width===26656&&jumpDecoded.height===640,'jump export retains its complete native strip');
+  const jumpSample=d.createElement('canvas');jumpSample.width=544;jumpSample.height=640;
+  const jg=jumpSample.getContext('2d',{willReadFrequently:true});let jumpBase;
+  for(let i=0;i<jumpCount;i++){
+   jg.clearRect(0,0,544,640);jg.drawImage(jumpDecoded,i*544,0,544,640,0,0,544,640);
+   const rgba=jg.getImageData(0,0,544,640).data;
+   if(i===0)jumpBase=rgba;
+   let x1=544,y1=640,x2=0,y2=0;
+   for(let p=3;p<rgba.length;p+=4)if(rgba[p]){const xy=(p-3)/4,x=xy%544,y=Math.floor(xy/544);x1=Math.min(x1,x);x2=Math.max(x2,x);y1=Math.min(y1,y);y2=Math.max(y2,y);}
+   check(x1>=24&&y1>=24&&x2<520&&y2<616,`jump exported frame ${i} keeps clear transparent margins`);
+   if(i===22){check(y2<490,'jump peak feet are visibly above the ground');check(x2-x1>350,'jump peak has both wings spread');}
+   if(i===48)check(rgba.every((v,k)=>v===jumpBase[k]),'jump exported return exactly matches the original resting frame');
+  }
+  jumpDecoded.close();w.URL.createObjectURL=create;w.HTMLAnchorElement.prototype.click=click;
+  change('fps','24');check(Math.abs(snapshot().durationMs-49*1000/24)<.01,'jump supports fixed fps');
+  change('fps','native');check(Math.abs(snapshot().durationMs-jumpDuration)<.01,'jump restores its designed timing');
+  $('curiousOnce').click();
+  const curiousCount=41,curiousDuration=1760;
+  check(snapshot().action==='curious'&&snapshot().count===curiousCount&&snapshot().meta.frameWidth===384,'curious is an independent eighth action');
+  check(Math.abs(snapshot().durationMs-curiousDuration)<.01&&$('blinkDuration').disabled&&$('autoBlink').disabled,'curious uses its own observation timing');
+  startClock();tick(79);check(snapshot().frame===0,'curious begins with its neutral hold');
+  tick(81);check(snapshot().frame===1,'curious begins tilting after the neutral hold');
+  tick(651);check(snapshot().frame===20,'curious reaches the observation pose');
+  tick(1069);check(snapshot().frame===20,'curious holds its observation pose for 420 ms');
+  tick(1071);check(snapshot().frame===21,'curious returns after observing');
+  tick(curiousDuration+10);check(!snapshot().playing&&snapshot().frame===40,'curious one-shot finishes at neutral');
+  for(const zoom of [.6,1,1.3]){
+   $('zoom').value=zoom;$('zoom').dispatchEvent(new Event('input'));
+   change('action','wink');seek(0);const neutral=$('preview').toDataURL();
+   change('action','curious');seek(0);check($('preview').toDataURL()===neutral,`curious starts at neutral at ${zoom}`);
+   seek(40);check($('preview').toDataURL()===neutral,`curious ends at neutral at ${zoom}`);
+   for(let i=0;i<curiousCount;i++){
+    seek(i);const s=snapshot(),p=s.layout,b=s.meta.bounds;
+    check(p.x+b[0]*p.scale>=29&&p.x+b[2]*p.scale<=771&&p.y+b[1]*p.scale>=29&&p.y+b[3]*p.scale<=611,`curious ${i} fits at ${zoom}`);
+   }
+  }
+  check($('downloadPng').href.endsWith('pipi-curious.png'),'curious downloads its own PNG');
+  const curiousMeta=w.PipiDebug.exportMetadata();
+  check(curiousMeta.frames.length===41&&curiousMeta.frameDurationsMs[20]===420,'curious exports its single-frame observation hold');
+  blob=null;w.URL.createObjectURL=value=>{blob=value;return create(value);};w.HTMLAnchorElement.prototype.click=()=>{};
+  $('sheet').click();for(let i=0;i<100&&!blob;i++)await wait(30);
+  check(!!blob,'curious PNG export succeeds');
+  const curiousDecoded=await w.createImageBitmap(blob);
+  check(curiousDecoded.width===15744&&curiousDecoded.height===512,'curious export preserves all native frames');
+  const curiousSample=d.createElement('canvas');curiousSample.width=384;curiousSample.height=512;
+  const cg=curiousSample.getContext('2d',{willReadFrequently:true});let curiousBase;
+  for(let i=0;i<curiousCount;i++){
+   cg.clearRect(0,0,384,512);cg.drawImage(curiousDecoded,i*384,0,384,512,0,0,384,512);
+   const rgba=cg.getImageData(0,0,384,512).data;
+   if(i===0){curiousBase=rgba;continue;}
+   check(rgba.slice(324*384*4).every((v,k)=>v===curiousBase[324*384*4+k]),`curious exported frame ${i} keeps the body and feet fixed`);
+   check(rgba[3]===0&&rgba[(384*512-1)*4+3]===0,`curious exported frame ${i} has transparent margins`);
+   if(i===20)check(rgba.some((v,k)=>v!==curiousBase[k]),'curious exported peak visibly tilts its head');
+   if(i===40)check(rgba.every((v,k)=>v===curiousBase[k]),'curious exported return exactly matches neutral');
+  }
+  curiousDecoded.close();w.URL.createObjectURL=create;w.HTMLAnchorElement.prototype.click=click;
+  change('fps','24');check(Math.abs(snapshot().durationMs-41*1000/24)<.01,'curious supports fixed fps');
+  change('fps','native');check(Math.abs(snapshot().durationMs-curiousDuration)<.01,'curious restores its designed timing');
+  const makeFile=async(width,name)=>{const c=d.createElement('canvas');c.width=width;c.height=400;c.getContext('2d').fillRect(100,100,80,250);return new w.File([await new Promise(r=>c.toBlob(r))],name,{type:'image/png'});};
+  const files=await Promise.all([makeFile(600,'f-1.png'),makeFile(600,'f-2.png')]);
+  const data=new w.DataTransfer();files.forEach(f=>data.items.add(f));$('import').files=data.files;await $('import').onchange();
+  check(snapshot().meta.frameWidth===600&&snapshot().meta.frameHeight===400&&snapshot().count===2,'import retains action dimensions');
+  const bad=new w.DataTransfer();bad.items.add(files[0]);bad.items.add(await makeFile(650,'f-3.png'));$('import').files=bad.files;await $('import').onchange();
+  check($('message').textContent.includes('所有帧必须宽高相同')&&snapshot().meta.frameWidth===600,'unequal frame sizes rejected without replacing action');
+  $('builtin').click();$('waveOnce').click();seek(37);$('zoom').value=1.3;$('zoom').dispatchEvent(new Event('input'));$('guides').checked=true;$('guides').dispatchEvent(new Event('change'));change('background','dark');
+  document.getElementById('result').textContent=`PASS (${checks.length} checks): eight actions, curious observation hold and fixed body, jump padding and airborne wings, pet fixed body and happy hold, talk mouth-only exports and rhythm, wink holds, neutral endpoints, wave fixed regions, native timing, frame bounds at 3 zooms, PNG exports and imports`;
+ }catch(error){const s=iframe.contentWindow.PipiDebug?.snapshot();document.getElementById('result').textContent='FAIL: '+error.message+' '+JSON.stringify(s&&{action:s.action,frame:s.frame,count:s.count,durationMs:s.durationMs,playing:s.playing});}
+};
+</script>

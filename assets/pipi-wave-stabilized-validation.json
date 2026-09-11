@@ -1,0 +1,72 @@
+{
+  "frameCount": 61,
+  "fixedRegionComparisons": {
+    "crest": {
+      "bounds": [
+        263,
+        48,
+        83,
+        48
+      ],
+      "beforeMaxChangedPixels": 2744,
+      "afterMaxChangedPixels": 0
+    },
+    "rightEye": {
+      "bounds": [
+        333,
+        184,
+        27,
+        31
+      ],
+      "beforeMaxChangedPixels": 837,
+      "afterMaxChangedPixels": 0
+    },
+    "body": {
+      "bounds": [
+        271,
+        315,
+        43,
+        48
+      ],
+      "beforeMaxChangedPixels": 2064,
+      "afterMaxChangedPixels": 0
+    },
+    "rightWing": {
+      "bounds": [
+        351,
+        305,
+        23,
+        64
+      ],
+      "beforeMaxChangedPixels": 1472,
+      "afterMaxChangedPixels": 0
+    },
+    "leftFoot": {
+      "bounds": [
+        232,
+        418,
+        30,
+        15
+      ],
+      "beforeMaxChangedPixels": 450,
+      "afterMaxChangedPixels": 0
+    },
+    "rightFoot": {
+      "bounds": [
+        307,
+        418,
+        30,
+        15
+      ],
+      "beforeMaxChangedPixels": 450,
+      "afterMaxChangedPixels": 0
+    }
+  },
+  "restEndpointsMatch": true,
+  "minMargins": [
+    35,
+    48,
+    65,
+    71
+  ]
+}

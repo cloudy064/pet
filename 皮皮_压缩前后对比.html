@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>皮皮 · 压缩前后对比</title><link rel="stylesheet" href="pipi.css">
+<style>.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.compare-card{padding:18px;min-width:0}.compare-card canvas{width:100%;display:block;border-radius:12px;background:#eaf8ee;margin:14px 0}.compare-card canvas.dark{background:#233c34}.compare-card canvas.checker{background:repeating-conic-gradient(#e1e6e2 0% 25%,#fff 0% 50%) 50%/20px 20px}.compare-controls{display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding:20px;margin:18px 0}.compare-controls select{max-width:100%}.compare-info{font-size:13px;line-height:1.8;color:#6f8879}.compare-total{padding:20px;margin:18px 0;font-size:14px;line-height:1.9}.compare-controls label{font-size:12px}.compare-controls input[type=range]{width:100%}#compareError{color:#a74738}@media(max-width:600px){.compare-grid{gap:8px}.compare-card{padding:10px}.compare-card strong{font-size:12px}.compare-info{font-size:11px}.compare-controls{padding:14px}.compare-controls select{width:100%}}</style>
+<main>
+  <header><div><span class="eyebrow">PIPI / LOSSLESS PNG COMPARISON</span><h1>压缩前后，同步看一遍</h1><p>原图与运行版使用同一时间轴、显示大小和定位点。</p></div><a href="皮皮_自由动作.html">进入自由动作 →</a></header>
+  <section class="card compare-total" id="compareTotal"></section>
+  <section class="card compare-controls">
+    <select id="compareAction" aria-label="选择动作"></select>
+    <button id="comparePlay" class="primary" disabled>播放</button><button id="comparePrev" disabled>上一帧</button><button id="compareNext" disabled>下一帧</button>
+    <select id="compareBackground" aria-label="背景"><option value="mint">薄荷背景</option><option value="dark">深色背景</option><option value="checker">透明棋盘格</option></select>
+    <label><input id="compareDiff" type="checkbox">右侧显示像素差异</label><output id="compareFrame">准备图片…</output>
+    <input id="compareTimeline" type="range" min="0" max="0" value="0" aria-label="时间轴">
+  </section>
+  <div class="compare-grid">
+    <section class="card compare-card"><strong>原始长 PNG</strong><canvas id="compareOriginal" width="640" height="640"></canvas><div class="compare-info" id="compareOriginalInfo"></div></section>
+    <section class="card compare-card"><strong>压缩运行 PNG</strong><canvas id="compareRuntime" width="640" height="640"></canvas><div class="compare-info" id="compareRuntimeInfo"></div></section>
+  </div>
+  <p id="compareError" role="alert"></p><p id="compareDifference" role="status"></p>
+  <p>裁掉的是整个动作共同的透明边缘，重复画面通过索引复用。原画质、播放顺序、逐帧时长以及原始素材均保留。</p>
+  <p><a id="comparePng" download>下载当前运行 PNG ↓</a> · <a id="compareJson" download>运行配置 ↓</a> · <a href="assets/runtime/manifest.json" download>全部压缩统计 ↓</a></p>
+</main>
+<script src="assets/pipi-assets.js?v=rhythm1"></script><script src="assets/pipi-walk-assets.js?v=rhythm1"></script><script src="assets/pipi-flight-assets.js?v=rhythm1"></script>
+<script src="assets/pipi-runtime-assets.js?v=1"></script><script src="pipi-timing.js?v=1"></script><script src="pipi-sprites.js?v=1"></script><script src="pipi-compression.js?v=1"></script>
+</html>

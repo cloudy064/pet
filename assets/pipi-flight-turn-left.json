@@ -1,0 +1,172 @@
+{
+  "version": 1,
+  "id": "turn-left",
+  "label": "正面转向左侧",
+  "image": "pipi-flight-turn-left.png",
+  "frameWidth": 704,
+  "frameHeight": 576,
+  "frameCount": 17,
+  "columns": 17,
+  "anchor": {
+    "x": 352,
+    "y": 486.45303867403317
+  },
+  "subjectHeight": 387.5359116022099,
+  "bounds": [
+    80,
+    94,
+    661,
+    481
+  ],
+  "frameDurationsMs": [
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0
+  ],
+  "durationMs": 425.0,
+  "loop": false,
+  "frameRate": 40,
+  "frames": [
+    {
+      "x": 0,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25.0
+    },
+    {
+      "x": 704,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25.0
+    },
+    {
+      "x": 1408,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25.0
+    },
+    {
+      "x": 2112,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25.0
+    },
+    {
+      "x": 2816,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25.0
+    },
+    {
+      "x": 3520,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25.0
+    },
+    {
+      "x": 4224,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25.0
+    },
+    {
+      "x": 4928,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25.0
+    },
+    {
+      "x": 5632,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25.0
+    },
+    {
+      "x": 6336,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25.0
+    },
+    {
+      "x": 7040,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25.0
+    },
+    {
+      "x": 7744,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25.0
+    },
+    {
+      "x": 8448,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25.0
+    },
+    {
+      "x": 9152,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25.0
+    },
+    {
+      "x": 9856,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25.0
+    },
+    {
+      "x": 10560,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25.0
+    },
+    {
+      "x": 11264,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25.0
+    }
+  ],
+  "coordinateSpace": "Local sprite. World flight translation is separate. Anchor is the neutral sole origin; flight feet tuck above it.",
+  "provenance": {
+    "frontAtlas": "pipi-flight-front-generated.png",
+    "sideAtlas": "pipi-flight-side-generated.png",
+    "flapAtlas": "pipi-flight-flap-generated.png",
+    "turnAtlas": "pipi-flight-turn-generated.png",
+    "method": "Generated key poses, raster registration, fixed hover core and bidirectional motion-compensated inbetweens. Front eyes use complete approved expression frames outside general optical flow."
+  }
+}

@@ -1,0 +1,292 @@
+{
+  "version": 1,
+  "id": "left",
+  "label": "向左飞行",
+  "image": "pipi-flight-left.png",
+  "frameWidth": 704,
+  "frameHeight": 576,
+  "frameCount": 32,
+  "columns": 32,
+  "anchor": {
+    "x": 352,
+    "y": 486.45303867403317
+  },
+  "subjectHeight": 387.5359116022099,
+  "bounds": [
+    100,
+    86,
+    661,
+    449
+  ],
+  "frameDurationsMs": [
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0,
+    25.0
+  ],
+  "durationMs": 800.0,
+  "loop": true,
+  "frameRate": 40,
+  "frames": [
+    {
+      "x": 0,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25.0
+    },
+    {
+      "x": 704,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25.0
+    },
+    {
+      "x": 1408,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25.0
+    },
+    {
+      "x": 2112,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25.0
+    },
+    {
+      "x": 2816,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25.0
+    },
+    {
+      "x": 3520,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25.0
+    },
+    {
+      "x": 4224,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25.0
+    },
+    {
+      "x": 4928,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25.0
+    },
+    {
+      "x": 5632,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25.0
+    },
+    {
+      "x": 6336,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25.0
+    },
+    {
+      "x": 7040,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25.0
+    },
+    {
+      "x": 7744,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25.0
+    },
+    {
+      "x": 8448,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25.0
+    },
+    {
+      "x": 9152,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25.0
+    },
+    {
+      "x": 9856,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25.0
+    },
+    {
+      "x": 10560,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25.0
+    },
+    {
+      "x": 11264,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25.0
+    },
+    {
+      "x": 11968,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25.0
+    },
+    {
+      "x": 12672,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25.0
+    },
+    {
+      "x": 13376,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25.0
+    },
+    {
+      "x": 14080,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25.0
+    },
+    {
+      "x": 14784,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25.0
+    },
+    {
+      "x": 15488,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25.0
+    },
+    {
+      "x": 16192,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25.0
+    },
+    {
+      "x": 16896,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25.0
+    },
+    {
+      "x": 17600,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25.0
+    },
+    {
+      "x": 18304,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25.0
+    },
+    {
+      "x": 19008,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25.0
+    },
+    {
+      "x": 19712,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25.0
+    },
+    {
+      "x": 20416,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25.0
+    },
+    {
+      "x": 21120,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25.0
+    },
+    {
+      "x": 21824,
+      "y": 0,
+      "w": 704,
+      "h": 576,
+      "durationMs": 25.0
+    }
+  ],
+  "coordinateSpace": "Local sprite. World flight translation is separate. Anchor is the neutral sole origin; flight feet tuck above it.",
+  "provenance": {
+    "frontAtlas": "pipi-flight-front-generated.png",
+    "sideAtlas": "pipi-flight-side-generated.png",
+    "flapAtlas": "pipi-flight-flap-generated.png",
+    "turnAtlas": "pipi-flight-turn-generated.png",
+    "method": "Generated key poses, raster registration, fixed hover core and bidirectional motion-compensated inbetweens. Front eyes use complete approved expression frames outside general optical flow."
+  }
+}

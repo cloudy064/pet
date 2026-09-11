@@ -1,0 +1,110 @@
+{
+  "result": "PASS",
+  "checks": 3394,
+  "assets": {
+    "walk-s": {
+      "frames": 61,
+      "width": 480,
+      "height": 576,
+      "minimumMargin": 77,
+      "loopSeamMeanDelta": 0.46860984519675924
+    },
+    "walk-sw": {
+      "frames": 61,
+      "width": 480,
+      "height": 576,
+      "minimumMargin": 62,
+      "loopSeamMeanDelta": 1.2117766203703704
+    },
+    "walk-w": {
+      "frames": 61,
+      "width": 480,
+      "height": 576,
+      "minimumMargin": 25,
+      "loopSeamMeanDelta": 1.4559543185763888
+    },
+    "walk-nw": {
+      "frames": 61,
+      "width": 480,
+      "height": 576,
+      "minimumMargin": 25,
+      "loopSeamMeanDelta": 1.7028202763310185
+    },
+    "walk-n": {
+      "frames": 61,
+      "width": 480,
+      "height": 576,
+      "minimumMargin": 25,
+      "loopSeamMeanDelta": 0.6393654152199074
+    },
+    "walk-se": {
+      "frames": 61,
+      "width": 480,
+      "height": 576,
+      "minimumMargin": 62,
+      "loopSeamMeanDelta": 1.2117766203703704
+    },
+    "walk-e": {
+      "frames": 61,
+      "width": 480,
+      "height": 576,
+      "minimumMargin": 25,
+      "loopSeamMeanDelta": 1.4559543185763888
+    },
+    "walk-ne": {
+      "frames": 61,
+      "width": 480,
+      "height": 576,
+      "minimumMargin": 25,
+      "loopSeamMeanDelta": 1.7028202763310185
+    },
+    "flight-up-right": {
+      "frames": 32,
+      "width": 704,
+      "height": 640,
+      "minimumMargin": 37
+    },
+    "bank-up-right": {
+      "frames": 17,
+      "width": 704,
+      "height": 640,
+      "minimumMargin": 34
+    },
+    "flight-up-left": {
+      "frames": 32,
+      "width": 704,
+      "height": 640,
+      "minimumMargin": 37
+    },
+    "bank-up-left": {
+      "frames": 17,
+      "width": 704,
+      "height": 640,
+      "minimumMargin": 34
+    },
+    "flight-down-right": {
+      "frames": 32,
+      "width": 704,
+      "height": 640,
+      "minimumMargin": 52
+    },
+    "bank-down-right": {
+      "frames": 17,
+      "width": 704,
+      "height": 640,
+      "minimumMargin": 42
+    },
+    "flight-down-left": {
+      "frames": 32,
+      "width": 704,
+      "height": 640,
+      "minimumMargin": 52
+    },
+    "bank-down-left": {
+      "frames": 17,
+      "width": 704,
+      "height": 640,
+      "minimumMargin": 42
+    }
+  }
+}

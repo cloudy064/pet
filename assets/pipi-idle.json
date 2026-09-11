@@ -1,0 +1,33 @@
+{
+  "version": 4,
+  "id": "idle",
+  "label": "默认姿态",
+  "image": "pipi-idle.png",
+  "frameWidth": 362,
+  "frameHeight": 724,
+  "frameCount": 1,
+  "columns": 1,
+  "anchor": {
+    "x": 181,
+    "y": 620
+  },
+  "bounds": [
+    11,
+    71,
+    357,
+    621
+  ],
+  "durationMs": 4000,
+  "frameDurationsMs": [
+    4000
+  ],
+  "frames": [
+    {
+      "x": 0,
+      "y": 0,
+      "w": 362,
+      "h": 724,
+      "durationMs": 4000
+    }
+  ]
+}

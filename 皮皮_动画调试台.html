@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>皮皮 · 动画调试台</title>
+<link rel="stylesheet" href="pipi.css">
+<link rel="stylesheet" href="pipi-flight.css?v=2">
+<main>
+  <header><div><span class="eyebrow">PIPI / MOTION LAB · 01</span><h1>皮皮 · 透明序列帧调试</h1><p>默认姿态 · 眨眼 · 挥翅打招呼 · 俏皮单眼眨眼 · 说话 · 抚摸反馈 · 开心跳跃 · 好奇歪头</p></div><a href="皮皮_纯角色设计与调试面板.html" target="_blank">打开原始设计稿 ↗</a></header>
+  <section class="flight-entry"><div><strong>自由动作 · 让皮皮自己玩</strong><p>随机做表情、八向散步和飞行，在新位置停步、落地，再继续下一个动作。</p></div><a href="皮皮_自由动作.html">进入自由动作 →</a></section>
+  <section class="flight-entry"><div><strong>自由飞行</strong><p>起飞蓄力 → 持续扑翼 → 落地回稳，支持上下左右与斜向移动。</p></div><a href="皮皮_飞行调试台.html">打开飞行调试台 →</a></section>
+  <section class="flight-entry"><div><strong>新动作 · 八方向走路</strong><p>正面、背面、侧面和四个斜向，支持连续迈步、停步与逐帧导出。</p></div><a href="皮皮_走路调试台.html">打开走路调试台 →</a></section>
+  <div class="layout">
+    <section class="preview card">
+      <div class="section-head"><strong>角色预览</strong><span id="status" role="status">准备素材…</span></div>
+      <div class="stage" id="stage"><span class="stage-label">IDLE / 默认待机</span><canvas id="preview" width="800" height="640" aria-label="皮皮默认待机动画"></canvas><span class="ground-label">透明 PNG · 24 帧序列播放</span></div>
+      <div class="transport"><button id="play" class="primary" disabled>暂停</button><button id="prev" disabled aria-label="上一帧">← 上一帧</button><button id="next" disabled aria-label="下一帧">下一帧 →</button><label class="check"><input id="loop" type="checkbox" checked>循环</label><output id="counter">01 / 48</output></div>
+      <input id="timeline" class="timeline" type="range" min="0" max="47" value="0" aria-label="时间轴">
+      <div class="timeline-label"><span>0 s · 呼气</span><span>2 s · 吸气</span><span id="duration">4 s · 回到起点</span></div>
+      <p id="assetInfo" class="hint" aria-live="off"></p><div id="filmstrip" class="filmstrip" aria-label="关键帧预览"></div>
+    </section>
+    <aside>
+      <section class="card settings"><span class="eyebrow">ANIMATION</span><h2>动作调试 <small>PIPI</small></h2><p class="hint" id="sourceNote">已统一优化动作节奏：眨眼闭合更利落，跳跃更轻快，歪头和单眼眨眼减少长时间停顿。按动作设计的节奏播放，可检查每一帧的停留时间。<br><a href="皮皮_打招呼对比.html" target="_blank">打招呼修改前后对比 ↗</a></p>
+        <label class="field">动作 <select id="action"><option value="idle">静止 + 自动眨眼</option><option value="blink">仅眨眼 · 检查眼部</option><option value="wave">自然打招呼 · 展翅与微笑</option><option value="wink">俏皮单眼眨眼 · 歪头微笑</option><option value="talk">说话 · 嘴型开合</option><option value="pet">抚摸反馈 · 眯眼微笑</option><option value="jump">开心跳跃 · 展翅腾空</option><option value="curious">好奇歪头 · 睁眼观察</option></select></label>
+        <label class="check"><input id="autoBlink" type="checkbox" checked>待机时自动眨眼</label>
+        <label class="field">眨眼时长 <output id="blinkDurationValue">0.46 s</output><input id="blinkDuration" type="range" min="0.3" max="0.9" step="0.01" value="0.46"></label>
+        <div class="action-buttons"><button id="blinkOnce" disabled>眨眼一次</button><button id="waveOnce" disabled>打招呼一次</button><button id="winkOnce" disabled>单眼眨眼一次</button><button id="talkOnce" disabled>说话一次</button><button id="petOnce" disabled>抚摸一次</button><button id="jumpOnce" disabled>跳跃一次</button><button id="curiousOnce" class="curious-action" disabled>歪头一次</button></div>
+        <label class="field">播放速度 <output id="speedValue"></output><input id="speed" type="range" min="0.25" max="2" step="0.25" value="1"></label>
+        <label class="field">计时方式 <select id="fps"><option value="native" selected>按动作设计的节奏</option><option value="12">固定 12 fps</option><option value="24">固定 24 fps</option><option value="48">固定 48 fps</option></select></label>
+        <label class="field">预览大小 <output id="zoomValue"></output><input id="zoom" type="range" min="0.6" max="1.3" step="0.05" value="1"></label>
+        <label class="field">舞台背景 <select id="background"><option value="mint">浅薄荷</option><option value="white">白色</option><option value="dark">深色</option><option value="checker">透明棋盘格</option></select></label>
+        <div class="toggles"><label><input id="guides" type="checkbox">单帧边界 / 脚底锚点</label><label><input id="onion" type="checkbox">上一帧参考（暂停时）</label><label><input id="reference" type="checkbox">静态原图对照</label></div>
+        <button id="reset">恢复默认参数</button>
+      </section>
+      <section class="card settings"><span class="eyebrow">ASSETS & EXPORT</span><h2>序列帧工作流</h2><p class="hint">可导入同画布、同脚底锚点的 PNG 序列，按文件名自然排序。内置素材按所选动作导出原尺寸横向长图，不包含舞台背景与辅助线。</p><label class="upload">导入 PNG 序列<input id="import" type="file" accept="image/png" multiple></label><div class="exports"><button id="sheet" disabled>导出 PNG 长图</button><button id="manifest" disabled>导出配置</button></div><button id="builtin">使用内置待机</button><p><a id="downloadPng" href="assets/pipi-blink-24.png" download>直接下载透明 PNG ↗</a> · <a id="downloadJson" href="assets/pipi-blink-24.json" download>帧坐标 JSON ↗</a></p><p id="message" class="hint" role="status"></p></section>
+    </aside>
+  </div>
+  <footer><strong>动作检查</strong><span>① 各阶段节奏是否自然</span><span>② 首尾姿态是否连贯</span><span>③ 翅膀与脚掌是否完整</span><p>透明 PNG 与配置成对使用。进入自由动作模式，可以观察表情、走路和飞行在同一舞台中的连续衔接。<a href="皮皮_压缩前后对比.html">查看压缩前后对比 →</a></p></footer>
+</main>
+<script src="assets/pipi-assets.js?v=rhythm1"></script>
+<script src="assets/pipi-runtime-assets.js?v=1"></script><script src="pipi-sprites.js?v=1"></script>
+<script src="pipi.js?v=runtime1"></script>
+</html>

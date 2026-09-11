@@ -1,0 +1,105 @@
+{
+  "takeoff": {
+    "frameCount": 29,
+    "dimensions": [
+      20416,
+      576
+    ],
+    "minMargins": [
+      80,
+      96,
+      71,
+      87
+    ],
+    "bytes": 4012360
+  },
+  "hover": {
+    "frameCount": 32,
+    "dimensions": [
+      22528,
+      576
+    ],
+    "minMargins": [
+      79,
+      88,
+      68,
+      71
+    ],
+    "bytes": 2143320
+  },
+  "right": {
+    "frameCount": 32,
+    "dimensions": [
+      22528,
+      576
+    ],
+    "minMargins": [
+      43,
+      86,
+      100,
+      127
+    ],
+    "bytes": 2714571
+  },
+  "left": {
+    "frameCount": 32,
+    "dimensions": [
+      22528,
+      576
+    ],
+    "minMargins": [
+      100,
+      86,
+      43,
+      127
+    ],
+    "bytes": 2746252
+  },
+  "turn-right": {
+    "frameCount": 17,
+    "dimensions": [
+      11968,
+      576
+    ],
+    "minMargins": [
+      43,
+      94,
+      71,
+      95
+    ],
+    "bytes": 2429595
+  },
+  "turn-left": {
+    "frameCount": 17,
+    "dimensions": [
+      11968,
+      576
+    ],
+    "minMargins": [
+      80,
+      94,
+      43,
+      95
+    ],
+    "bytes": 2441412
+  },
+  "land": {
+    "frameCount": 41,
+    "dimensions": [
+      28864,
+      576
+    ],
+    "minMargins": [
+      80,
+      96,
+      71,
+      87
+    ],
+    "bytes": 2428552
+  },
+  "checks": {
+    "restEndpointsExact": true,
+    "phaseSeamsExact": true,
+    "transparentZeroRGB": true
+  }
+}

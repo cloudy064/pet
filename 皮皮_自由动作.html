@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>皮皮 · 自由动作</title>
+<link rel="stylesheet" href="pipi.css"><link rel="stylesheet" href="pipi-free.css?v=1">
+<main>
+  <header><div><span class="eyebrow">PIPI / A LITTLE EVERYDAY ADVENTURE</span><h1>让皮皮自己玩一会儿</h1><p>散散步，飞一小段，再停下来和你打个招呼。</p></div><nav><a href="皮皮_动画调试台.html">表情调试 ↗</a><a href="皮皮_走路调试台.html">走路 ↗</a><a href="皮皮_飞行调试台.html">飞行 ↗</a></nav></header>
+  <div class="free-layout">
+    <section class="card free-preview">
+      <div class="section-head"><strong id="freeAction">自在休息</strong><span id="freeStatus" role="status">准备皮皮…</span></div>
+      <div class="free-stage" id="freeStage" data-bg="mint">
+        <div class="stage-caption">PIPI’S LITTLE WORLD <span id="freeDirection"></span></div>
+        <canvas id="freeCanvas" width="1200" height="800" aria-label="皮皮自由动作舞台"></canvas>
+        <span class="free-bottom" id="freeHint">走路与飞行会移动，其余动作在当前位置完成</span>
+      </div>
+      <div class="free-transport"><button id="freeStart" class="primary" disabled>开始自由活动</button><button id="freePause" disabled>暂停</button><button id="freeStop" disabled>结束本轮</button><button id="freeReset" disabled>回到中央</button></div>
+      <div class="free-readouts"><span id="freePosition">X 600 · Y 620 · 高度 0</span><span id="freeNext">准备好后即可开始</span></div>
+      <p id="freeError" class="free-error" role="alert" hidden></p>
+    </section>
+    <aside>
+      <section class="card settings"><span class="eyebrow">MAKE YOURSELF AT HOME</span><h2>自由活动</h2>
+        <p class="hint">每次做完动作，休息片刻再随机选择。走路会停稳，飞行会落地，随后在新位置继续活动。</p>
+        <label class="field">动作之间的休息 <select id="freeInterval"><option value="3,6" selected>自然 · 3–6 秒</option><option value="1,3">活泼 · 1–3 秒</option><option value="6,10">悠闲 · 6–10 秒</option></select></label>
+        <fieldset class="free-actions"><legend>可以做的动作</legend><div id="freeChoices"></div></fieldset>
+        <label class="field">整体节奏 <output id="freeSpeedValue">1×</output><input id="freeSpeed" type="range" min="0.5" max="1.5" step="0.1" value="1"></label>
+        <label class="field">舞台背景 <select id="freeBackground"><option value="mint">浅薄荷</option><option value="white">白色</option><option value="dark">深色</option><option value="checker">透明棋盘格</option></select></label>
+        <label class="check"><input id="freeGuides" type="checkbox">显示移动路线与定位点</label>
+      </section>
+      <section class="card settings"><span class="eyebrow">TRY A LITTLE MOMENT</span><h2>指定下一个动作</h2>
+        <label class="field">动作 <select id="freeManualAction"></select></label>
+        <label class="field">移动方向 <select id="freeManualDirection"><option value="auto">随机可达方向</option><option value="n">↑ 上</option><option value="ne">↗ 右上</option><option value="e">→ 右</option><option value="se">↘ 右下</option><option value="s">↓ 下</option><option value="sw">↙ 左下</option><option value="w">← 左</option><option value="nw">↖ 左上</option></select></label>
+        <button id="freeOnce" disabled>做一次</button><p id="freeQueue" class="hint">会等当前动作自然结束。靠近边缘时，自动选择有空间的方向。</p>
+      </section>
+    </aside>
+  </div>
+  <section class="free-history card"><strong>刚刚做了什么</strong><ol id="freeHistory"><li>皮皮正在等你。</li></ol></section>
+  <footer>动作完成后保留当前位置 · 八方向移动 · 透明序列帧播放 · <a href="皮皮_压缩前后对比.html">查看压缩前后对比 →</a></footer>
+</main>
+<script src="assets/pipi-assets.js?v=rhythm1"></script><script src="assets/pipi-walk-assets.js?v=rhythm1"></script><script src="assets/pipi-flight-assets.js?v=rhythm1"></script>
+<script src="pipi-timing.js?v=1"></script><script src="pipi-free-engine.js?v=1"></script>
+<script src="assets/pipi-runtime-assets.js?v=1"></script><script src="pipi-sprites.js?v=1"></script><script src="pipi-free.js?v=runtime1"></script>
+</html>

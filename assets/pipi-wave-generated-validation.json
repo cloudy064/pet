@@ -1,0 +1,16 @@
+{
+  "frameCount": 61,
+  "size": [
+    29280,
+    512
+  ],
+  "bounds": [
+    36,
+    48,
+    443,
+    441
+  ],
+  "restEndpointsMatch": true,
+  "uniqueFrames": 60,
+  "method": "Full character poses rendered by built-in image_gen; background extraction, uniform whole-frame scaling and foot alignment only. No rotated/stretched wing cutouts, no optical flow or crossfades."
+}

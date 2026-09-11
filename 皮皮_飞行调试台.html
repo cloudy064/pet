@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>皮皮 · 飞行调试台</title>
+<link rel="stylesheet" href="pipi.css">
+<link rel="stylesheet" href="pipi-flight.css?v=2">
+<main>
+  <p><a href="皮皮_自由动作.html">进入自由动作 · 随机表情、散步与飞行 →</a></p>
+  <header><div><span class="eyebrow">PIPI / MOTION LAB · FLIGHT</span><h1>皮皮 · 飞行调试</h1><p>压低蓄力，展翅起飞，自由飞行，再轻轻落地。</p></div><a href="皮皮_动画调试台.html">返回全部动作 ↗</a></header>
+  <div class="layout">
+    <section class="preview card">
+      <div class="section-head"><strong id="modeLabel">自由飞行</strong><span id="flightStatus" role="status">正在加载飞行素材…</span></div>
+      <div class="flight-stage" id="flightStage" data-bg="sky">
+        <canvas id="flightCanvas" width="1000" height="720" tabindex="0" aria-label="皮皮飞行舞台，方向键或 WASD 控制移动，空格起飞或落地"></canvas>
+        <span class="flight-badge" id="phaseLabel">默认站姿</span><span class="flight-coordinates" id="coordinates"></span>
+      </div>
+      <div class="transport">
+        <button class="primary" id="takeoff" disabled>起飞</button><button id="land" disabled>落地</button>
+        <button id="pauseFlight" disabled>暂停</button><button id="resetFlight" disabled>回到起点</button>
+      </div>
+      <div class="flight-phases" aria-label="飞行阶段"><span data-phase="ground">默认</span><span data-phase="takeoff">起飞蓄力</span><span data-phase="air">持续飞行</span><span data-phase="landing">落地回稳</span></div>
+      <p class="hint" id="flightHint">点击“起飞”，然后按住方向按钮、方向键或 WASD。松开后悬停；空格起飞 / 落地。</p>
+      <div class="inspect-transport" id="inspectTransport" hidden>
+        <div class="transport"><button id="framePrev">← 上一帧</button><button id="frameNext">下一帧 →</button><label class="check"><input type="checkbox" id="inspectLoop" checked>循环片段</label><output id="frameCounter"></output></div>
+        <input type="range" id="flightTimeline" min="0" max="0" value="0" aria-label="飞行片段时间轴">
+        <div class="flight-filmstrip" id="flightFilmstrip"></div>
+      </div>
+    </section>
+    <aside>
+      <section class="card settings">
+        <span class="eyebrow">FLIGHT CONTROL</span><h2>方向与节奏</h2>
+        <p class="hint">左右飞行会转为侧身，斜向飞行有独立的倾身扑翼序列。可以按住斜向按钮，或同时按两个方向键。</p>
+        <div class="direction-pad flight-eight-pad" aria-label="按住控制八个方向">
+          <button data-dir="up-left" aria-label="按住向左上飞行">↖<small>左上</small></button>
+          <button data-dir="up" aria-label="按住向上飞行">↑<small>向上</small></button>
+          <button data-dir="up-right" aria-label="按住向右上飞行">↗<small>右上</small></button>
+          <button data-dir="left" aria-label="按住向左飞行">←<small>向左</small></button>
+          <span>按住<br>飞行</span>
+          <button data-dir="right" aria-label="按住向右飞行">→<small>向右</small></button>
+          <button data-dir="down-left" aria-label="按住向左下飞行">↙<small>左下</small></button>
+          <button data-dir="down" aria-label="按住向下飞行">↓<small>向下</small></button>
+          <button data-dir="down-right" aria-label="按住向右下飞行">↘<small>右下</small></button>
+        </div>
+        <button id="demoFlight" disabled>完整演示 · 起飞 → 八向飞行 → 落地</button>
+        <label class="field">播放速度 <output id="flightSpeedValue">1×</output><input id="flightSpeed" type="range" min=".25" max="1.5" step=".25" value="1"></label>
+        <label class="field">移动速度 <output id="moveSpeedValue">190 px/s</output><input id="moveSpeed" type="range" min="80" max="280" step="10" value="190"></label>
+        <label class="field">背景 <select id="flightBackground"><option value="sky">浅蓝天空</option><option value="checker">透明棋盘</option><option value="dark">深色 · 检查羽毛边缘</option><option value="white">纯白</option></select></label>
+        <label class="check"><input type="checkbox" id="flightGuides">显示帧边界 / 定位点</label>
+      </section>
+      <section class="card settings">
+        <span class="eyebrow">FRAMES & EXPORT</span><h2>逐帧调试</h2>
+        <label class="field">片段 <select id="flightClip" disabled></select></label>
+        <div class="exports"><button id="inspectClip" disabled>查看片段</button><button id="liveFlight" disabled>返回自由飞行</button></div>
+        <p class="hint" id="flightAssetInfo"></p>
+        <div class="exports"><a class="flight-download" id="flightPng" download>透明 PNG 长图 ↓</a><a class="flight-download" id="flightJson" download>片段配置 ↓</a></div>
+        <p><a href="assets/pipi-flight.json" download>完整飞行配置 ↓</a></p>
+        <p class="hint">各方向和转向片段均可单独下载。斜向倾身片段倒放可回到侧面，再接回正面落地。每个片段内部保持同一格宽和定位点。</p>
+        <p><a href="皮皮_走路调试台.html">八方向走路调试 ↗</a></p>
+      </section>
+    </aside>
+  </div>
+  <footer><strong>参考动作</strong><div class="flight-references"><figure><img src="assets/pipi-flight-takeoff-reference.png" alt="起飞蓄力参考"><figcaption>起飞蓄力</figcaption></figure><figure><img src="assets/pipi-flight-air-reference.png" alt="飞行中参考"><figcaption>飞行中</figcaption></figure><figure><img src="assets/pipi-flight-landing-reference.png" alt="落地回稳参考"><figcaption>落地回稳</figcaption></figure></div><p>检查起飞落地衔接、持续扑翼和转向。PNG 保留真实透明背景，舞台背景不会出现在素材中。</p></footer>
+</main>
+<script src="assets/pipi-flight-assets.js?v=rhythm1"></script>
+<script src="pipi-timing.js?v=1"></script>
+<script src="assets/pipi-runtime-assets.js?v=1"></script><script src="pipi-sprites.js?v=1"></script>
+<script src="pipi-flight.js?v=runtime1"></script>
+</html>

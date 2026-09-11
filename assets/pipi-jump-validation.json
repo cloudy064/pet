@@ -1,0 +1,22 @@
+{
+  "frameCount": 49,
+  "size": [
+    26656,
+    640
+  ],
+  "durationMs": 1786.6666666666658,
+  "restEndpointsMatch": true,
+  "minMargins": [
+    76,
+    55,
+    57,
+    103
+  ],
+  "uniquePoses": 48,
+  "adjacentDuplicateFrames": 0,
+  "maxJumpHeightPixels": 89.87654320987654,
+  "groundAnchor": {
+    "x": 272,
+    "y": 534.4530386740331
+  }
+}

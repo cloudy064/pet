@@ -1,0 +1,397 @@
+{
+  "version": 2,
+  "id": "talk",
+  "label": "说话",
+  "image": "pipi-talk.png",
+  "frameWidth": 384,
+  "frameHeight": 512,
+  "frameCount": 32,
+  "columns": 32,
+  "anchor": {
+    "x": 192,
+    "y": 438.4530386740331
+  },
+  "subjectHeight": 387.5359116022099,
+  "bounds": [
+    69,
+    48,
+    319,
+    441
+  ],
+  "durationMs": 1820,
+  "frameDurationsMs": [
+    60,
+    50,
+    50,
+    50,
+    50,
+    50,
+    50,
+    50,
+    50,
+    50,
+    150,
+    50,
+    50,
+    50,
+    50,
+    50,
+    50,
+    50,
+    50,
+    50,
+    90,
+    50,
+    50,
+    50,
+    50,
+    50,
+    50,
+    50,
+    50,
+    50,
+    50,
+    120
+  ],
+  "loop": true,
+  "frames": [
+    {
+      "x": 0,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 60
+    },
+    {
+      "x": 384,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 50
+    },
+    {
+      "x": 768,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 50
+    },
+    {
+      "x": 1152,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 50
+    },
+    {
+      "x": 1536,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 50
+    },
+    {
+      "x": 1920,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 50
+    },
+    {
+      "x": 2304,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 50
+    },
+    {
+      "x": 2688,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 50
+    },
+    {
+      "x": 3072,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 50
+    },
+    {
+      "x": 3456,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 50
+    },
+    {
+      "x": 3840,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 150
+    },
+    {
+      "x": 4224,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 50
+    },
+    {
+      "x": 4608,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 50
+    },
+    {
+      "x": 4992,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 50
+    },
+    {
+      "x": 5376,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 50
+    },
+    {
+      "x": 5760,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 50
+    },
+    {
+      "x": 6144,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 50
+    },
+    {
+      "x": 6528,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 50
+    },
+    {
+      "x": 6912,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 50
+    },
+    {
+      "x": 7296,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 50
+    },
+    {
+      "x": 7680,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 90
+    },
+    {
+      "x": 8064,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 50
+    },
+    {
+      "x": 8448,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 50
+    },
+    {
+      "x": 8832,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 50
+    },
+    {
+      "x": 9216,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 50
+    },
+    {
+      "x": 9600,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 50
+    },
+    {
+      "x": 9984,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 50
+    },
+    {
+      "x": 10368,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 50
+    },
+    {
+      "x": 10752,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 50
+    },
+    {
+      "x": 11136,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 50
+    },
+    {
+      "x": 11520,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 50
+    },
+    {
+      "x": 11904,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 120
+    }
+  ],
+  "restPose": {
+    "image": "pipi-idle.png",
+    "scale": 0.7071823204419889,
+    "x": 64,
+    "y": 0,
+    "width": 256,
+    "height": 512,
+    "frames": [
+      0,
+      31
+    ]
+  },
+  "phases": [
+    {
+      "label": "开口说话",
+      "start": 0,
+      "end": 10
+    },
+    {
+      "label": "小幅张合",
+      "start": 11,
+      "end": 20
+    },
+    {
+      "label": "张嘴与合拢",
+      "start": 21,
+      "end": 31
+    }
+  ],
+  "method": "Image-generated natural beak opening/closing poses only; rounded-vowel atlas cells 8-11 excluded. Only mouth RGB changes on the original static character, with unchanged alpha. No crossfade or optical-flow mouth frames.",
+  "mouthRegion": [
+    148,
+    177,
+    95,
+    109
+  ],
+  "provenance": {
+    "reference": "pipi-talk-reference.png",
+    "generatedAtlas": "pipi-talk-generated-poses.png",
+    "sourceCells": [
+      null,
+      1,
+      2,
+      12,
+      13,
+      14,
+      13,
+      12,
+      2,
+      1,
+      null,
+      1,
+      2,
+      12,
+      2,
+      1,
+      2,
+      12,
+      2,
+      1,
+      null,
+      1,
+      2,
+      12,
+      13,
+      5,
+      14,
+      13,
+      12,
+      2,
+      1,
+      null
+    ]
+  },
+  "originalTiming": {
+    "durationMs": 1900,
+    "frameDurationsMs": [
+      100,
+      50,
+      50,
+      50,
+      50,
+      70,
+      50,
+      50,
+      50,
+      50,
+      110,
+      50,
+      50,
+      50,
+      50,
+      70,
+      50,
+      50,
+      50,
+      50,
+      90,
+      50,
+      50,
+      50,
+      50,
+      70,
+      50,
+      50,
+      50,
+      50,
+      50,
+      140
+    ]
+  },
+  "timingRevision": 1,
+  "timingNote": "Natural beak opening and closing, with a longer phrase break.",
+  "timingMode": "per-frame"
+}

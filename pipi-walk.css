@@ -1,0 +1,13 @@
+.walk-stage { aspect-ratio:1000 / 780; }
+.walk-stage canvas { display:block; width:100%; height:auto; outline:none; }
+.eight-direction-pad { grid-template-columns:repeat(3,1fr); grid-template-rows:repeat(3,72px); }
+.eight-direction-pad > * { grid-column:auto!important; grid-row:auto!important; }
+.eight-direction-pad button { touch-action:none; user-select:none; }
+.eight-direction-pad button.selected { border-color:#4b9870; background:#ecf7ef; }
+.eight-direction-pad button.held { color:white; background:#438c65; }
+#walkTimeline { width:100%; }
+#walkInspector { padding:0 18px 18px; }
+#walkFilmstrip button { flex-shrink:0; }
+#walkFilmstrip canvas { height:94px; }
+header nav { white-space:nowrap; }
+@media(max-width:700px) { header nav { white-space:normal; } }

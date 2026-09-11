@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>皮皮 · 打招呼前后对比</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f4f7f3;color:#25463b;font-family:"Microsoft YaHei",system-ui,sans-serif}main{max-width:1100px;margin:auto;padding:32px 24px}h1{font-size:26px}p{font-size:14px;line-height:1.8;color:#6b8074}.pair{display:grid;grid-template-columns:1fr 1fr;gap:20px}.card{border:1px solid #dce7dc;background:white;border-radius:18px;overflow:hidden}.card h2{font-size:16px;margin:18px 22px}.card canvas{display:block;width:100%;background:#eaf8ee}button,select,a{font:inherit;color:#42674f}button,select{padding:9px 14px;border:1px solid #cfdccf;border-radius:8px;background:white}nav{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-top:22px}input{width:100%;margin:22px 0;accent-color:#477b54}output{font-variant-numeric:tabular-nums}a{font-size:13px}@media(max-width:600px){main{padding:18px 10px}.pair{gap:8px}.card h2{margin:14px;font-size:14px}}
+</style>
+<main>
+<h1>打招呼 · 修改前后对比</h1>
+<p>两侧使用相同的帧率和播放进度，重点看翅膀抬起、轻挥和收回时的连续性。</p>
+<div class="pair"><section class="card"><h2>修改前 · v7</h2><canvas id="before" width="480" height="512"></canvas></section><section class="card"><h2>当前版本 · v8</h2><canvas id="after" width="480" height="512"></canvas></section></div>
+<nav><button id="play" disabled>暂停</button><label>速度 <select id="speed"><option value="1">正常速度</option><option value="0.5">半速检查</option><option value="0.25">四分之一速度</option></select></label><output id="counter">加载中…</output><a href="皮皮_动画调试台.html">返回调试台</a><a href="assets/pipi-wave-smooth.png" download>下载新版透明 PNG</a></nav>
+<input id="seek" type="range" min="0" max="60" value="0" aria-label="同步逐帧查看" disabled>
+<p id="message">每轮结束停留片刻，便于查看首尾衔接。</p>
+</main>
+<script>
+const W=480,H=512,N=61,frameMs=1000/30,duration=N*frameMs,hold=600;
+let time=0,previous=null,playing=true,frame=0,ready=false;
+const $=id=>document.getElementById(id),contexts=['before','after'].map(id=>$(id).getContext('2d'));
+const assets=['pipi-wave-stabilized.png','pipi-wave-smooth.png'];
+const sheets=assets.map(name=>{const im=new Image();im.src='assets/'+name;return im;});
+let tiles;
+function render(){if(!ready)return;contexts.forEach((g,i)=>{g.clearRect(0,0,W,H);g.drawImage(tiles[i][frame],0,0);});$('counter').textContent=`${frame+1} / ${N}`;$('seek').value=frame;}
+function tick(now){if(ready&&playing&&!document.hidden&&previous!==null){time=(time+(now-previous)*Number($('speed').value))%(duration+hold);const next=Math.min(N-1,Math.floor((time+.25)/frameMs));if(next!==frame){frame=next;render();}}previous=now;requestAnimationFrame(tick);}
+$('play').onclick=()=>{playing=!playing;previous=null;$('play').textContent=playing?'暂停':'播放';};
+$('seek').oninput=()=>{playing=false;$('play').textContent='播放';frame=Number($('seek').value);time=frame*frameMs;render();};
+document.addEventListener('visibilitychange',()=>previous=null);
+Promise.all(sheets.map(im=>im.decode())).then(async()=>{tiles=await Promise.all(sheets.map(im=>Promise.all(Array.from({length:N},(_,i)=>createImageBitmap(im,i*W,0,W,H)))));ready=true;$('play').disabled=false;$('seek').disabled=false;render();}).catch(e=>{$('message').textContent='素材加载失败：'+e.message;});
+requestAnimationFrame(tick);
+</script>
+</html>

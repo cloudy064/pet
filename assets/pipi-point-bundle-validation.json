@@ -1,0 +1,17 @@
+{
+  "rightWingFrames": 37,
+  "uniquePoses": 19,
+  "packagePngBytes": 48462,
+  "crop": {
+    "x": 215,
+    "y": 229,
+    "w": 208,
+    "h": 183
+  },
+  "masterRgbaExact": true,
+  "packageEncoding": "256-color RGBA palette",
+  "sharedMouthAtlas": "base:talk",
+  "leftWingAtlas": "base:wave",
+  "rightWingAtlas": "/images/pet/point-right-wing.png",
+  "master": "pipi-point-right.png"
+}

@@ -1,0 +1,71 @@
+{
+  "result": "PASS",
+  "checks": 2173,
+  "clips": 15,
+  "totalFrames": 396,
+  "cellsByClip": {
+    "takeoff": [
+      704,
+      576
+    ],
+    "hover": [
+      704,
+      576
+    ],
+    "right": [
+      704,
+      576
+    ],
+    "left": [
+      704,
+      576
+    ],
+    "turn-right": [
+      704,
+      576
+    ],
+    "turn-left": [
+      704,
+      576
+    ],
+    "land": [
+      704,
+      576
+    ],
+    "up-right": [
+      704,
+      640
+    ],
+    "bank-up-right": [
+      704,
+      640
+    ],
+    "up-left": [
+      704,
+      640
+    ],
+    "bank-up-left": [
+      704,
+      640
+    ],
+    "down-right": [
+      704,
+      640
+    ],
+    "bank-down-right": [
+      704,
+      640
+    ],
+    "down-left": [
+      704,
+      640
+    ],
+    "bank-down-left": [
+      704,
+      640
+    ]
+  },
+  "restEndpointsExact": true,
+  "phaseEndpointsExact": true,
+  "fixedLoopFaces": true
+}

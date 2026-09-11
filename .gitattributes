@@ -1,0 +1,13 @@
+# Keep text readable and consistent across Windows and other platforms.
+* text=auto eol=lf
+
+# Preserve original binary bytes; Git LFS holds the full image content.
+*.png filter=lfs diff=lfs merge=lfs -text
+*.jpg filter=lfs diff=lfs merge=lfs -text
+*.jpeg filter=lfs diff=lfs merge=lfs -text
+*.webp filter=lfs diff=lfs merge=lfs -text
+*.gif filter=lfs diff=lfs merge=lfs -text
+
+# Registered pose arrays used to rebuild the approved animation strips.
+*.npz filter=lfs diff=lfs merge=lfs -text
+*.npy filter=lfs diff=lfs merge=lfs -text

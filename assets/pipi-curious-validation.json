@@ -1,0 +1,22 @@
+{
+  "frameCount": 41,
+  "size": [
+    15744,
+    512
+  ],
+  "durationMs": 2126.666666666665,
+  "restEndpointsMatch": true,
+  "fixedBodyFromRow": 324,
+  "fixedBodyChangedPixels": 0,
+  "minMargins": [
+    69,
+    48,
+    55,
+    71
+  ],
+  "uniquePoses": 21,
+  "adjacentDuplicateFrames": 0,
+  "maxHeadAngleStepDegrees": 1.1960000000000015,
+  "bothOpenEyesUnchangedBeforeHeadTransform": true,
+  "sourceAtlas": "pipi-curious-generated-poses.png"
+}

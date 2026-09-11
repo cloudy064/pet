@@ -1,0 +1,28 @@
+{
+  "frameCount": 32,
+  "durationMs": 1900,
+  "size": [
+    12288,
+    512
+  ],
+  "restEndpointsMatch": true,
+  "fixedPixelCount": 188945,
+  "changedPixelsOutsideMouth": 0,
+  "bothEyesUnchanged": true,
+  "allAlphaIdentical": true,
+  "minMargins": [
+    69,
+    48,
+    65,
+    71
+  ],
+  "uniqueMouthPoses": 7,
+  "adjacentDuplicateFrames": 0,
+  "mouthMotion": "beak opening/closing only",
+  "excludedRoundMouthCells": [
+    8,
+    9,
+    10,
+    11
+  ]
+}

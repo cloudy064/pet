@@ -1,0 +1,566 @@
+{
+  "version": 1,
+  "id": "wink",
+  "label": "俏皮单眼眨眼",
+  "image": "pipi-wink.png",
+  "frameWidth": 384,
+  "frameHeight": 512,
+  "frameCount": 33,
+  "columns": 33,
+  "anchor": {
+    "x": 192,
+    "y": 438.4530386740331
+  },
+  "subjectHeight": 387.5359116022099,
+  "bounds": [
+    69,
+    48,
+    323,
+    441
+  ],
+  "durationMs": 1340,
+  "frameDurationsMs": [
+    70,
+    30,
+    30,
+    30,
+    30,
+    30,
+    30,
+    30,
+    30,
+    30,
+    30,
+    30,
+    30,
+    30,
+    30,
+    30,
+    240,
+    30,
+    30,
+    30,
+    30,
+    30,
+    30,
+    30,
+    30,
+    30,
+    30,
+    30,
+    30,
+    30,
+    30,
+    30,
+    130
+  ],
+  "loop": true,
+  "frames": [
+    {
+      "x": 0,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 70
+    },
+    {
+      "x": 384,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 30
+    },
+    {
+      "x": 768,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 30
+    },
+    {
+      "x": 1152,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 30
+    },
+    {
+      "x": 1536,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 30
+    },
+    {
+      "x": 1920,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 30
+    },
+    {
+      "x": 2304,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 30
+    },
+    {
+      "x": 2688,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 30
+    },
+    {
+      "x": 3072,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 30
+    },
+    {
+      "x": 3456,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 30
+    },
+    {
+      "x": 3840,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 30
+    },
+    {
+      "x": 4224,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 30
+    },
+    {
+      "x": 4608,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 30
+    },
+    {
+      "x": 4992,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 30
+    },
+    {
+      "x": 5376,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 30
+    },
+    {
+      "x": 5760,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 30
+    },
+    {
+      "x": 6144,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 240
+    },
+    {
+      "x": 6528,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 30
+    },
+    {
+      "x": 6912,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 30
+    },
+    {
+      "x": 7296,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 30
+    },
+    {
+      "x": 7680,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 30
+    },
+    {
+      "x": 8064,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 30
+    },
+    {
+      "x": 8448,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 30
+    },
+    {
+      "x": 8832,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 30
+    },
+    {
+      "x": 9216,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 30
+    },
+    {
+      "x": 9600,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 30
+    },
+    {
+      "x": 9984,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 30
+    },
+    {
+      "x": 10368,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 30
+    },
+    {
+      "x": 10752,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 30
+    },
+    {
+      "x": 11136,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 30
+    },
+    {
+      "x": 11520,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 30
+    },
+    {
+      "x": 11904,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 30
+    },
+    {
+      "x": 12288,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 130
+    }
+  ],
+  "restPose": {
+    "image": "pipi-idle.png",
+    "scale": 0.7071823204419889,
+    "x": 64,
+    "y": 0,
+    "width": 256,
+    "height": 512,
+    "frames": [
+      0,
+      32
+    ]
+  },
+  "phases": [
+    {
+      "label": "歪头与闭眼",
+      "start": 0,
+      "end": 15
+    },
+    {
+      "label": "俏皮微笑",
+      "start": 16,
+      "end": 16
+    },
+    {
+      "label": "睁眼与回正",
+      "start": 17,
+      "end": 32
+    }
+  ],
+  "method": "Generated viewer-right eyelid and smile artwork registered to the original head; controlled five-degree head tilt with a fixed body. No pupil crossfades.",
+  "provenance": {
+    "reference": "pipi-wink-reference.png",
+    "generatedAtlas": "pipi-wink-generated-poses.png",
+    "frames": [
+      {
+        "frame": 0,
+        "headAngleDegrees": 0.0,
+        "eyeSourceCell": null,
+        "mouthSourceCell": null
+      },
+      {
+        "frame": 1,
+        "headAngleDegrees": 0.05615234375,
+        "eyeSourceCell": null,
+        "mouthSourceCell": null
+      },
+      {
+        "frame": 2,
+        "headAngleDegrees": 0.21484375,
+        "eyeSourceCell": null,
+        "mouthSourceCell": null
+      },
+      {
+        "frame": 3,
+        "headAngleDegrees": 0.46142578125,
+        "eyeSourceCell": null,
+        "mouthSourceCell": null
+      },
+      {
+        "frame": 4,
+        "headAngleDegrees": 0.78125,
+        "eyeSourceCell": null,
+        "mouthSourceCell": null
+      },
+      {
+        "frame": 5,
+        "headAngleDegrees": 1.15966796875,
+        "eyeSourceCell": null,
+        "mouthSourceCell": null
+      },
+      {
+        "frame": 6,
+        "headAngleDegrees": 1.58203125,
+        "eyeSourceCell": null,
+        "mouthSourceCell": null
+      },
+      {
+        "frame": 7,
+        "headAngleDegrees": 2.03369140625,
+        "eyeSourceCell": null,
+        "mouthSourceCell": 4
+      },
+      {
+        "frame": 8,
+        "headAngleDegrees": 2.5,
+        "eyeSourceCell": null,
+        "mouthSourceCell": 5
+      },
+      {
+        "frame": 9,
+        "headAngleDegrees": 2.96630859375,
+        "eyeSourceCell": null,
+        "mouthSourceCell": 5
+      },
+      {
+        "frame": 10,
+        "headAngleDegrees": 3.41796875,
+        "eyeSourceCell": 6,
+        "mouthSourceCell": 12
+      },
+      {
+        "frame": 11,
+        "headAngleDegrees": 3.84033203125,
+        "eyeSourceCell": 7,
+        "mouthSourceCell": 12
+      },
+      {
+        "frame": 12,
+        "headAngleDegrees": 4.21875,
+        "eyeSourceCell": 12,
+        "mouthSourceCell": 12
+      },
+      {
+        "frame": 13,
+        "headAngleDegrees": 4.53857421875,
+        "eyeSourceCell": 12,
+        "mouthSourceCell": 12
+      },
+      {
+        "frame": 14,
+        "headAngleDegrees": 4.78515625,
+        "eyeSourceCell": 12,
+        "mouthSourceCell": 12
+      },
+      {
+        "frame": 15,
+        "headAngleDegrees": 4.94384765625,
+        "eyeSourceCell": 12,
+        "mouthSourceCell": 12
+      },
+      {
+        "frame": 16,
+        "headAngleDegrees": 5,
+        "eyeSourceCell": 12,
+        "mouthSourceCell": 12
+      },
+      {
+        "frame": 17,
+        "headAngleDegrees": 4.94384765625,
+        "eyeSourceCell": 12,
+        "mouthSourceCell": 12
+      },
+      {
+        "frame": 18,
+        "headAngleDegrees": 4.78515625,
+        "eyeSourceCell": 12,
+        "mouthSourceCell": 12
+      },
+      {
+        "frame": 19,
+        "headAngleDegrees": 4.53857421875,
+        "eyeSourceCell": 12,
+        "mouthSourceCell": 12
+      },
+      {
+        "frame": 20,
+        "headAngleDegrees": 4.21875,
+        "eyeSourceCell": 12,
+        "mouthSourceCell": 12
+      },
+      {
+        "frame": 21,
+        "headAngleDegrees": 3.84033203125,
+        "eyeSourceCell": 7,
+        "mouthSourceCell": 12
+      },
+      {
+        "frame": 22,
+        "headAngleDegrees": 3.41796875,
+        "eyeSourceCell": 6,
+        "mouthSourceCell": 12
+      },
+      {
+        "frame": 23,
+        "headAngleDegrees": 2.96630859375,
+        "eyeSourceCell": null,
+        "mouthSourceCell": 5
+      },
+      {
+        "frame": 24,
+        "headAngleDegrees": 2.5,
+        "eyeSourceCell": null,
+        "mouthSourceCell": 5
+      },
+      {
+        "frame": 25,
+        "headAngleDegrees": 2.03369140625,
+        "eyeSourceCell": null,
+        "mouthSourceCell": 4
+      },
+      {
+        "frame": 26,
+        "headAngleDegrees": 1.58203125,
+        "eyeSourceCell": null,
+        "mouthSourceCell": null
+      },
+      {
+        "frame": 27,
+        "headAngleDegrees": 1.15966796875,
+        "eyeSourceCell": null,
+        "mouthSourceCell": null
+      },
+      {
+        "frame": 28,
+        "headAngleDegrees": 0.78125,
+        "eyeSourceCell": null,
+        "mouthSourceCell": null
+      },
+      {
+        "frame": 29,
+        "headAngleDegrees": 0.46142578125,
+        "eyeSourceCell": null,
+        "mouthSourceCell": null
+      },
+      {
+        "frame": 30,
+        "headAngleDegrees": 0.21484375,
+        "eyeSourceCell": null,
+        "mouthSourceCell": null
+      },
+      {
+        "frame": 31,
+        "headAngleDegrees": 0.05615234375,
+        "eyeSourceCell": null,
+        "mouthSourceCell": null
+      },
+      {
+        "frame": 32,
+        "headAngleDegrees": 0.0,
+        "eyeSourceCell": null,
+        "mouthSourceCell": null
+      }
+    ]
+  },
+  "originalTiming": {
+    "durationMs": 1706.6666666666656,
+    "frameDurationsMs": [
+      100,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      446.6666666666667,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      160
+    ]
+  },
+  "timingRevision": 1,
+  "timingNote": "Shorten the wink hold; retain a relaxed return.",
+  "timingMode": "per-frame"
+}

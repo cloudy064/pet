@@ -1,0 +1,23 @@
+{
+  "frameCount": 37,
+  "size": [
+    14208,
+    512
+  ],
+  "durationMs": 1853.3333333333321,
+  "restEndpointsMatch": true,
+  "fixedBodyFromRow": 308,
+  "fixedBodyChangedPixels": 0,
+  "minMargins": [
+    69,
+    48,
+    60,
+    71
+  ],
+  "uniquePoses": 19,
+  "adjacentDuplicateFrames": 0,
+  "maxHeadAngleStepDegrees": 0.5809327846364889,
+  "maxHeadDownStepPixels": 0.497942386831276,
+  "eyes": "both closed happy arches",
+  "sourceAtlas": "pipi-pet-generated-poses.png"
+}

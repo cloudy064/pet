@@ -1,0 +1,50 @@
+{
+  "version": 3,
+  "id": "blink",
+  "image": "pipi-blink-strip.png",
+  "frameWidth": 362,
+  "frameHeight": 724,
+  "columns": 6,
+  "frameCount": 6,
+  "fps": 12,
+  "loop": true,
+  "frames": [
+    {
+      "x": 0,
+      "y": 0,
+      "w": 362,
+      "h": 724
+    },
+    {
+      "x": 362,
+      "y": 0,
+      "w": 362,
+      "h": 724
+    },
+    {
+      "x": 724,
+      "y": 0,
+      "w": 362,
+      "h": 724
+    },
+    {
+      "x": 1086,
+      "y": 0,
+      "w": 362,
+      "h": 724
+    },
+    {
+      "x": 1448,
+      "y": 0,
+      "w": 362,
+      "h": 724
+    },
+    {
+      "x": 1810,
+      "y": 0,
+      "w": 362,
+      "h": 724
+    }
+  ],
+  "notes": "Original generated RGB preserved; connected checkerboard removed with alpha mask."
+}

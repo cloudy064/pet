@@ -1,0 +1,288 @@
+{
+  "version": 1,
+  "id": "up-left",
+  "label": "左上飞行",
+  "image": "pipi-flight-up-left.png",
+  "frameWidth": 704,
+  "frameHeight": 640,
+  "frameCount": 32,
+  "columns": 32,
+  "anchor": {
+    "x": 352,
+    "y": 518.4530386740332
+  },
+  "subjectHeight": 387.5359116022099,
+  "bounds": [
+    109,
+    88,
+    667,
+    532
+  ],
+  "frameRate": 40,
+  "frameDurationsMs": [
+    25,
+    25,
+    25,
+    25,
+    25,
+    25,
+    25,
+    25,
+    25,
+    25,
+    25,
+    25,
+    25,
+    25,
+    25,
+    25,
+    25,
+    25,
+    25,
+    25,
+    25,
+    25,
+    25,
+    25,
+    25,
+    25,
+    25,
+    25,
+    25,
+    25,
+    25,
+    25
+  ],
+  "durationMs": 800,
+  "loop": true,
+  "frames": [
+    {
+      "x": 0,
+      "y": 0,
+      "w": 704,
+      "h": 640,
+      "durationMs": 25
+    },
+    {
+      "x": 704,
+      "y": 0,
+      "w": 704,
+      "h": 640,
+      "durationMs": 25
+    },
+    {
+      "x": 1408,
+      "y": 0,
+      "w": 704,
+      "h": 640,
+      "durationMs": 25
+    },
+    {
+      "x": 2112,
+      "y": 0,
+      "w": 704,
+      "h": 640,
+      "durationMs": 25
+    },
+    {
+      "x": 2816,
+      "y": 0,
+      "w": 704,
+      "h": 640,
+      "durationMs": 25
+    },
+    {
+      "x": 3520,
+      "y": 0,
+      "w": 704,
+      "h": 640,
+      "durationMs": 25
+    },
+    {
+      "x": 4224,
+      "y": 0,
+      "w": 704,
+      "h": 640,
+      "durationMs": 25
+    },
+    {
+      "x": 4928,
+      "y": 0,
+      "w": 704,
+      "h": 640,
+      "durationMs": 25
+    },
+    {
+      "x": 5632,
+      "y": 0,
+      "w": 704,
+      "h": 640,
+      "durationMs": 25
+    },
+    {
+      "x": 6336,
+      "y": 0,
+      "w": 704,
+      "h": 640,
+      "durationMs": 25
+    },
+    {
+      "x": 7040,
+      "y": 0,
+      "w": 704,
+      "h": 640,
+      "durationMs": 25
+    },
+    {
+      "x": 7744,
+      "y": 0,
+      "w": 704,
+      "h": 640,
+      "durationMs": 25
+    },
+    {
+      "x": 8448,
+      "y": 0,
+      "w": 704,
+      "h": 640,
+      "durationMs": 25
+    },
+    {
+      "x": 9152,
+      "y": 0,
+      "w": 704,
+      "h": 640,
+      "durationMs": 25
+    },
+    {
+      "x": 9856,
+      "y": 0,
+      "w": 704,
+      "h": 640,
+      "durationMs": 25
+    },
+    {
+      "x": 10560,
+      "y": 0,
+      "w": 704,
+      "h": 640,
+      "durationMs": 25
+    },
+    {
+      "x": 11264,
+      "y": 0,
+      "w": 704,
+      "h": 640,
+      "durationMs": 25
+    },
+    {
+      "x": 11968,
+      "y": 0,
+      "w": 704,
+      "h": 640,
+      "durationMs": 25
+    },
+    {
+      "x": 12672,
+      "y": 0,
+      "w": 704,
+      "h": 640,
+      "durationMs": 25
+    },
+    {
+      "x": 13376,
+      "y": 0,
+      "w": 704,
+      "h": 640,
+      "durationMs": 25
+    },
+    {
+      "x": 14080,
+      "y": 0,
+      "w": 704,
+      "h": 640,
+      "durationMs": 25
+    },
+    {
+      "x": 14784,
+      "y": 0,
+      "w": 704,
+      "h": 640,
+      "durationMs": 25
+    },
+    {
+      "x": 15488,
+      "y": 0,
+      "w": 704,
+      "h": 640,
+      "durationMs": 25
+    },
+    {
+      "x": 16192,
+      "y": 0,
+      "w": 704,
+      "h": 640,
+      "durationMs": 25
+    },
+    {
+      "x": 16896,
+      "y": 0,
+      "w": 704,
+      "h": 640,
+      "durationMs": 25
+    },
+    {
+      "x": 17600,
+      "y": 0,
+      "w": 704,
+      "h": 640,
+      "durationMs": 25
+    },
+    {
+      "x": 18304,
+      "y": 0,
+      "w": 704,
+      "h": 640,
+      "durationMs": 25
+    },
+    {
+      "x": 19008,
+      "y": 0,
+      "w": 704,
+      "h": 640,
+      "durationMs": 25
+    },
+    {
+      "x": 19712,
+      "y": 0,
+      "w": 704,
+      "h": 640,
+      "durationMs": 25
+    },
+    {
+      "x": 20416,
+      "y": 0,
+      "w": 704,
+      "h": 640,
+      "durationMs": 25
+    },
+    {
+      "x": 21120,
+      "y": 0,
+      "w": 704,
+      "h": 640,
+      "durationMs": 25
+    },
+    {
+      "x": 21824,
+      "y": 0,
+      "w": 704,
+      "h": 640,
+      "durationMs": 25
+    }
+  ],
+  "provenance": {
+    "method": "Previously stabilized image-generated right flight cycle, baked fixed body pitch and continuous bank transitions. Left partners are mirrored. New candidate atlases were rejected for inconsistent proportions.",
+    "prompts": "pipi-flight-diagonal-generation.md"
+  }
+}

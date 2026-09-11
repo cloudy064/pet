@@ -1,0 +1,17 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>皮皮 · 单翅指字</title><link rel="stylesheet" href="pipi.css">
+<style>.point-layout{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:20px}.point-stage{padding:18px;min-width:0}#pointCanvas{width:100%;display:block;border-radius:14px;background:#eaf8ee}.point-controls{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}.point-controls button{flex:1;white-space:nowrap}.point-stage input{width:100%}.point-readout{display:flex;justify-content:space-between;font:12px monospace;color:#61826a;margin:12px 0}.dark #pointCanvas{background:#233c34}.checker #pointCanvas{background:repeating-conic-gradient(#e1e6e2 0% 25%,#fff 0% 50%) 50%/20px 20px}@media(max-width:850px){.point-layout{grid-template-columns:1fr}}</style>
+<main><header><div><span class="eyebrow">PIPI / POINT AT A CHARACTER</span><h1>一边指字，一边说话</h1><p>左右翅膀独立展开 · 嘴型张合 · 讲完收回原站姿</p></div><a href="皮皮_动画调试台.html">返回动画调试台 →</a></header>
+<div class="point-layout"><section class="card point-stage" id="pointStage"><canvas id="pointCanvas" width="900" height="640" aria-label="皮皮在汉字旁展开单侧翅膀"></canvas>
+<div class="point-controls"><button id="pointPlay" class="primary" disabled>完整播放</button><button id="pointOpen" disabled>展开并保持</button><button id="pointClose" disabled>收回</button><button id="pointPause" disabled>暂停</button></div>
+<input id="pointSeek" type="range" min="0" max="36" value="0" aria-label="逐帧检查"><div class="point-readout"><output id="pointCounter">准备素材…</output><span id="pointPhase"></span></div></section>
+<section class="card settings"><span class="eyebrow">POINTING / 37 FRAMES</span><h2>指字动作</h2><p>只有一侧翅膀展开。展开后保持姿态，收翅沿原路径返回；头部、身体和脚底位置保持稳定。</p>
+<label class="field">指字方向 <select id="pointSide" disabled><option value="left">画面左翅（皮皮右手）</option><option value="right">画面右翅（皮皮左手，适用于最右列）</option></select></label>
+<label class="check"><input id="pointSpeaking" type="checkbox" checked>同时说话：嘴巴自然张合</label>
+<label class="field">停留时长 <output id="pointHoldValue">1.80 s</output><input id="pointHold" type="range" min="0.5" max="8" step="0.1" value="1.8"></label>
+<label class="field">播放速度 <select id="pointSpeed"><option value="1">正常速度</option><option value="0.5">半速检查</option></select></label>
+<label class="field">背景 <select id="pointBackground"><option value="mint">浅薄荷</option><option value="dark">深色</option><option value="checker">透明棋盘格</option></select></label>
+<label class="check"><input id="pointCard" type="checkbox" checked>显示汉字位置参考</label>
+<p>每侧 37 个播放帧、19 张独立姿态。嘴型单独播放，翅膀可一直保持；取消“同时说话”可检查完整收翅后的默认站姿。</p>
+<p><a id="pointPng" href="assets/pipi-point-left.png" download>下载当前方向透明 PNG 长图 ↓</a></p><p><a id="pointJson" href="assets/pipi-point-left.json" download>下载逐帧配置 ↓</a></p><p><a id="pointRuntime" download>下载压缩运行 PNG ↓</a></p><p id="pointError" role="alert"></p></section></div>
+</main><script src="assets/pipi-point-assets.js?v=2"></script><script src="pipi-timing.js?v=1"></script><script src="pipi-sprites.js?v=1"></script><script src="pipi-point.js?v=2"></script></html>

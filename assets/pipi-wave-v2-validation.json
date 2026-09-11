@@ -1,0 +1,17 @@
+{
+  "frameCount": 41,
+  "uniquePoses": 16,
+  "width": 576,
+  "height": 724,
+  "anchor": {
+    "x": 365,
+    "y": 620
+  },
+  "durationMs": 1532,
+  "minMargins": [
+    42,
+    68,
+    51,
+    100
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "group": "base",
+  "sourceImage": "pipi-idle.png",
+  "sourceVersion": 4,
+  "sourceSha256": "71552806ba186dfb8ca029629f2ef808349cd4c244767105bea93708a16a4edb",
+  "sourceFrameWidth": 362,
+  "sourceFrameHeight": 724,
+  "frameCount": 1,
+  "uniqueFrameCount": 1,
+  "image": "runtime/pipi-idle-ca69e83d64ed.png",
+  "sha256": "ca69e83d64ed4a648f486b1b1518b65547a691327913c1378d30ba742b03a332",
+  "crop": {
+    "x": 0,
+    "y": 60,
+    "w": 362,
+    "h": 572
+  },
+  "anchor": {
+    "x": 181,
+    "y": 560
+  },
+  "subjectHeight": 548,
+  "width": 362,
+  "height": 572,
+  "frameMap": [
+    0
+  ],
+  "tiles": [
+    {
+      "x": 0,
+      "y": 0,
+      "w": 362,
+      "h": 572
+    }
+  ],
+  "durationMs": 4000,
+  "frameDurationsMs": [
+    4000
+  ],
+  "sourceBytes": 188644,
+  "runtimeBytes": 171855,
+  "sourceDecodedBytes": 1048352,
+  "runtimeDecodedBytes": 828256,
+  "beforeOptimizerBytes": 181986,
+  "allFramesExact": true
+}

@@ -1,0 +1,663 @@
+{
+  "version": 1,
+  "id": "pet",
+  "label": "抚摸反馈",
+  "image": "pipi-pet.png",
+  "frameWidth": 384,
+  "frameHeight": 512,
+  "frameCount": 37,
+  "columns": 37,
+  "anchor": {
+    "x": 192,
+    "y": 438.4530386740331
+  },
+  "subjectHeight": 387.5359116022099,
+  "bounds": [
+    69,
+    48,
+    324,
+    441
+  ],
+  "durationMs": 1753.3333333333321,
+  "frameDurationsMs": [
+    80,
+    33.333333333333336,
+    33.333333333333336,
+    33.333333333333336,
+    33.333333333333336,
+    33.333333333333336,
+    33.333333333333336,
+    33.333333333333336,
+    33.333333333333336,
+    33.333333333333336,
+    33.333333333333336,
+    33.333333333333336,
+    33.333333333333336,
+    33.333333333333336,
+    33.333333333333336,
+    33.333333333333336,
+    33.333333333333336,
+    33.333333333333336,
+    420,
+    33.333333333333336,
+    33.333333333333336,
+    33.333333333333336,
+    33.333333333333336,
+    33.333333333333336,
+    33.333333333333336,
+    33.333333333333336,
+    33.333333333333336,
+    33.333333333333336,
+    33.333333333333336,
+    33.333333333333336,
+    33.333333333333336,
+    33.333333333333336,
+    33.333333333333336,
+    33.333333333333336,
+    33.333333333333336,
+    33.333333333333336,
+    120
+  ],
+  "loop": true,
+  "frames": [
+    {
+      "x": 0,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 80
+    },
+    {
+      "x": 384,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 33.333333333333336
+    },
+    {
+      "x": 768,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 33.333333333333336
+    },
+    {
+      "x": 1152,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 33.333333333333336
+    },
+    {
+      "x": 1536,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 33.333333333333336
+    },
+    {
+      "x": 1920,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 33.333333333333336
+    },
+    {
+      "x": 2304,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 33.333333333333336
+    },
+    {
+      "x": 2688,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 33.333333333333336
+    },
+    {
+      "x": 3072,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 33.333333333333336
+    },
+    {
+      "x": 3456,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 33.333333333333336
+    },
+    {
+      "x": 3840,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 33.333333333333336
+    },
+    {
+      "x": 4224,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 33.333333333333336
+    },
+    {
+      "x": 4608,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 33.333333333333336
+    },
+    {
+      "x": 4992,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 33.333333333333336
+    },
+    {
+      "x": 5376,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 33.333333333333336
+    },
+    {
+      "x": 5760,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 33.333333333333336
+    },
+    {
+      "x": 6144,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 33.333333333333336
+    },
+    {
+      "x": 6528,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 33.333333333333336
+    },
+    {
+      "x": 6912,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 420
+    },
+    {
+      "x": 7296,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 33.333333333333336
+    },
+    {
+      "x": 7680,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 33.333333333333336
+    },
+    {
+      "x": 8064,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 33.333333333333336
+    },
+    {
+      "x": 8448,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 33.333333333333336
+    },
+    {
+      "x": 8832,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 33.333333333333336
+    },
+    {
+      "x": 9216,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 33.333333333333336
+    },
+    {
+      "x": 9600,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 33.333333333333336
+    },
+    {
+      "x": 9984,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 33.333333333333336
+    },
+    {
+      "x": 10368,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 33.333333333333336
+    },
+    {
+      "x": 10752,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 33.333333333333336
+    },
+    {
+      "x": 11136,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 33.333333333333336
+    },
+    {
+      "x": 11520,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 33.333333333333336
+    },
+    {
+      "x": 11904,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 33.333333333333336
+    },
+    {
+      "x": 12288,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 33.333333333333336
+    },
+    {
+      "x": 12672,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 33.333333333333336
+    },
+    {
+      "x": 13056,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 33.333333333333336
+    },
+    {
+      "x": 13440,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 33.333333333333336
+    },
+    {
+      "x": 13824,
+      "y": 0,
+      "w": 384,
+      "h": 512,
+      "durationMs": 120
+    }
+  ],
+  "restPose": {
+    "image": "pipi-idle.png",
+    "scale": 0.7071823204419889,
+    "x": 64,
+    "y": 0,
+    "width": 256,
+    "height": 512,
+    "frames": [
+      0,
+      36
+    ]
+  },
+  "phases": [
+    {
+      "label": "低头眯眼",
+      "start": 0,
+      "end": 11
+    },
+    {
+      "label": "开心微笑",
+      "start": 12,
+      "end": 18
+    },
+    {
+      "label": "缓缓回正",
+      "start": 19,
+      "end": 36
+    }
+  ],
+  "method": "Both happy eyelids and opening beak generated from the petting reference; registered onto the original face. One raster head eases through a seven-degree tilt and six-pixel dip over a fixed body. No expression crossfades.",
+  "provenance": {
+    "reference": "pipi-pet-reference.png",
+    "generatedAtlas": "pipi-pet-generated-poses.png",
+    "frames": [
+      {
+        "frame": 0,
+        "headAngleDegrees": 0.0,
+        "headDownPixels": 0.0,
+        "eyeSourceCell": null,
+        "mouthSourceCell": null
+      },
+      {
+        "frame": 1,
+        "headAngleDegrees": 0.062414266117969824,
+        "headDownPixels": 0.053497942386831275,
+        "eyeSourceCell": null,
+        "mouthSourceCell": null
+      },
+      {
+        "frame": 2,
+        "headAngleDegrees": 0.24005486968449927,
+        "headDownPixels": 0.20576131687242794,
+        "eyeSourceCell": null,
+        "mouthSourceCell": null
+      },
+      {
+        "frame": 3,
+        "headAngleDegrees": 0.5185185185185185,
+        "headDownPixels": 0.4444444444444444,
+        "eyeSourceCell": 1,
+        "mouthSourceCell": null
+      },
+      {
+        "frame": 4,
+        "headAngleDegrees": 0.8834019204389574,
+        "headDownPixels": 0.7572016460905349,
+        "eyeSourceCell": 2,
+        "mouthSourceCell": null
+      },
+      {
+        "frame": 5,
+        "headAngleDegrees": 1.3203017832647466,
+        "headDownPixels": 1.1316872427983542,
+        "eyeSourceCell": 3,
+        "mouthSourceCell": null
+      },
+      {
+        "frame": 6,
+        "headAngleDegrees": 1.8148148148148147,
+        "headDownPixels": 1.5555555555555554,
+        "eyeSourceCell": 4,
+        "mouthSourceCell": null
+      },
+      {
+        "frame": 7,
+        "headAngleDegrees": 2.3525377229080933,
+        "headDownPixels": 2.016460905349794,
+        "eyeSourceCell": 5,
+        "mouthSourceCell": null
+      },
+      {
+        "frame": 8,
+        "headAngleDegrees": 2.9190672153635115,
+        "headDownPixels": 2.5020576131687244,
+        "eyeSourceCell": 6,
+        "mouthSourceCell": null
+      },
+      {
+        "frame": 9,
+        "headAngleDegrees": 3.5,
+        "headDownPixels": 3.0,
+        "eyeSourceCell": 7,
+        "mouthSourceCell": 8
+      },
+      {
+        "frame": 10,
+        "headAngleDegrees": 4.080932784636489,
+        "headDownPixels": 3.497942386831276,
+        "eyeSourceCell": 7,
+        "mouthSourceCell": 8
+      },
+      {
+        "frame": 11,
+        "headAngleDegrees": 4.647462277091907,
+        "headDownPixels": 3.9835390946502063,
+        "eyeSourceCell": 7,
+        "mouthSourceCell": 8
+      },
+      {
+        "frame": 12,
+        "headAngleDegrees": 5.185185185185185,
+        "headDownPixels": 4.444444444444445,
+        "eyeSourceCell": 7,
+        "mouthSourceCell": 9
+      },
+      {
+        "frame": 13,
+        "headAngleDegrees": 5.679698216735254,
+        "headDownPixels": 4.868312757201646,
+        "eyeSourceCell": 7,
+        "mouthSourceCell": 9
+      },
+      {
+        "frame": 14,
+        "headAngleDegrees": 6.116598079561042,
+        "headDownPixels": 5.242798353909465,
+        "eyeSourceCell": 7,
+        "mouthSourceCell": 9
+      },
+      {
+        "frame": 15,
+        "headAngleDegrees": 6.481481481481483,
+        "headDownPixels": 5.555555555555556,
+        "eyeSourceCell": 7,
+        "mouthSourceCell": 9
+      },
+      {
+        "frame": 16,
+        "headAngleDegrees": 6.759945130315501,
+        "headDownPixels": 5.794238683127572,
+        "eyeSourceCell": 7,
+        "mouthSourceCell": 9
+      },
+      {
+        "frame": 17,
+        "headAngleDegrees": 6.937585733882031,
+        "headDownPixels": 5.946502057613169,
+        "eyeSourceCell": 7,
+        "mouthSourceCell": 9
+      },
+      {
+        "frame": 18,
+        "headAngleDegrees": 7.0,
+        "headDownPixels": 6.0,
+        "eyeSourceCell": 7,
+        "mouthSourceCell": 9
+      },
+      {
+        "frame": 19,
+        "headAngleDegrees": 6.937585733882031,
+        "headDownPixels": 5.946502057613169,
+        "eyeSourceCell": 7,
+        "mouthSourceCell": 9
+      },
+      {
+        "frame": 20,
+        "headAngleDegrees": 6.759945130315501,
+        "headDownPixels": 5.794238683127572,
+        "eyeSourceCell": 7,
+        "mouthSourceCell": 9
+      },
+      {
+        "frame": 21,
+        "headAngleDegrees": 6.481481481481483,
+        "headDownPixels": 5.555555555555556,
+        "eyeSourceCell": 7,
+        "mouthSourceCell": 9
+      },
+      {
+        "frame": 22,
+        "headAngleDegrees": 6.116598079561042,
+        "headDownPixels": 5.242798353909465,
+        "eyeSourceCell": 7,
+        "mouthSourceCell": 9
+      },
+      {
+        "frame": 23,
+        "headAngleDegrees": 5.679698216735254,
+        "headDownPixels": 4.868312757201646,
+        "eyeSourceCell": 7,
+        "mouthSourceCell": 9
+      },
+      {
+        "frame": 24,
+        "headAngleDegrees": 5.185185185185185,
+        "headDownPixels": 4.444444444444445,
+        "eyeSourceCell": 7,
+        "mouthSourceCell": 9
+      },
+      {
+        "frame": 25,
+        "headAngleDegrees": 4.647462277091907,
+        "headDownPixels": 3.9835390946502063,
+        "eyeSourceCell": 7,
+        "mouthSourceCell": 8
+      },
+      {
+        "frame": 26,
+        "headAngleDegrees": 4.080932784636489,
+        "headDownPixels": 3.497942386831276,
+        "eyeSourceCell": 7,
+        "mouthSourceCell": 8
+      },
+      {
+        "frame": 27,
+        "headAngleDegrees": 3.5,
+        "headDownPixels": 3.0,
+        "eyeSourceCell": 7,
+        "mouthSourceCell": 8
+      },
+      {
+        "frame": 28,
+        "headAngleDegrees": 2.9190672153635115,
+        "headDownPixels": 2.5020576131687244,
+        "eyeSourceCell": 6,
+        "mouthSourceCell": null
+      },
+      {
+        "frame": 29,
+        "headAngleDegrees": 2.3525377229080933,
+        "headDownPixels": 2.016460905349794,
+        "eyeSourceCell": 5,
+        "mouthSourceCell": null
+      },
+      {
+        "frame": 30,
+        "headAngleDegrees": 1.8148148148148147,
+        "headDownPixels": 1.5555555555555554,
+        "eyeSourceCell": 4,
+        "mouthSourceCell": null
+      },
+      {
+        "frame": 31,
+        "headAngleDegrees": 1.3203017832647466,
+        "headDownPixels": 1.1316872427983542,
+        "eyeSourceCell": 3,
+        "mouthSourceCell": null
+      },
+      {
+        "frame": 32,
+        "headAngleDegrees": 0.8834019204389574,
+        "headDownPixels": 0.7572016460905349,
+        "eyeSourceCell": 2,
+        "mouthSourceCell": null
+      },
+      {
+        "frame": 33,
+        "headAngleDegrees": 0.5185185185185185,
+        "headDownPixels": 0.4444444444444444,
+        "eyeSourceCell": 1,
+        "mouthSourceCell": null
+      },
+      {
+        "frame": 34,
+        "headAngleDegrees": 0.24005486968449927,
+        "headDownPixels": 0.20576131687242794,
+        "eyeSourceCell": null,
+        "mouthSourceCell": null
+      },
+      {
+        "frame": 35,
+        "headAngleDegrees": 0.062414266117969824,
+        "headDownPixels": 0.053497942386831275,
+        "eyeSourceCell": null,
+        "mouthSourceCell": null
+      },
+      {
+        "frame": 36,
+        "headAngleDegrees": 0.0,
+        "headDownPixels": 0.0,
+        "eyeSourceCell": null,
+        "mouthSourceCell": null
+      }
+    ]
+  },
+  "originalTiming": {
+    "durationMs": 1853.3333333333321,
+    "frameDurationsMs": [
+      120,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      420,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      33.333333333333336,
+      180
+    ]
+  },
+  "timingRevision": 1,
+  "timingNote": "Keep the contented hold and soft recovery; remove excess neutral delay.",
+  "timingMode": "per-frame"
+}

@@ -1,0 +1,18 @@
+{
+  "frameCount": 96,
+  "size": [
+    32256,
+    422
+  ],
+  "bounds": [
+    34,
+    39,
+    317,
+    364
+  ],
+  "restPosePixelsMatch": true,
+  "uniqueFrames": 95,
+  "firstStepDifference": 351.270263671875,
+  "lastStepDifference": 408.59136962890625,
+  "maxStepDifference": 5860.9111328125
+}

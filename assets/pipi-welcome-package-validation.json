@@ -1,0 +1,18 @@
+{
+  "frames": 61,
+  "storedPoses": 33,
+  "subjectHeight": 240,
+  "bytes": 110746,
+  "crop": {
+    "x": 48,
+    "y": 100,
+    "w": 287,
+    "h": 312
+  },
+  "encoding": "256-color PNG",
+  "originalMasterUnchanged": true,
+  "localIdle": "/images/pet/fallback.png",
+  "idleBytes": 11923,
+  "mouthBytes": 12128,
+  "fullcolorIdleArchive": "C:\\Users\\cloudy064\\workspace\\aiede\\pipi\\pipi-wxmp\\scripts\\legacy-pet-images\\fallback-ttt-fullcolor.png"
+}
