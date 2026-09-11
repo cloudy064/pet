@@ -1,0 +1,28 @@
+{
+  "name": "@cloudy064/pipi-engine",
+  "version": "0.1.0",
+  "description": "Object-oriented Pipi sprite animation engine for Web and WeChat Mini Programs",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "browser": "dist/pipi-engine.js",
+  "miniprogram": "dist/miniprogram",
+  "exports": {
+    ".": { "types": "./dist/index.d.ts", "import": "./dist/index.mjs", "require": "./dist/index.cjs" },
+    "./wechat": { "types": "./dist/index.d.ts", "require": "./dist/miniprogram/index.js" },
+    "./browser": "./dist/pipi-engine.js",
+    "./package.json": "./package.json"
+  },
+  "files": ["dist", "docs/ENGINE_API.md", "docs/ENGINE_INTEGRATION.md", "README.md"],
+  "scripts": {
+    "build": "node scripts/build-engine.cjs",
+    "test": "node --test tests/engine/*.test.cjs",
+    "test:browser": "python scripts/check-engine-browser.py",
+    "test:package": "node scripts/check-engine-package.cjs",
+    "prepack": "npm run build"
+  },
+  "repository": { "type": "git", "url": "https://github.com/cloudy064/pet.git" },
+  "engines": { "node": ">=18" },
+  "license": "UNLICENSED",
+  "devDependencies": { "esbuild": "0.28.2" }
+}

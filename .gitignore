@@ -9,6 +9,12 @@ __pycache__/
 .venv/
 venv/
 
+# Generated engine bundles, package archives and test artifacts.
+/dist/
+/*.tgz
+/test-results/
+/playwright-report/
+
 # Private machine configuration and credentials.
 .env
 .env.*
