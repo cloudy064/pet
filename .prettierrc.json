@@ -1,0 +1,1 @@
+{"singleQuote":true,"printWidth":110,"tabWidth":2,"trailingComma":"es5","endOfLine":"lf","overrides":[{"files":"*.wxml","options":{"parser":"html"}}]}

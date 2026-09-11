@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>皮皮引擎 · Web 接入示例</title>
+    <style>
+      body {
+        font: 15px system-ui;
+        margin: 30px auto;
+        padding: 0 18px;
+        max-width: 800px;
+        color: #345641;
+        background: #f8fbf5;
+      }
+      canvas {
+        display: block;
+        width: 100%;
+        height: 460px;
+        background: #e8f6dc;
+        border-radius: 20px;
+      }
+      button {
+        padding: 10px 15px;
+        margin: 6px 6px 6px 0;
+        border: 1px solid #bdd6b0;
+        background: white;
+        border-radius: 8px;
+        color: inherit;
+        cursor: pointer;
+      }
+      pre {
+        white-space: pre-wrap;
+        background: white;
+        padding: 18px;
+        border-radius: 12px;
+        line-height: 1.8;
+      }
+      small {
+        color: #7c8d78;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>在你的项目里认识皮皮</h1>
+    <p>同一个实例，播放动作、移动、互动和成长。</p>
+    <canvas id="pet"></canvas>
+    <div>
+      <button id="wave">打招呼</button><button id="point">指向并说话</button><button id="walk">走过去</button
+      ><button id="fly">飞过去</button><button id="reward">开心长大</button><button id="free">自由活动</button
+      ><button id="stop">停止</button>
+    </div>
+    <p id="status">准备素材…</p>
+    <pre>
+const pet = createWebPet(canvas, { size: 112 });
+await pet.ready;
+await pet.play('wave');
+await pet.moveTo({ x: 300, y: 330 }, { mode: 'flight' });
+pet.destroy();</pre
+    >
+    <small>单击皮皮触发抚摸；拖动保持站姿，双击不触发抚摸。</small>
+    <script type="module" src="demo.mjs"></script>
+  </body>
+</html>

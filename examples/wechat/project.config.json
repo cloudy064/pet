@@ -1,0 +1,8 @@
+{
+  "appid": "touristappid",
+  "projectname": "pipi-engine-example",
+  "compileType": "miniprogram",
+  "miniprogramRoot": "./",
+  "setting": { "es6": true, "minified": true, "urlCheck": true },
+  "libVersion": "3.17.2"
+}

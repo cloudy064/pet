@@ -1,0 +1,11 @@
+{
+  "pages": ["pages/index/index"],
+  "window": {
+    "navigationBarTitleText": "皮皮动画引擎",
+    "navigationBarBackgroundColor": "#f5f9ef",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#f5f9ef"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

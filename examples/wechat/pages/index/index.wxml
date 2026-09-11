@@ -1,0 +1,17 @@
+<view class="page"
+  ><view class="title">皮皮，准备好一起玩了吗？</view
+  ><view class="stage"
+    ><pipi-pet
+      id="pet"
+      width="{{width}}"
+      height="400"
+      size="96"
+      bind:ready="onPetReady"
+      bind:error="onPetError" /></view
+  ><view class="buttons"
+    ><button size="mini" bindtap="wave">打招呼</button><button size="mini" bindtap="walk">走过去</button
+    ><button size="mini" bindtap="fly">飞过去</button><button size="mini" bindtap="speak">指字说话</button
+    ><button size="mini" bindtap="grow">开心长大</button><button size="mini" bindtap="free">自由活动</button
+    ><button size="mini" bindtap="stop">停止</button></view
+  ><view class="status">{{status}}</view><view class="hint">轻点皮皮试试抚摸，拖动可以改变位置。</view></view
+>

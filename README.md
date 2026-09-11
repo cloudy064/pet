@@ -1,4 +1,4 @@
-# 皮皮透明 PNG 动画调试台
+# 皮皮动画引擎与透明 PNG 调试台
 
 ## 获取与运行
 
@@ -30,7 +30,30 @@ python -m http.server 8765 --bind 127.0.0.1
 
 `.gitignore` 排除了 `edge-*` 浏览器调试用户数据、`.tools` 本机工具依赖、缓存及根目录自动生成的截图/检查报告。`assets/` 中的参考图、制作中间素材和验证记录保留。部分小程序导出脚本依赖原工作区中的识字项目路径，迁移工作区时需先检查这些脚本的输出路径；本仓库的 HTML 调试台可独立运行。
 
-`engine/` 和 [引擎规划](docs/ENGINE_PLAN.md) 保存正在开发的独立动画引擎草稿，尚未完成构建入口和验收；根目录 `package.json` 中的引擎构建、测试命令暂不可用。使用当前动画请按上面的方式打开 HTML 调试台。
+## 独立动画引擎
+
+`engine/` 提供面向对象的 `PipiEngine`，支持 Web 和微信小程序。动作定义、时间轴、资源缓存、Canvas 渲染和平台适配各自独立；可以注册/修改/删除动作、编排组合、添加自定义类型或插件。
+
+```sh
+npm ci
+npm run dev
+```
+
+打开 [皮皮引擎工作台](皮皮_引擎工作台.html)：管理动作、调整速度和停留、逐帧预览、八方向移动、自由活动、语音组合及项目导入导出。原有页面继续保留。
+
+```js
+const pet = Pipi.createWebPet(canvas, { size: 112 });
+await pet.ready;
+await pet.play('wave');
+await pet.moveTo({ x: 300, y: 320 }, { mode: 'flight' });
+```
+
+- [API 文档](docs/ENGINE_API.md)：播放、动作库、扩展、缓存和生命周期。
+- [接入与迁移](docs/ENGINE_INTEGRATION.md)：Web / 微信组件、独立包、素材托管和验证命令。
+- [Web 示例](examples/web/index.html)；微信示例执行 `npm run example:wechat` 后导入 `examples/wechat/`。
+- `npm run pack:engine` 生成可供其他项目安装的 `.tgz`，无需引用识字或数学项目的源码；尚未发布到 npm 注册表。
+
+启动所需的默认图、招手、右翅和鸟喙随代码包内置，其他动作可使用现有公共地址或自行托管 `assets/engine/`。微信按 MD5 持久缓存，清单支持 ETag 更新。
 
 ## 单翅指字
 

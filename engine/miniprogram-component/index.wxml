@@ -1,0 +1,11 @@
+<canvas
+  type="2d"
+  id="pipi-canvas"
+  class="pipi-canvas"
+  style="width:{{width}}px;height:{{height}}px"
+  bindtouchstart="touchStart"
+  catchtouchmove="touchMove"
+  bindtouchend="touchEnd"
+  bindtouchcancel="touchCancel"
+  disable-scroll="{{true}}"
+/>

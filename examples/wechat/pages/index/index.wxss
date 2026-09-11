@@ -1,0 +1,32 @@
+.page {
+  padding: 24rpx;
+}
+.title {
+  font-size: 32rpx;
+  font-weight: bold;
+  padding: 24rpx 0;
+}
+.stage {
+  border-radius: 30rpx;
+  overflow: hidden;
+  background: #e5f3d9;
+}
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14rpx;
+  margin-top: 24rpx;
+}
+.buttons button {
+  margin: 0;
+  background: white;
+  color: #367748;
+}
+.status {
+  font-size: 25rpx;
+  margin: 24rpx 0;
+}
+.hint {
+  font-size: 23rpx;
+  color: #7e9576;
+}

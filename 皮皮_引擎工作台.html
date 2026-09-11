@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>皮皮 · 动作工作台</title>
+    <link rel="stylesheet" href="studio/studio.css" />
+  </head>
+  <body>
+    <header>
+      <a class="brand" href="皮皮_引擎工作台.html"
+        ><span class="mark">皮</span>
+        <div><strong>皮皮动作工作台</strong><small>让每一个动作，都有自己的性格</small></div></a
+      >
+      <nav>
+        <a href="examples/web/index.html">接入示例 ↗</a><a href="docs/ENGINE_API.md">API 文档</a
+        ><button id="export">导出项目</button
+        ><label class="button"
+          >导入项目<input id="import" type="file" accept="application/json,.json" hidden
+        /></label>
+      </nav>
+    </header>
+    <main>
+      <aside class="library">
+        <div class="section-title">
+          <h2>动作库</h2>
+          <button id="add" aria-label="新增动作">＋</button>
+        </div>
+        <input id="search" placeholder="搜索动作" aria-label="搜索动作" />
+        <div id="actions" class="actions"></div>
+        <p class="hint">选择动作，调整节奏。复制一个动作后，可以放心尝试新的变化。</p>
+      </aside>
+      <section class="preview">
+        <div class="stage-toolbar">
+          <div><span class="dot"></span><strong id="current">准备皮皮…</strong></div>
+          <div>
+            <label
+              >背景
+              <select id="background">
+                <option value="garden">薄荷</option>
+                <option value="checker">透明棋盘</option>
+                <option value="dark">深色</option>
+              </select></label
+            ><button id="reset">回到中央</button>
+          </div>
+        </div>
+        <div class="stage" id="stage">
+          <div class="stage-label">动作预览 <span>点击空白处设置移动目标</span></div>
+          <canvas id="canvas" aria-label="皮皮动画预览"></canvas
+          ><span id="target" class="target" hidden>＋</span>
+          <div class="stage-caption">轻点皮皮：抚摸　拖动皮皮：调整位置</div>
+        </div>
+        <div class="transport">
+          <button id="play" class="primary">▶ 播放动作</button><button id="pause">暂停</button
+          ><button id="release">自然收尾</button><button id="stop">停止</button
+          ><label><input id="sustain" type="checkbox" />持续循环</label>
+        </div>
+        <div class="timeline">
+          <output id="time">0.00 / 0.00 s</output><button id="previous-frame" title="上一帧">‹</button
+          ><input
+            id="seek"
+            type="range"
+            min="0"
+            max="1000"
+            value="0"
+            step="1"
+            aria-label="动作时间轴"
+          /><button id="next-frame" title="下一帧">›</button><output id="frame">第 0 帧</output>
+        </div>
+        <div class="preview-settings">
+          <label
+            >全局速度 <input id="speed" type="range" min="0.25" max="2" value="1" step="0.05" /><output
+              id="speed-value"
+              >1×</output
+            ></label
+          ><label
+            >身体尺寸 <input id="size" type="range" min="72" max="200" value="136" step="1" /><output
+              id="size-value"
+              >136 px</output
+            ></label
+          >
+        </div>
+        <div class="cards">
+          <article>
+            <h3>去哪里玩？</h3>
+            <div class="movement">
+              <div id="directions" class="directions">
+                <button data-dir="nw">↖</button><button data-dir="n">↑</button
+                ><button data-dir="ne">↗</button><button data-dir="w">←</button><span>方向</span
+                ><button data-dir="e">→</button><button data-dir="sw">↙</button
+                ><button data-dir="s">↓</button><button data-dir="se">↘</button>
+              </div>
+              <div>
+                <select id="move-mode">
+                  <option value="walk">走过去</option>
+                  <option value="flight">飞过去</option></select
+                ><button id="move-target">前往目标</button>
+                <p class="hint">按真实位移选择八方向姿势。</p>
+              </div>
+            </div>
+          </article>
+          <article>
+            <h3>自由活动</h3>
+            <label>间隔 <input id="free-delay" type="number" min="1" max="60" value="3" /> 秒起</label
+            ><button id="free">开始自由活动</button>
+            <p class="hint">表情留在原地，走路和飞行会移动。</p>
+          </article>
+          <article>
+            <h3>互动组合</h3>
+            <button id="welcome">说一句欢迎语</button><button id="reward">跳跃 → 说话 → 长大</button
+            ><label><input id="mouth" type="checkbox" />单独张合鸟喙</label>
+          </article>
+        </div>
+        <div class="feedback">
+          <span id="message" role="status">正在载入默认姿态…</span><span id="memory"></span>
+        </div>
+      </section>
+      <aside class="editor">
+        <div class="section-title">
+          <h2>动作设置</h2>
+          <span id="type" class="badge"></span>
+        </div>
+        <label>动作名称<input id="label" autocomplete="off" /></label
+        ><label
+          >动作速度<input id="action-speed" type="number" min="0.1" max="5" step="0.1" value="1" /></label
+        ><label id="hold-field">中段停留（毫秒）<input id="hold" type="number" min="0" step="100" /></label
+        ><label><input id="enabled" type="checkbox" checked />在动作库中启用</label
+        ><button id="save-fields" class="primary">保存设置</button>
+        <div class="row">
+          <button id="duplicate">复制动作</button><button id="delete" class="danger">删除</button>
+        </div>
+        <details open>
+          <summary>完整动作定义</summary>
+          <p class="hint">可修改帧顺序、每帧时长，或用 sequence 组合多个动作。保存前会校验引用和帧边界。</p>
+          <textarea id="definition" spellcheck="false" aria-label="动作 JSON 定义"></textarea
+          ><button id="save-json">应用 JSON</button>
+        </details>
+        <details>
+          <summary>快捷接入</summary>
+          <pre id="snippet"></pre>
+          <p class="hint">Web 和小程序使用相同的动作 API。</p>
+        </details>
+        <button id="restore">恢复内置动作库</button>
+      </aside>
+    </main>
+    <script src="dist/pipi-engine.js"></script>
+    <script src="studio/studio.js"></script>
+  </body>
+</html>
