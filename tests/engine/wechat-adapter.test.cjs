@@ -149,6 +149,56 @@ function fixture() {
   };
   return { wx, canvas, disk, writes, draws, downloads, audios, requests };
 }
+test('WeChat assetPack loads the manifest and registers staged actions through the public SDK', async () => {
+  const { AssetManager, installPipiAssets } = require('../../engine');
+  const f = fixture();
+  const assets = new AssetManager({});
+  installPipiAssets(assets, '');
+  const manifest = {
+    ...assets.export(),
+    actions: [
+      {
+        id: 'packed-wave',
+        type: 'staged',
+        asset: 'base:wave',
+        stages: { open: [0], loop: [1], close: [2] },
+      },
+    ],
+  };
+  // Build output externalizes the preset's embedded PNGs into named atlas pages.
+  const images = new Map();
+  for (const asset of Object.values(manifest.assets))
+    for (const page of asset.pages)
+      if (page.file.startsWith('data:')) {
+        const bytes = Buffer.from(page.file.split(',')[1], 'base64');
+        page.file = 'packed-' + md5(bytes) + '.png';
+        images.set(page.file, bytes);
+      }
+  const download = f.wx.downloadFile;
+  f.wx.downloadFile = (options) => {
+    const bytes = images.get(new URL(options.url).pathname.split('/').at(-1));
+    if (!bytes) return download(options);
+    f.downloads.push(options.url);
+    const tempFilePath = '/tmp/packed-' + f.downloads.length;
+    f.disk.set(tempFilePath, bytes);
+    queueMicrotask(() => options.success({ statusCode: 200, tempFilePath }));
+  };
+  f.wx.request = (options) => {
+    f.requests.push(options);
+    queueMicrotask(() => options.success({ statusCode: 200, data: manifest, header: {} }));
+  };
+  const pet = createWechatPet(f.canvas(), f.wx, {
+    assetPack: 'https://assets.example/packed/',
+    autoTick: false,
+    autoBlink: false,
+  });
+  await pet.ready;
+  assert.equal(f.requests.length, 1);
+  assert.equal(f.requests[0].url, 'https://assets.example/packed/manifest.json');
+  assert.equal((await finish(pet, pet.play('packed-wave'))).status, 'finished');
+  assert(f.draws.length > 0);
+  pet.destroy();
+});
 test('WeChat adapter uses packaged PNGs offline, isolates atlas tiles, and reuses persistent files after restart', async () => {
   const f = fixture(),
     pet = createWechatPet(f.canvas(), f.wx, { width: 700, height: 600, autoTick: false, autoBlink: false });

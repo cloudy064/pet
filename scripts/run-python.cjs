@@ -1,0 +1,10 @@
+'use strict';
+const fs = require('node:fs');
+const path = require('node:path');
+const { spawnSync } = require('node:child_process');
+const root = path.resolve(__dirname, '..');
+const local = path.join(root, '.venv', process.platform === 'win32' ? 'Scripts/python.exe' : 'bin/python');
+const python = process.env.PIPI_PYTHON || (fs.existsSync(local) ? local : 'python');
+const result = spawnSync(python, process.argv.slice(2), { cwd: root, stdio: 'inherit' });
+if (result.error) console.error(result.error.message);
+process.exitCode = result.status === null ? 1 : result.status;

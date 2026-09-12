@@ -12,20 +12,24 @@ function packageEngine({ build = true, npmCli = process.env.npm_execpath } = {})
       stdio: 'inherit',
     });
   const stage = fs.mkdtempSync(path.join(os.tmpdir(), 'pipi-engine-package-'));
-  const pkg = JSON.parse(fs.readFileSync(path.join(root, 'package.json')));
-  // Consumers receive built files only and never need to execute build/install hooks.
-  delete pkg.scripts;
-  delete pkg.devDependencies;
-  for (const relative of pkg.files)
-    fs.cpSync(path.join(root, relative), path.join(stage, relative), { recursive: true });
-  fs.writeFileSync(path.join(stage, 'package.json'), JSON.stringify(pkg, null, 2));
-  const output = execFileSync(
-    process.execPath,
-    [npmCli, 'pack', stage, '--pack-destination', root, '--json', '--ignore-scripts'],
-    { cwd: root, encoding: 'utf8', stdio: ['ignore', 'pipe', 'inherit'] }
-  );
-  const data = JSON.parse(output);
-  return Array.isArray(data) ? data[0] : data[pkg.name];
+  try {
+    const pkg = JSON.parse(fs.readFileSync(path.join(root, 'package.json')));
+    // Consumers receive built files only and never need to execute build/install hooks.
+    delete pkg.scripts;
+    delete pkg.devDependencies;
+    for (const relative of pkg.files)
+      fs.cpSync(path.join(root, relative), path.join(stage, relative), { recursive: true });
+    fs.writeFileSync(path.join(stage, 'package.json'), JSON.stringify(pkg, null, 2));
+    const output = execFileSync(
+      process.execPath,
+      [npmCli, 'pack', stage, '--pack-destination', root, '--json', '--ignore-scripts'],
+      { cwd: root, encoding: 'utf8', stdio: ['ignore', 'pipe', 'inherit'] }
+    );
+    const data = JSON.parse(output);
+    return Array.isArray(data) ? data[0] : data[pkg.name];
+  } finally {
+    fs.rmSync(stage, { recursive: true, force: true });
+  }
 }
 module.exports = packageEngine;
 if (require.main === module) {

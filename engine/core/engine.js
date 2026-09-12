@@ -13,6 +13,12 @@ class PipiEngine extends EventEmitter {
   constructor(options = {}) {
     super();
     if (!options.adapter) throw new TypeError('Provide a WebAdapter or WechatAdapter');
+    if (options.assetPack !== undefined) {
+      if (typeof options.assetPack !== 'string' || !options.assetPack.trim())
+        throw new TypeError('assetPack must be a resource directory URL');
+      if (options.manifest || options.assets || options.assetBaseURL !== undefined)
+        throw new TypeError('Use assetPack alone, without manifest, assets or assetBaseURL');
+    }
     this.adapter = options.adapter;
     this.options = options;
     this.destroyed = false;
@@ -47,12 +53,17 @@ class PipiEngine extends EventEmitter {
     this.assets =
       options.assets ||
       new AssetManager(this.adapter, { maxBytes: options.maxMemoryBytes || 48 * 1024 * 1024 });
-    this.assetBaseURL = options.assetBaseURL || DEFAULT_ASSET_BASE;
-    if (options.preset !== false) installPipiAssets(this.assets, this.assetBaseURL);
+    this.assetBaseURL =
+      options.assetPack !== undefined
+        ? options.assetPack.replace(/\/+$/, '') || '/'
+        : options.assetBaseURL || DEFAULT_ASSET_BASE;
+    if (options.preset !== false && options.assetPack === undefined)
+      installPipiAssets(this.assets, this.assetBaseURL);
     if (options.manifest) this.assets.import(options.manifest, { baseURL: this.assetBaseURL });
     this.actions = options.actions || new ActionRegistry(options.preset === false ? [] : DEFAULT_ACTIONS);
     this.actions.assetResolver = (id) => this.assets.get(id);
-    for (const action of this.actions.list()) this.actions.validate(action);
+    if (options.assetPack === undefined)
+      for (const action of this.actions.list()) this.actions.validate(action);
     this.plans = new PlanFactory();
     this.renderer = new CanvasRenderer(this.adapter);
     this.renderer.resize(this.width, this.height, this.dpr);
@@ -76,6 +87,16 @@ class PipiEngine extends EventEmitter {
     this.ready.catch((error) => this.emit('error', { error, phase: 'initialize' }));
   }
   async initialize() {
+    if (this.options.assetPack !== undefined) {
+      const manifest = await this.assets.refresh(this.assetBaseURL, { replace: true });
+      this.ensureAlive();
+      // The build output includes companion action metadata as well as shared sprites.
+      if (manifest.actions) {
+        const { installCompanionAnimations } = require('../companion/animations');
+        installCompanionAnimations(this, manifest, { baseURL: this.assetBaseURL });
+      }
+      for (const action of this.actions.list()) this.actions.validate(action);
+    }
     const keys = ['base:idle'];
     if (this.assets.has('base:talk')) keys.push('base:talk');
     const lease = await this.assets.acquire(keys);
@@ -242,7 +263,8 @@ class PipiEngine extends EventEmitter {
       playback.duration = plan.duration;
       const keys = [...plan.assetIds, 'base:idle'];
       if (this.assets.has('base:talk')) keys.push('base:talk');
-      const lease = await this.assets.acquire(keys);
+      playback.loadController = typeof AbortController === 'function' ? new AbortController() : null;
+      const lease = await this.assets.acquire(keys, { signal: playback.loadController?.signal });
       if (this.current !== playback || this.destroyed) {
         lease.release();
         return;
@@ -252,8 +274,8 @@ class PipiEngine extends EventEmitter {
       this.status = 'playing';
       this.idleTime = 0;
       if (playback.wantsRelease) this.release(playback);
-      playback._ready.resolve({ status: 'ready', action: playback.action });
       this.draw();
+      playback._ready.resolve({ status: 'ready', action: playback.action });
       this.emit('start', { playback, action: playback.action });
       this.schedule();
     } catch (error) {
@@ -264,6 +286,7 @@ class PipiEngine extends EventEmitter {
   }
   finish(playback, status, detail = {}) {
     if (playback !== this.current) return;
+    playback.loadController?.abort();
     if (this.speech && this.speech.playback === playback) this.stopSpeech(status);
     if (playback.lease) playback.lease.release();
     this.current = null;
@@ -366,6 +389,7 @@ class PipiEngine extends EventEmitter {
     return this;
   }
   setVisible(visible) {
+    const changed = this.visible !== !!visible;
     this.visible = !!visible;
     this.pointerCancel();
     this.lastTime = null;
@@ -376,6 +400,7 @@ class PipiEngine extends EventEmitter {
       if (!this.paused && this.speech && this.speech.audio) this.playAudio(this.speech);
       this.schedule();
     }
+    if (changed) this.emit('visibility', { visible: this.visible });
     return this;
   }
   halt() {
@@ -411,7 +436,8 @@ class PipiEngine extends EventEmitter {
     this.time += dt;
     if (this.tap && this.time >= this.tap.at) {
       this.tap = null;
-      if (this.actions.has('pet')) {
+      if (this.options.interactionMode === 'events') this.emit('interaction', { type: 'tap' });
+      else if (this.actions.has('pet')) {
         if (this.options.interactionAudio) this.speak(this.options.interactionAudio, { gesture: 'pet' });
         else this.play('pet');
       }
@@ -466,7 +492,7 @@ class PipiEngine extends EventEmitter {
       mouthAsset = lease.assets.get('base:talk');
     const mouthTimes = mouthAsset ? mouthAsset.definition.durations : null;
     const mouth =
-      mouthTimes && (speaking || activeWave)
+      mouthTimes && (!playback || playback.definition.allowSpeech !== false) && (speaking || activeWave)
         ? { frame: speaking ? frameAt(mouthTimes, this.time % mouthTimes.reduce((a, b) => a + b, 0)) : 0 }
         : null;
     const state = {
@@ -562,13 +588,32 @@ class PipiEngine extends EventEmitter {
     actions = ['blink', 'wink', 'curious', 'wave', 'pet', 'jump', 'walk', 'flight'],
     minDelay = 3000,
     maxDelay = 6000,
+    weights = {},
+    avoidRepeat = false,
   } = {}) {
     positive(minDelay, 'Minimum delay');
     positive(maxDelay, 'Maximum delay');
     if (maxDelay < minDelay) throw new RangeError('Maximum delay is smaller than minimum');
     if (!actions.length || actions.some((id) => !this.actions.has(id)))
       throw new TypeError('Choose registered free actions');
-    this.free = { actions: [...actions], minDelay, maxDelay, next: this.time + minDelay };
+    if (
+      !weights ||
+      typeof weights !== 'object' ||
+      Array.isArray(weights) ||
+      typeof avoidRepeat !== 'boolean' ||
+      Object.values(weights).some((n) => !Number.isFinite(n) || n < 0) ||
+      !actions.some((id) => (weights[id] === undefined ? 1 : weights[id]) > 0)
+    )
+      throw new TypeError('Free action weights must be non-negative with at least one positive weight');
+    this.free = {
+      actions: [...new Set(actions)],
+      minDelay,
+      maxDelay,
+      weights: { ...weights },
+      avoidRepeat,
+      last: null,
+      next: this.time + minDelay,
+    };
     this.emit('freemode', true);
     return this;
   }
@@ -579,15 +624,28 @@ class PipiEngine extends EventEmitter {
     return this;
   }
   runFree() {
-    const candidates = this.free.actions.filter(
-      (id) => this.actions.has(id) && this.actions.get(id).enabled !== false
+    let candidates = this.free.actions.filter(
+      (id) =>
+        this.actions.has(id) &&
+        this.actions.get(id).enabled !== false &&
+        (this.free.weights[id] === undefined ? 1 : this.free.weights[id]) > 0
     );
     if (!candidates.length) {
       this.stopFree();
       return;
     }
-    const id = candidates[Math.floor(this.random() * candidates.length)],
+    if (this.free.avoidRepeat && candidates.length > 1)
+      candidates = candidates.filter((id) => id !== this.free.last);
+    const weight = (id) => (this.free.weights[id] === undefined ? 1 : this.free.weights[id]);
+    const largest = Math.max(...candidates.map(weight));
+    let selection = this.random() * candidates.reduce((sum, id) => sum + weight(id) / largest, 0);
+    const id =
+        candidates.find((id) => {
+          selection -= weight(id) / largest;
+          return selection < 0;
+        }) || candidates[candidates.length - 1],
       action = this.actions.get(id);
+    this.free.last = id;
     if (['walk', 'flight'].includes(action.type)) {
       const b = this.bounds({ lift: action.type === 'flight' ? (this.size * 86) / 240 : 0 }),
         to = {
@@ -602,7 +660,8 @@ class PipiEngine extends EventEmitter {
     } else this.play(id);
   }
   pointerDown(point) {
-    if (this.destroyed || this.paused || !this.visible || this.pointer) return;
+    if (this.destroyed || this.paused || !this.visible || this.pointer || this.options.interactionLocked)
+      return;
     finite(point.x, 'Pointer x');
     finite(point.y, 'Pointer y');
     if (!this.hitTest(point)) return false;
@@ -615,6 +674,7 @@ class PipiEngine extends EventEmitter {
       origin: { ...this.position },
       moved: false,
     };
+    this.emit('interaction', { type: 'down', point: { ...point } });
     return true;
   }
   hitTest(point) {
@@ -637,12 +697,43 @@ class PipiEngine extends EventEmitter {
       });
     });
   }
+  /** Approximate body regions of the bundled Pipi sprites, in canvas coordinates. */
+  hitTestPart(point) {
+    finite(point.x, 'Pointer x');
+    finite(point.y, 'Pointer y');
+    const sample = this.lastState;
+    if (this.destroyed || !sample || !this.hitTest(point)) return null;
+    const canvas = this.adapter.canvas,
+      ctx = canvas.getContext('2d');
+    // Reject transparent padding before classifying the body region. Read the
+    // composed frame so patches, atlas offsets and WebP trimming stay aligned.
+    if (typeof ctx.getImageData === 'function') {
+      const x = Math.floor((point.x * canvas.width) / this.width),
+        y = Math.floor((point.y * canvas.height) / this.height);
+      if (x < 0 || y < 0 || x >= canvas.width || y >= canvas.height) return null;
+      try {
+        if (ctx.getImageData(x, y, 1, 1).data[3] < 32) return null;
+      } catch (_) {
+        // A tainted canvas cannot provide a trustworthy pixel hit.
+        return null;
+      }
+    }
+    const x = Math.abs((point.x - sample.x) / sample.size),
+      y = (point.y - (sample.y - (sample.altitude || 0) - sample.size)) / sample.size;
+    if (y >= 0.9 && x < 0.32) return 'feet';
+    if (x > 0.4 || (y >= 0.59 && x > 0.16)) return 'wings';
+    if (y < 0.59) return 'head';
+    return 'belly';
+  }
   pointerMove(point) {
     const pointer = this.pointer;
     if (!pointer || pointer.id !== point.id) return;
     const dx = point.x - pointer.start.x,
       dy = point.y - pointer.start.y;
-    if (Math.hypot(dx, dy) > 8) pointer.moved = true;
+    if (Math.hypot(dx, dy) > 8 && !pointer.moved) {
+      pointer.moved = true;
+      this.emit('interaction', { type: 'dragstart' });
+    }
     if (pointer.moved) {
       this.position = this.constrain({ x: pointer.origin.x + dx, y: pointer.origin.y + dy });
       this.draw();
@@ -654,6 +745,9 @@ class PipiEngine extends EventEmitter {
     if (!pointer || pointer.id !== point.id) return;
     this.pointer = null;
     if (!pointer.moved && !this.doubleTap) this.tap = { at: this.time + 350 };
+    if (!pointer.moved && this.doubleTap && this.options.interactionMode === 'events')
+      this.emit('interaction', { type: 'doubletap' });
+    if (pointer.moved) this.emit('interaction', { type: 'dragend' });
     this.doubleTap = false;
   }
   pointerCancel() {
@@ -727,8 +821,7 @@ class PipiEngine extends EventEmitter {
       throw error;
     }
   }
-  async preload(ids) {
-    await this.ready;
+  actionAssetIds(ids) {
     const keys = [];
     const collect = (id) => {
       const action = this.actions.get(id);
@@ -743,7 +836,17 @@ class PipiEngine extends EventEmitter {
       keys.push(...this.plans.build(action, {}, this.context()).assetIds);
     };
     for (const id of ids) collect(id);
-    const lease = await this.assets.acquire(keys);
+    return [...new Set(keys)];
+  }
+  async predownload(ids, options = {}) {
+    await this.ready;
+    this.ensureAlive();
+    return this.assets.predownload(this.actionAssetIds(ids), options);
+  }
+  async preload(ids) {
+    await this.ready;
+    this.ensureAlive();
+    const lease = await this.assets.acquire(this.actionAssetIds(ids));
     lease.release();
     return this.assets.stats();
   }
@@ -759,12 +862,13 @@ class PipiEngine extends EventEmitter {
       for (const [id, asset] of Object.entries(updates)) {
         if (
           this.options.preset !== false &&
+          this.options.assetPack === undefined &&
           ['base:idle', 'base:wave', 'base:talk', 'point:right'].includes(id)
         )
           continue;
         project.assets[id] = asset;
       }
-      if (this.options.preset !== false && updates['flight:hover'])
+      if (this.options.preset !== false && this.options.assetPack === undefined && updates['flight:hover'])
         for (const key of ['flight:up', 'flight:down'])
           project.assets[key] = {
             ...copy(updates['flight:hover']),

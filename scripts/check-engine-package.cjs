@@ -22,10 +22,18 @@ for (const needed of [
   'dist/pipi-engine.js',
   'dist/miniprogram/index.js',
   'dist/miniprogram/component/index.wxml',
+  'dist/companion/index.cjs',
+  'dist/companion/index.mjs',
+  'dist/companion/index.d.ts',
+  'dist/miniprogram/companion.js',
+  'dist/pipi-companion.js',
   'docs/ENGINE_API.md',
   'docs/ENGINE_INTEGRATION.md',
+  'docs/PET_COMPANION_API.md',
 ])
   if (!packed.files.some((f) => f.path === needed)) throw Error('Missing package file: ' + needed);
+if (packed.files.some((f) => /^dist\/(optimized-|\.pipi-opt-)/.test(f.path)))
+  throw Error('Generated optimization packs must be exported separately, not bundled in the SDK');
 if (packed.files.some((f) => f.path.startsWith('node_modules/') || /\.env|C:\\Users|edge-/.test(f.path)))
   throw Error('Unexpected machine files in package');
 const consumer = fs.mkdtempSync(path.join(os.tmpdir(), 'pipi-engine-consumer-'));
@@ -39,6 +47,7 @@ fs.writeFileSync(path.join(consumer, 'check.cjs'), cjs);
 execFileSync(process.execPath, ['check.cjs'], { cwd: consumer, stdio: 'inherit' });
 const playbackCheck = `
 const {PipiEngine}=require('@cloudy064/pipi-engine');
+const {PetCompanion,createMemoryStore,growthHeight}=require('@cloudy064/pipi-engine/companion');
 const assert=require('node:assert/strict');
 (async()=>{
   const ctx={setTransform(){},clearRect(){},drawImage(){}};
@@ -46,13 +55,16 @@ const assert=require('node:assert/strict');
   const pet=new PipiEngine({adapter,autoTick:false,autoBlink:false});await pet.ready;
   const wave=pet.play('wave');await wave.ready;pet.stepFrame(1);assert.equal(pet.snapshot().frame,1);
   pet.resume();pet.update(wave.duration+1);assert.equal((await wave).status,'finished');
-  pet.destroy();assert.equal(pet.assets.stats().bytes,0);console.log('Installed package playback and disposal: PASS');
+  const companion=new PetCompanion(pet,{storage:createMemoryStore(),mode:'learning'});await companion.ready;
+  await companion.handleEvent({id:'installed-task',type:'taskCompleted',revision:1});assert.equal(companion.state.growthPoints,1);
+  companion.setMode('home');assert.equal(pet.size,growthHeight(1));companion.destroy();
+  pet.destroy();await new Promise(resolve=>setImmediate(resolve));assert.equal(pet.assets.stats().bytes,0);console.log('Installed package playback and disposal: PASS');
 })().catch(error=>{console.error(error);process.exitCode=1;});`;
 fs.writeFileSync(path.join(consumer, 'play.cjs'), playbackCheck);
 execFileSync(process.execPath, ['play.cjs'], { cwd: consumer, stdio: 'inherit' });
 fs.writeFileSync(
   path.join(consumer, 'check.mjs'),
-  `import {createWebPet,AnimationPlan,DEFAULT_ACTIONS} from '@cloudy064/pipi-engine'; if(typeof createWebPet!=='function'||!DEFAULT_ACTIONS.length||!(new AnimationPlan()))throw Error('ESM exports'); console.log('ESM consumer import: PASS');`
+  `import {createWebPet,AnimationPlan,DEFAULT_ACTIONS} from '@cloudy064/pipi-engine'; import {PetCompanion,growthHeight} from '@cloudy064/pipi-engine/companion'; if(typeof createWebPet!=='function'||!DEFAULT_ACTIONS.length||!(new AnimationPlan())||typeof PetCompanion!=='function'||growthHeight(0)!==58)throw Error('ESM exports'); console.log('ESM consumer import: PASS');`
 );
 execFileSync(process.execPath, ['check.mjs'], { cwd: consumer, stdio: 'inherit' });
 const entry = fs.readFileSync(
@@ -63,6 +75,44 @@ const entry = fs.readFileSync(
 vm.runInNewContext(entry, sandbox, { timeout: 5000 });
 if (typeof sandbox.module.exports.createWechatPet !== 'function')
   throw Error('WeChat entry depends on missing globals');
+const companionSandbox = { module: { exports: {} }, exports: {} };
+vm.runInNewContext(
+  fs.readFileSync(
+    path.join(consumer, 'node_modules/@cloudy064/pipi-engine/dist/miniprogram/companion.js'),
+    'utf8'
+  ),
+  companionSandbox,
+  { timeout: 5000 }
+);
+if (typeof companionSandbox.module.exports.PetCompanion !== 'function')
+  throw Error('WeChat companion entry depends on missing globals');
+fs.writeFileSync(
+  path.join(consumer, 'companion-types.ts'),
+  `
+import {createWebPet} from '@cloudy064/pipi-engine';
+import {PetCompanion,createWebStore} from '@cloudy064/pipi-engine/companion';
+const pet=createWebPet(document.createElement('canvas'));
+const companion=new PetCompanion(pet,{storage:createWebStore(localStorage)});
+companion.handleEvent({id:'task',type:'taskCompleted',revision:1});
+companion.setMode('learning');
+`
+);
+execFileSync(
+  process.execPath,
+  [
+    require.resolve('typescript/bin/tsc'),
+    '--strict',
+    '--noEmit',
+    '--target',
+    'es2020',
+    '--module',
+    'Node16',
+    '--moduleResolution',
+    'Node16',
+    'companion-types.ts',
+  ],
+  { cwd: consumer, stdio: 'inherit' }
+);
 const bundle = require('esbuild').buildSync({
   stdin: {
     contents:

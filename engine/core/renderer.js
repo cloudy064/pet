@@ -12,19 +12,47 @@ class CanvasRenderer {
     this.maxTileBytes = 8 * 1024 * 1024;
   }
   isolate(asset, tileIndex) {
-    const key = asset.key + '/' + tileIndex;
+    const t = asset.definition.tiles[tileIndex];
+    const sampling = asset.definition.tileSampling?.[tileIndex];
+    const placement = asset.definition.tileRects?.[tileIndex];
+    const snap = (value) => (Math.abs(value - Math.round(value)) < 1e-7 ? Math.round(value) : value);
+    const destination = sampling
+      ? [
+          snap(((placement.x - sampling.rect.x) / sampling.rect.w) * sampling.width),
+          snap(((placement.y - sampling.rect.y) / sampling.rect.h) * sampling.height),
+          snap((placement.w / sampling.rect.w) * sampling.width),
+          snap((placement.h / sampling.rect.h) * sampling.height),
+        ]
+      : [0, 0, t[3], t[4]];
+    const pageKey = asset.pageHandles?.[t[0]]?.key || asset.key;
+    const key =
+      pageKey +
+      '/' +
+      t.join(',') +
+      (sampling ? '/' + [sampling.width, sampling.height, ...destination].join(',') : '');
     if (this.tiles.has(key)) {
       const item = this.tiles.get(key);
       this.tiles.delete(key);
       this.tiles.set(key, item);
       return item;
     }
-    const t = asset.definition.tiles[tileIndex],
-      canvas = this.adapter.createCanvas && this.adapter.createCanvas(t[3] + 2, t[4] + 2);
-    if (!canvas) return { image: asset.images[t[0]], x: t[1], y: t[2] };
+    const canvas =
+      this.adapter.createCanvas &&
+      this.adapter.createCanvas((sampling?.width || t[3]) + 2, (sampling?.height || t[4]) + 2);
+    if (!canvas) return { image: asset.images[t[0]], x: t[1], y: t[2], tight: true };
     const ctx = canvas.getContext('2d');
     ctx.imageSmoothingEnabled = false;
-    ctx.drawImage(asset.images[t[0]], t[1], t[2], t[3], t[4], 1, 1, t[3], t[4]);
+    ctx.drawImage(
+      asset.images[t[0]],
+      t[1],
+      t[2],
+      t[3],
+      t[4],
+      1 + destination[0],
+      1 + destination[1],
+      destination[2],
+      destination[3]
+    );
     const bytes = canvas.width * canvas.height * 4,
       item = { image: canvas, x: 1, y: 1, bytes };
     this.tiles.set(key, item);
@@ -71,21 +99,37 @@ class CanvasRenderer {
         t = m.tiles[m.frameMap[frame]],
         z = state.size / m.subjectHeight;
       if (!t) return;
-      const r = region || c,
-        x = state.x + (r.x - m.anchor.x) * z,
-        y = state.y - (state.altitude || 0) + (r.y - m.anchor.y) * z;
-      if (replace) ctx.clearRect(x, y, r.w * z, r.h * z);
       const source = this.isolate(asset, m.frameMap[frame]);
+      const sampling = !source.tight && m.tileSampling?.[m.frameMap[frame]];
+      const placement = sampling ? sampling.rect : m.tileRects ? m.tileRects[m.frameMap[frame]] : c;
+      const pixelWidth = sampling ? sampling.width : t[3],
+        pixelHeight = sampling ? sampling.height : t[4];
+      const requested = region || (sampling ? sampling.rect : c);
+      const left = Math.max(requested.x, placement.x),
+        top = Math.max(requested.y, placement.y);
+      const right = Math.min(requested.x + requested.w, placement.x + placement.w);
+      const bottom = Math.min(requested.y + requested.h, placement.y + placement.h);
+      const x = state.x + (left - m.anchor.x) * z;
+      const y = state.y - (state.altitude || 0) + (top - m.anchor.y) * z;
+      // A sparse patch must also erase pixels that disappeared after transparent trimming.
+      if (replace)
+        ctx.clearRect(
+          state.x + (requested.x - m.anchor.x) * z,
+          state.y - (state.altitude || 0) + (requested.y - m.anchor.y) * z,
+          requested.w * z,
+          requested.h * z
+        );
+      if (right <= left || bottom <= top) return;
       ctx.drawImage(
         source.image,
-        source.x + ((r.x - c.x) * t[3]) / c.w,
-        source.y + ((r.y - c.y) * t[4]) / c.h,
-        (r.w * t[3]) / c.w,
-        (r.h * t[4]) / c.h,
+        source.x + ((left - placement.x) * pixelWidth) / placement.w,
+        source.y + ((top - placement.y) * pixelHeight) / placement.h,
+        ((right - left) * pixelWidth) / placement.w,
+        ((bottom - top) * pixelHeight) / placement.h,
         x,
         y,
-        r.w * z,
-        r.h * z
+        (right - left) * z,
+        (bottom - top) * z
       );
     };
     let painted = false;

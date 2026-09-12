@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>你好，皮皮 · SDK Demo</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <span class="badge">PIPI · SDK DEMO</span>
+        <h1>你好，皮皮。</h1>
+        <p>点一个动作，和这只小鸟打个招呼。</p>
+      </header>
+      <section class="card" aria-label="皮皮互动演示">
+        <div class="stage">
+          <div class="sun"></div>
+          <canvas id="pet" aria-label="皮皮动画"></canvas><span class="stage-label">皮皮的小天地</span>
+        </div>
+        <div class="panel">
+          <p id="status" role="status" aria-live="polite">正在准备皮皮，动作图片会按需加载……</p>
+          <div class="actions">
+            <button data-action="wave" disabled>招招手</button
+            ><button data-action="jump" disabled>跳一跳</button>
+            <button data-action="nod" disabled>点点头</button
+            ><button data-action="dance" disabled>跳支舞</button>
+            <button data-action="stretch" disabled>伸懒腰</button
+            ><button data-action="kiss" disabled>亲一下</button>
+          </div>
+          <div class="settings">
+            <label
+              >播放速度
+              <select id="speed" disabled>
+                <option value="0.5">0.5×</option>
+                <option value="1" selected>1×</option>
+                <option value="1.5">1.5×</option>
+              </select></label
+            ><button id="pause" disabled>暂停</button><button id="stop" disabled>回到站姿</button>
+          </div>
+        </div>
+      </section>
+      <details>
+        <summary>查看最小接入代码</summary>
+        <pre><code>const pet = Pipi.createWebPet(canvas, {
+  assetPack: '/dist/optimized-webp-frames',
+});
+await pet.ready;
+await pet.play('wave');
+
+// 页面卸载时释放资源
+pet.destroy();</code></pre>
+        <p>图集加载、动作注册、共享帧与位置偏移都由 SDK 处理。</p>
+      </details>
+      <footer>
+        一个 Canvas，一份资源包，就可以开始。<br /><a href="/examples/optimization/?profile=webp"
+          >查看全部 WebP 动作</a
+        >
+      </footer>
+    </main>
+    <script src="../../dist/pipi-engine.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>

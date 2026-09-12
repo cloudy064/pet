@@ -1,0 +1,249 @@
+{
+  "version": 1,
+  "tool": "built-in image_gen",
+  "reference": "../../pipi-idle.png",
+  "prompts": "prompts.json",
+  "status": "Unmodified source artifacts. Runtime output, build hashes and validation are in the parent directory.",
+  "entries": [
+    {
+      "id": "nod",
+      "file": "nod-v1.png",
+      "label": "点头",
+      "sha256": "80988c8baa6f8af8f39ae44756c5753b93de582cb035b6709758cd5dcdea3b00",
+      "width": 1086,
+      "height": 1448,
+      "colorType": 2,
+      "grid": {
+        "columns": 4,
+        "rows": 4
+      },
+      "status": "source-only",
+      "background": "checkerboard"
+    },
+    {
+      "id": "sleep",
+      "file": "sleep-v1.png",
+      "label": "睡觉",
+      "sha256": "a22357be5d8774d197713e58b1e9ea22cca0c550f85c7f592e139a1a63ea4820",
+      "width": 1086,
+      "height": 1448,
+      "colorType": 2,
+      "grid": {
+        "columns": 4,
+        "rows": 4
+      },
+      "status": "source-only",
+      "background": "checkerboard"
+    },
+    {
+      "id": "stretch",
+      "file": "stretch-v1.png",
+      "label": "伸懒腰",
+      "sha256": "a5af48243c96f33da90eeaa8a2fc0d91d3520477e10789a8f526b396d33b54c1",
+      "width": 1086,
+      "height": 1448,
+      "colorType": 2,
+      "grid": {
+        "columns": 4,
+        "rows": 4
+      },
+      "status": "source-only",
+      "background": "magenta"
+    },
+    {
+      "id": "eatSeed",
+      "file": "eatSeed-v1.png",
+      "label": "吃葵花籽",
+      "sha256": "55b845c6fab3cbe64f2c13390628ace90dcddd30a42d91ffb84934e8ecd8f9c2",
+      "width": 1086,
+      "height": 1448,
+      "colorType": 2,
+      "grid": {
+        "columns": 4,
+        "rows": 4
+      },
+      "status": "source-only",
+      "background": "magenta"
+    },
+    {
+      "id": "bath",
+      "file": "bath-v1.png",
+      "label": "洗澡",
+      "sha256": "dfddfae9ab46f65800dba179f347bd20253b644da173e812cbd0860078089bca",
+      "width": 1086,
+      "height": 1448,
+      "colorType": 2,
+      "grid": {
+        "columns": 4,
+        "rows": 4
+      },
+      "status": "source-only",
+      "background": "magenta"
+    },
+    {
+      "id": "scratch",
+      "file": "scratch-v1.png",
+      "label": "挠痒痒",
+      "sha256": "1157c80e783beca6c6f04ae92f5874a51efc96f55a4ab7c5504becaa90b5f601",
+      "width": 1086,
+      "height": 1448,
+      "colorType": 2,
+      "grid": {
+        "columns": 4,
+        "rows": 4
+      },
+      "status": "source-only",
+      "background": "magenta"
+    },
+    {
+      "id": "kiss",
+      "file": "kiss-v1.png",
+      "label": "鸟吻",
+      "sha256": "7bdc5947849f253677542a5327b777d58b566c02f067f2736aab35adeedd65e8",
+      "width": 1086,
+      "height": 1448,
+      "colorType": 2,
+      "grid": {
+        "columns": 4,
+        "rows": 4
+      },
+      "status": "source-only",
+      "background": "magenta"
+    },
+    {
+      "id": "preen",
+      "file": "preen-v1.png",
+      "label": "理毛",
+      "sha256": "ecd0b591a806210496b628c303ac1de90989065d56bf168c0a86a581320cfe46",
+      "width": 1086,
+      "height": 1448,
+      "colorType": 2,
+      "grid": {
+        "columns": 4,
+        "rows": 4
+      },
+      "status": "source-only",
+      "background": "magenta"
+    },
+    {
+      "id": "standOneFoot",
+      "file": "standOneFoot-v1.png",
+      "label": "单脚站立",
+      "sha256": "77caa3b7f3c09b843bcff591b0baa06cffac5df4ba80ddce9f5823b6ffe56a20",
+      "width": 1086,
+      "height": 1448,
+      "colorType": 2,
+      "grid": {
+        "columns": 4,
+        "rows": 4
+      },
+      "status": "source-only",
+      "background": "magenta"
+    },
+    {
+      "id": "lookAround",
+      "file": "lookAround-v1.png",
+      "label": "转眼观察",
+      "sha256": "75561bb237ce3baa051510a68aa1913cea130727a9521c038c085754d70a728c",
+      "width": 1086,
+      "height": 1448,
+      "colorType": 2,
+      "grid": {
+        "columns": 4,
+        "rows": 4
+      },
+      "status": "source-only",
+      "background": "magenta"
+    },
+    {
+      "id": "dance",
+      "file": "dance-v1.png",
+      "label": "跳舞",
+      "sha256": "fc2d010da91b9338e44b5952d02670bc264df2f5f00d2edd4784fa463b6f683d",
+      "width": 1086,
+      "height": 1448,
+      "colorType": 2,
+      "grid": {
+        "columns": 4,
+        "rows": 4
+      },
+      "status": "source-only",
+      "background": "magenta"
+    },
+    {
+      "id": "flap",
+      "file": "flap-v1.png",
+      "label": "原地扑翅",
+      "sha256": "2d870dde6d5cfa19532ee2c783a697f0a29e871de13dfbbe94a42b7b91d6930b",
+      "width": 1086,
+      "height": 1448,
+      "colorType": 2,
+      "grid": {
+        "columns": 4,
+        "rows": 4
+      },
+      "status": "source-only",
+      "background": "magenta"
+    },
+    {
+      "id": "sneeze",
+      "file": "sneeze-v1.png",
+      "label": "打喷嚏",
+      "sha256": "2d9a96bca809497d3622df0719dfaaab66914ecfb977e662ae0280eebb69eb89",
+      "width": 1086,
+      "height": 1448,
+      "colorType": 2,
+      "grid": {
+        "columns": 4,
+        "rows": 4
+      },
+      "status": "source-only",
+      "background": "magenta"
+    },
+    {
+      "id": "hiccup",
+      "file": "hiccup-v1.png",
+      "label": "打嗝",
+      "sha256": "6b78c5e418843f800e898be5caf99b3eab7707164b271df99140f30617d052d3",
+      "width": 1086,
+      "height": 1448,
+      "colorType": 2,
+      "grid": {
+        "columns": 4,
+        "rows": 4
+      },
+      "status": "source-only",
+      "background": "magenta"
+    },
+    {
+      "id": "fart",
+      "file": "fart-v1.png",
+      "label": "害羞小插曲",
+      "sha256": "547d4eeea5b6caf141cb47e468adf2c341ba9b75a33815f6f4bf6dd811ee07a8",
+      "width": 1086,
+      "height": 1448,
+      "colorType": 2,
+      "grid": {
+        "columns": 4,
+        "rows": 4
+      },
+      "status": "source-only",
+      "background": "magenta"
+    },
+    {
+      "id": "beakWipe",
+      "file": "beakWipe-v1.png",
+      "label": "磨嘴",
+      "sha256": "039adb802a9fb0b5c58a6107091114053c4519ad358ff4e1fdb161c32255e1ca",
+      "width": 1086,
+      "height": 1448,
+      "colorType": 2,
+      "grid": {
+        "columns": 4,
+        "rows": 4
+      },
+      "status": "source-only",
+      "background": "magenta"
+    }
+  ]
+}

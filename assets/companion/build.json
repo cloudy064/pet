@@ -1,0 +1,342 @@
+{
+  "version": 1,
+  "canvas": [
+    320,
+    256
+  ],
+  "subjectHeight": 216,
+  "anchor": [
+    160,
+    244
+  ],
+  "actions": [
+    {
+      "id": "nod",
+      "sourceSHA256": "80988c8baa6f8af8f39ae44756c5753b93de582cb035b6709758cd5dcdea3b00",
+      "masterSHA256": "633373564fb5407032dc62d75536e469ac298896ed423fb76bb6e70ee38c03d7",
+      "frames": 33,
+      "keyPoses": 16,
+      "scale": 0.6585365853658537,
+      "decodedBytes": 4979376,
+      "pages": [
+        {
+          "file": "runtime/nod-0.png",
+          "width": 906,
+          "height": 1374,
+          "md5": "a7c6b1b27e6eb9c428e26809a7f3a10e",
+          "bytes": 1574576,
+          "sha256": "047c3f7b8d0cf1f52106b62cb5436699f70135975a890d2244c32ab524cfe3de"
+        }
+      ]
+    },
+    {
+      "id": "sleep",
+      "sourceSHA256": "a22357be5d8774d197713e58b1e9ea22cca0c550f85c7f592e139a1a63ea4820",
+      "masterSHA256": "1294085ddd47abf3a504633464cfc3d32384bf9ab8765db3426816fb91613e51",
+      "frames": 33,
+      "keyPoses": 16,
+      "scale": 0.6136363636363636,
+      "decodedBytes": 5276160,
+      "pages": [
+        {
+          "file": "runtime/sleep-0.png",
+          "width": 960,
+          "height": 1374,
+          "md5": "0fee0b3962feef0a59843f60da3dd530",
+          "bytes": 1535144,
+          "sha256": "2d44ea1ffbd3e1e2f10c6a68a0e8b035a1e46acf64a6c2f06add83f9f7580d55"
+        }
+      ]
+    },
+    {
+      "id": "stretch",
+      "sourceSHA256": "a5af48243c96f33da90eeaa8a2fc0d91d3520477e10789a8f526b396d33b54c1",
+      "masterSHA256": "bd2832cc6bef47c505d7169e09c2555ec91775c06937b90c1c789d11e1009a4f",
+      "frames": 33,
+      "keyPoses": 16,
+      "scale": 0.72,
+      "decodedBytes": 6586272,
+      "pages": [
+        {
+          "file": "runtime/stretch-0.png",
+          "width": 1188,
+          "height": 1386,
+          "md5": "c707a81f9c9f9d3b4eb3aeba991aa30f",
+          "bytes": 1645788,
+          "sha256": "38b099dcf17c6a4bc3d6aad072b4b43c91ce922795cff06ca1623d3330c988b0"
+        }
+      ]
+    },
+    {
+      "id": "eatSeed",
+      "sourceSHA256": "55b845c6fab3cbe64f2c13390628ace90dcddd30a42d91ffb84934e8ecd8f9c2",
+      "masterSHA256": "d1e37170c3f832c2c46a28b97a67906a4a86943634c84844d08c851a443b1cf3",
+      "frames": 33,
+      "keyPoses": 16,
+      "scale": 0.6565349544072948,
+      "decodedBytes": 5376672,
+      "pages": [
+        {
+          "file": "runtime/eatSeed-0.png",
+          "width": 924,
+          "height": 1404,
+          "md5": "5b13e93659cf35fb62657ecf8de0129d",
+          "bytes": 1623058,
+          "sha256": "1d81c692d0bd2e3ad46afe0e579e49be23424f602a8e1da459e2f6ac498037f7"
+        },
+        {
+          "file": "runtime/eatSeed-prop-0.png",
+          "width": 252,
+          "height": 186,
+          "md5": "5934060c2496347befc94564f8ac3aea",
+          "bytes": 86720,
+          "sha256": "ae06ee76cc9150ebebeaefac4e3c8b96da5b133496d863f5c091708737d98682"
+        }
+      ]
+    },
+    {
+      "id": "bath",
+      "sourceSHA256": "dfddfae9ab46f65800dba179f347bd20253b644da173e812cbd0860078089bca",
+      "masterSHA256": "b124856f4134b4e1373928aeedbd8aa77ec2ce14d252088e54fe55c3ba86a0b8",
+      "frames": 33,
+      "keyPoses": 16,
+      "scale": 0.7012987012987013,
+      "decodedBytes": 6397344,
+      "pages": [
+        {
+          "file": "runtime/bath-0.png",
+          "width": 1164,
+          "height": 1374,
+          "md5": "bd8e9e8087072a9bd32be23d07b44bcb",
+          "bytes": 1618631,
+          "sha256": "2cfe146cea73c821df6b59cedb679a38beea9a1f67513b732c5c175f3bd601c0"
+        }
+      ]
+    },
+    {
+      "id": "scratch",
+      "sourceSHA256": "1157c80e783beca6c6f04ae92f5874a51efc96f55a4ab7c5504becaa90b5f601",
+      "masterSHA256": "32f2909c5e8f7b77143b396f1d177b4830be171a827c63e6bbc3670160adfb51",
+      "frames": 33,
+      "keyPoses": 16,
+      "scale": 0.6813880126182965,
+      "decodedBytes": 5111424,
+      "pages": [
+        {
+          "file": "runtime/scratch-0.png",
+          "width": 918,
+          "height": 1392,
+          "md5": "ce129c48eb5fc790fe6207f7149cad6c",
+          "bytes": 1548866,
+          "sha256": "f6fdeb02a7b7c5551fea515244d5635f2a5f2dd855c22b7ffa4f3cc22cf2216a"
+        }
+      ]
+    },
+    {
+      "id": "kiss",
+      "sourceSHA256": "7bdc5947849f253677542a5327b777d58b566c02f067f2736aab35adeedd65e8",
+      "masterSHA256": "c5fe2c5c63e2d4707266e5af8c8d0c270e9565195fd3c6b6d42b0be8b9a414de",
+      "frames": 33,
+      "keyPoses": 16,
+      "scale": 0.6428571428571429,
+      "decodedBytes": 5862240,
+      "pages": [
+        {
+          "file": "runtime/kiss-0.png",
+          "width": 1062,
+          "height": 1380,
+          "md5": "4355e2f64491c549f2444fcd6ffdc263",
+          "bytes": 1650672,
+          "sha256": "5d28d03684e16752601b2b62f228f43404987a17eaaefe3b393624bdd89d1378"
+        }
+      ]
+    },
+    {
+      "id": "preen",
+      "sourceSHA256": "ecd0b591a806210496b628c303ac1de90989065d56bf168c0a86a581320cfe46",
+      "masterSHA256": "5df457cfb5474a9da716e3a4038e4e2ad668ed96d384c5047ae948d8b9e39b6d",
+      "frames": 33,
+      "keyPoses": 16,
+      "scale": 0.6545454545454545,
+      "decodedBytes": 5278464,
+      "pages": [
+        {
+          "file": "runtime/preen-0.png",
+          "width": 948,
+          "height": 1392,
+          "md5": "03ef2eb3eb12ba51745d1726cd8831a7",
+          "bytes": 1558787,
+          "sha256": "d5b486ce9c18e97c7ef42340ec8c7ccf34f9c6212c0a67d7c27eb287dbcab0cf"
+        }
+      ]
+    },
+    {
+      "id": "standOneFoot",
+      "sourceSHA256": "77caa3b7f3c09b843bcff591b0baa06cffac5df4ba80ddce9f5823b6ffe56a20",
+      "masterSHA256": "2072acfc9be60db5117cb21b98ff71e74fb42e0258bb002fffb4938605ec3ff6",
+      "frames": 43,
+      "keyPoses": 16,
+      "scale": 0.6878980891719745,
+      "decodedBytes": 6013120,
+      "pages": [
+        {
+          "file": "runtime/standOneFoot-0.png",
+          "width": 912,
+          "height": 1610,
+          "md5": "3bfc3c22da64204facd997571b2d3dcd",
+          "bytes": 1905123,
+          "sha256": "a8e0a2b9db9ee34c9bad99d6016c2537a63c99725d1b870107b1889d8125f389"
+        },
+        {
+          "file": "runtime/standOneFoot-1.png",
+          "width": 152,
+          "height": 230,
+          "md5": "a542a7c500360132bc245666f109c7c8",
+          "bytes": 46646,
+          "sha256": "2948691fb0848b8b360540f5e66280893117d6a794219ebe4e526c33055f1939"
+        }
+      ]
+    },
+    {
+      "id": "lookAround",
+      "sourceSHA256": "75561bb237ce3baa051510a68aa1913cea130727a9521c038c085754d70a728c",
+      "masterSHA256": "f471bab4fcaf9593bbd1567fed76fd8867bdef6562cc22a64d3a26344ff577cb",
+      "frames": 33,
+      "keyPoses": 16,
+      "scale": 0.6646153846153846,
+      "decodedBytes": 4924800,
+      "pages": [
+        {
+          "file": "runtime/lookAround-0.png",
+          "width": 900,
+          "height": 1368,
+          "md5": "5aa044522764fb48fc6d8d78e05c7df6",
+          "bytes": 1555420,
+          "sha256": "3c53f946b84a8bda0fe88a6714aff8252b3f667ab10627eff13cef0bba601958"
+        }
+      ]
+    },
+    {
+      "id": "dance",
+      "sourceSHA256": "fc2d010da91b9338e44b5952d02670bc264df2f5f00d2edd4784fa463b6f683d",
+      "masterSHA256": "ae037feb7d5d0b7b8711959a584cdf25912034d795f1deac016e5b3d68ad83c9",
+      "frames": 33,
+      "keyPoses": 16,
+      "scale": 0.6990291262135923,
+      "decodedBytes": 6226560,
+      "pages": [
+        {
+          "file": "runtime/dance-0.png",
+          "width": 1128,
+          "height": 1380,
+          "md5": "9182b67f257815aefa8dd3fdb5c37fd5",
+          "bytes": 1622555,
+          "sha256": "1e514922fd5b1c0966995d431ee820f4172c6462d4856bae1cf56121b133df48"
+        }
+      ]
+    },
+    {
+      "id": "flap",
+      "sourceSHA256": "2d870dde6d5cfa19532ee2c783a697f0a29e871de13dfbbe94a42b7b91d6930b",
+      "masterSHA256": "1992980984e91971fb03beac368b6699f38d70baa25ad99cdf799ba35e6729ae",
+      "frames": 33,
+      "keyPoses": 16,
+      "scale": 0.7346938775510204,
+      "decodedBytes": 6861888,
+      "pages": [
+        {
+          "file": "runtime/flap-0.png",
+          "width": 1254,
+          "height": 1368,
+          "md5": "365383e6855fdb19a8838fdd975b9574",
+          "bytes": 1713145,
+          "sha256": "985041c95f524a72646dc5b396905fdfc27313fa6e9db4b4ba5919ea807e70ea"
+        }
+      ]
+    },
+    {
+      "id": "sneeze",
+      "sourceSHA256": "2d9a96bca809497d3622df0719dfaaab66914ecfb977e662ae0280eebb69eb89",
+      "masterSHA256": "2db99eca484c1479850a134bd8d55761a27adf47496f4c3206538b7a4fc0adf5",
+      "frames": 33,
+      "keyPoses": 16,
+      "scale": 0.6585365853658537,
+      "decodedBytes": 5417280,
+      "pages": [
+        {
+          "file": "runtime/sneeze-0.png",
+          "width": 990,
+          "height": 1368,
+          "md5": "56e031fdeceb82d7036c2f4f702b67a1",
+          "bytes": 1561142,
+          "sha256": "1259d411a6cd17562e55f6eac4cddbabc99af21058a94ebffa998a8f47db757c"
+        }
+      ]
+    },
+    {
+      "id": "hiccup",
+      "sourceSHA256": "6b78c5e418843f800e898be5caf99b3eab7707164b271df99140f30617d052d3",
+      "masterSHA256": "67b622a95be7c76111c026d4212da3bb29f8911c3cfed1cd6699ffdb4dbf8a99",
+      "frames": 33,
+      "keyPoses": 16,
+      "scale": 0.6900958466453674,
+      "decodedBytes": 5034240,
+      "pages": [
+        {
+          "file": "runtime/hiccup-0.png",
+          "width": 912,
+          "height": 1380,
+          "md5": "2d9bfa6e284ed86b19ee8441da993a05",
+          "bytes": 1582840,
+          "sha256": "c77047b469b0d9515e76d99ae3fffbf0242248f460546d63d0db30f3baa610cb"
+        }
+      ]
+    },
+    {
+      "id": "fart",
+      "sourceSHA256": "547d4eeea5b6caf141cb47e468adf2c341ba9b75a33815f6f4bf6dd811ee07a8",
+      "masterSHA256": "335d129c8f5a5986c5954248f0ef469e8ef972294651e834bfb5489a8e2eba66",
+      "frames": 33,
+      "keyPoses": 16,
+      "scale": 0.6728971962616822,
+      "decodedBytes": 5301216,
+      "pages": [
+        {
+          "file": "runtime/fart-0.png",
+          "width": 948,
+          "height": 1398,
+          "md5": "1b6a24e0ff5964ba34e8112b6df4d5f6",
+          "bytes": 1608087,
+          "sha256": "381ee027f826d51e02bdb65aa3f070f74d4475e0ef334b18b840d3dad3446eb7"
+        }
+      ]
+    },
+    {
+      "id": "beakWipe",
+      "sourceSHA256": "039adb802a9fb0b5c58a6107091114053c4519ad358ff4e1fdb161c32255e1ca",
+      "masterSHA256": "6dd53ed6da9c950eea34969de559c6778b5fdd62ef5f0766c9cda2f93cbf3f67",
+      "frames": 33,
+      "keyPoses": 16,
+      "scale": 0.6967741935483871,
+      "decodedBytes": 6412464,
+      "pages": [
+        {
+          "file": "runtime/beakWipe-0.png",
+          "width": 1014,
+          "height": 1410,
+          "md5": "c500bf984f3214e776c41a0539f2d0a2",
+          "bytes": 1636117,
+          "sha256": "dd3a78b9c14f8fd741317f43a976f8cd67125fb93ca0496d67eaab2085e26e6a"
+        },
+        {
+          "file": "runtime/beakWipe-prop-0.png",
+          "width": 258,
+          "height": 672,
+          "md5": "40829a193cb20e12d55b87e7cd6e6605",
+          "bytes": 172355,
+          "sha256": "f44ae08932653c6fe525b8db9eecf6ce3c6eb1459d85c95f5aa879c5c88cb2a0"
+        }
+      ]
+    }
+  ]
+}

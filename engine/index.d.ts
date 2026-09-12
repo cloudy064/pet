@@ -21,6 +21,10 @@ export interface AtlasPage {
 export interface AssetDefinition {
   pages: AtlasPage[];
   tiles: [number, number, number, number, number][];
+  /** Optional per-tile placement in virtual asset coordinates, for globally shared tight frames. */
+  tileRects?: Rect[];
+  /** Reconstruct original raster bounds before filtering to preserve exact subpixel sampling. */
+  tileSampling?: { width: number; height: number; rect: Rect }[];
   frameMap: number[];
   durations: number[];
   anchor: Point;
@@ -31,6 +35,8 @@ export interface AssetDefinition {
 }
 export interface AssetManifest {
   version: 1;
+  /** Single keeps the complete shared image resident through the idle lease. */
+  layout?: 'single' | 'paged';
   assets: Record<string, AssetDefinition>;
 }
 export interface PlaybackOptions {
@@ -53,6 +59,7 @@ export interface ActionDefinition {
   type: 'clip' | 'wave' | 'point' | 'walk' | 'flight' | 'grow' | 'sequence' | (string & {});
   label?: string;
   enabled?: boolean;
+  allowSpeech?: boolean;
   speed?: number;
   asset?: string;
   frames?: number[];
@@ -98,6 +105,22 @@ export interface AudioHandle {
   stop(): void;
   dispose(): void;
 }
+/** Structural AbortSignal subset, also usable without DOM types. */
+export interface AssetLoadSignal {
+  readonly aborted: boolean;
+  addEventListener(type: 'abort', listener: () => void, options?: { once?: boolean }): void;
+  removeEventListener(type: 'abort', listener: () => void): void;
+}
+export interface PredownloadProgress {
+  loaded: number;
+  total: number;
+  bytes: number;
+  totalBytes: number;
+}
+export interface PredownloadOptions {
+  signal?: AssetLoadSignal;
+  onProgress?: (progress: PredownloadProgress) => void;
+}
 export interface Adapter {
   canvas: CanvasLike;
   now(): number;
@@ -105,7 +128,15 @@ export interface Adapter {
   cancelFrame(id: number): void;
   resize(width: number, height: number, dpr: number): void;
   createCanvas?(width: number, height: number): CanvasLike;
-  loadImage(page: AtlasPage & { url: string }, baseURL?: string): Promise<ImageLike>;
+  loadImage(
+    page: AtlasPage & { url: string },
+    baseURL?: string,
+    options?: { signal?: AssetLoadSignal }
+  ): Promise<ImageLike>;
+  prefetchImage?(
+    page: AtlasPage & { url: string },
+    options?: { signal?: AssetLoadSignal }
+  ): Promise<{ size: number }>;
   releaseImage(image: ImageLike): void;
   fetchManifest(baseURL: string): Promise<AssetManifest>;
   createAudio(source: string, callbacks: { ended: () => void; error: (error: Error) => void }): AudioHandle;
@@ -134,6 +165,8 @@ export interface EngineOptions {
   dpr?: number;
   padding?: number;
   position?: Point;
+  /** Build output directory. Loads manifest and bundled actions before ready; exclusive with assetBaseURL/manifest/assets. */
+  assetPack?: string;
   assetBaseURL?: string;
   manifest?: AssetManifest;
   preset?: boolean;
@@ -143,6 +176,8 @@ export interface EngineOptions {
   autoBlink?: boolean;
   interactive?: boolean;
   interactionAudio?: string;
+  interactionMode?: 'legacy' | 'events';
+  interactionLocked?: boolean;
   random?: () => number;
   maxMemoryBytes?: number;
 }
@@ -214,9 +249,11 @@ export class AssetManager extends Events {
   list(): string[];
   export(): AssetManifest;
   refresh(baseURL: string, options?: { replace?: boolean }): Promise<AssetManifest>;
-  acquire(ids: string[]): Promise<AssetLease>;
+  acquire(ids: string[], options?: { signal?: AssetLoadSignal }): Promise<AssetLease>;
   trim(options?: { all?: boolean }): void;
   stats(): CacheStats;
+  progress(ids: string[]): { total: number; loaded: number };
+  predownload(ids: string[], options?: PredownloadOptions): Promise<PredownloadProgress>;
   dispose(): void;
 }
 export function validateAsset(id: string, definition: AssetDefinition): AssetDefinition;
@@ -329,6 +366,8 @@ export interface FreeOptions {
   actions?: string[];
   minDelay?: number;
   maxDelay?: number;
+  weights?: Record<string, number>;
+  avoidRepeat?: boolean;
 }
 export class PipiEngine extends Events {
   constructor(options: EngineOptions & { adapter: Adapter });
@@ -378,6 +417,8 @@ export class PipiEngine extends Events {
   startFree(options?: FreeOptions): this;
   stopFree(options?: { cancel?: boolean }): this;
   hitTest(point: Point): boolean;
+  /** Approximate Pipi body regions; coordinates use the logical canvas size. */
+  hitTestPart(point: Point): 'head' | 'belly' | 'feet' | 'wings' | null;
   pointerDown(point: PointerPoint): boolean | undefined;
   pointerMove(point: PointerPoint): void;
   pointerUp(point: PointerPoint): void;
@@ -389,6 +430,8 @@ export class PipiEngine extends Events {
   use(plugin: { install(engine: PipiEngine): void | (() => void) }): this;
   exportProject(): Project;
   importProject(project: Project | string, options?: { baseURL?: string }): Promise<this>;
+  /** Web: download compressed images without decoding. Cache lasts for this adapter instance. */
+  predownload(actions: string[], options?: PredownloadOptions): Promise<PredownloadProgress>;
   preload(actions: string[]): Promise<CacheStats>;
   refreshAssets(baseURL?: string): Promise<this>;
   clearCache(): Promise<CacheStats>;
@@ -405,14 +448,26 @@ export class CanvasRenderer {
   clear(): void;
 }
 export class WebAdapter implements Adapter {
-  constructor(canvas: CanvasLike, options?: { fetch?: any; window?: any });
+  constructor(
+    canvas: CanvasLike,
+    options?: { fetch?: any; window?: any; imageTimeoutMs?: number; imageStallTimeoutMs?: number }
+  );
   canvas: CanvasLike;
   now(): number;
   requestFrame(callback: () => void): number;
   cancelFrame(id: number): void;
   resize(width: number, height: number, dpr: number): void;
   createCanvas(width: number, height: number): CanvasLike;
-  loadImage(page: AtlasPage & { url: string }): Promise<ImageLike>;
+  loadImage(
+    page: AtlasPage & { url: string },
+    baseURL?: string,
+    options?: { signal?: AssetLoadSignal }
+  ): Promise<ImageLike>;
+  prefetchImage(
+    page: AtlasPage & { url: string },
+    options?: { signal?: AssetLoadSignal }
+  ): Promise<{ size: number }>;
+  downloadStats(): { pages: number; bytes: number; budget: number };
   releaseImage(image: ImageLike): void;
   fetchManifest(baseURL: string): Promise<AssetManifest>;
   createAudio(source: string, callbacks: { ended: () => void; error: (error: Error) => void }): AudioHandle;

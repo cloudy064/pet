@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>皮皮 · tinyimg 画质对比</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <span class="badge">PIPI · TINYIMG COMPARE</span>
+        <h1>少一点体积，差多少画质？</h1>
+        <p>三版使用同一动作、同一时刻。先看正常尺寸，再放大检查眼睛、羽毛渐变和道具。</p>
+      </header>
+      <div class="controls">
+        <label
+          >动作
+          <select id="action" disabled></select
+        ></label>
+        <label
+          >身体尺寸
+          <select id="size" disabled>
+            <option value="112">112px · 正常</option>
+            <option value="132" selected>132px · Demo</option>
+            <option value="216">216px · 放大</option>
+          </select></label
+        >
+        <label
+          >速度
+          <select id="speed" disabled>
+            <option value="1">正常</option>
+            <option value="0.5">半速</option>
+            <option value="0.25">四分之一</option>
+          </select></label
+        >
+        <button id="pause" disabled>暂停</button><button id="restart" disabled>从头播放</button>
+        <label
+          >背景
+          <select id="background">
+            <option value="checker">透明棋盘</option>
+            <option value="light">浅色</option>
+            <option value="dark">深色</option>
+          </select></label
+        >
+      </div>
+      <div class="views">
+        <section>
+          <h2>当前单图版 <span>对照基准</span></h2>
+          <p class="weight" id="baseline-size">51.78 MiB</p>
+          <canvas id="baseline" aria-label="当前单图版动画"></canvas>
+          <p class="note">已经做过全局优化，还未经过 tinyimg。</p>
+        </section>
+        <section>
+          <h2>tinyimg 直接压缩 <span>最小体积</span></h2>
+          <p class="weight" id="raw-size">11.80 MiB · 再减少 77.2%</p>
+          <canvas id="raw" aria-label="tinyimg 直接压缩动画"></canvas>
+          <p class="note">有损调色板压缩。重点留意脸部渐变和擦嘴道具。</p>
+        </section>
+        <section>
+          <h2>tinyimg 受保护版 <span>保留关键区域</span></h2>
+          <p class="weight" id="guarded-size">40.39 MiB · 再减少 22.0%</p>
+          <canvas id="guarded" aria-label="tinyimg 受保护版动画"></canvas>
+          <p class="note">保留透明度、关键帧和道具，超出阈值的区域回退。</p>
+        </section>
+      </div>
+      <div class="timeline">
+        <button id="previous" disabled>上一帧</button
+        ><input
+          id="scrub"
+          aria-label="同步时间轴"
+          type="range"
+          min="0"
+          max="1000"
+          value="0"
+          step="1"
+          disabled
+        /><button id="next" disabled>下一帧</button><output id="time">0 ms</output>
+      </div>
+      <p id="status" role="status">正在加载三张完整图集，首次打开需要稍等……</p>
+      <p class="footnote">
+        播放会自动循环。暂停或拖动时间轴可检查同一帧；翻帧时三版同步。此页同时展示三份完整图集，内存占用高于单个
+        Demo。
+      </p>
+      <a href="/examples/sdk-demo/">返回单图 Demo</a>
+    </main>
+    <script src="/dist/pipi-engine.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>

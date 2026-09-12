@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>皮皮 · 全局素材优化对比</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f4f6f1;color:#203229;font:16px/1.6 system-ui,sans-serif}main{max-width:1200px;margin:32px auto;padding:0 20px}h1{font-size:28px;margin-bottom:4px}p{margin:8px 0 20px;color:#536257}.controls{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:20px 0}select,button,input{font:inherit}button,select{padding:8px 14px;border:1px solid #b7c5b8;border-radius:8px;background:white}button{cursor:pointer}button.primary{background:#245d3b;color:white}.views{display:grid;grid-template-columns:1fr 1fr;gap:16px}.view{background:white;border:1px solid #dce4db;border-radius:16px;overflow:hidden}.view h2{font-size:17px;padding:12px 20px;margin:0;border-bottom:1px solid #e3e9e1}canvas{display:block;width:100%;aspect-ratio:1 / 1;background:repeating-conic-gradient(#edf0eb 0% 25%,#fff 0% 50%) 0 / 20px 20px}body.dark canvas{background:#19241e}#scrub{flex:1;min-width:150px}#stats{padding:16px 20px;border-radius:12px;background:#e4ecde;font-variant-numeric:tabular-nums}.view p{padding:8px 20px;margin:0;min-height:42px;font-size:14px}#notice{color:#8b3b27}small{color:#627165}@media(max-width:700px){.views{grid-template-columns:1fr}main{margin-top:20px}}
+</style>
+<main>
+<h1>全局优化，放在一起看</h1>
+<p>同一时钟播放原始包与优化包。比较体型、动作收尾、眼睛和道具，拖动时间轴检查每个姿态。</p>
+<div id="stats">正在读取优化报告……</div>
+<div class="controls">
+<label>动作 <select id="action"></select></label>
+<label>身体高度 <select id="size"><option>58</option><option selected>112</option><option>216</option></select></label>
+<label>速度 <select id="speed"><option value="1">正常</option><option value="0.5">半速</option><option value="0.25">四分之一</option></select></label>
+<button id="play" class="primary">重新播放</button><button id="pause">暂停</button><button id="background">切换深色背景</button>
+</div>
+<div class="views"><section class="view"><h2>原始运行素材</h2><p id="before-status" role="status">正在初始化……</p><canvas id="before"></canvas></section><section class="view"><h2>全局优化素材</h2><p id="after-status" role="status">正在初始化……</p><canvas id="after"></canvas></section></div>
+<div class="controls"><input type="range" id="scrub" min="0" max="1000" value="0"><output id="time">0 ms</output></div>
+<p id="notice" role="status"></p>
+<small>先执行 npm run optimize:assets。地址加 ?profile=exact 可对比无损包（需另行生成）。保留所有逻辑帧号与计时，减少实际图片姿态并共享图集。</small>
+</main>
+<script src="../../dist/pipi-engine.js?v=jump-trace-3"></script><script src="../../dist/pipi-companion.js?v=jump-trace-3"></script><script src="./debug.js?v=jump-trace-3"></script><script src="./comparison.js?v=jump-trace-3"></script>
+</html>

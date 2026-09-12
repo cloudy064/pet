@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>皮皮的新动作 · 逐帧预览</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main>
+      <header class="header">
+        <a class="brand" href="./"
+          ><span class="brand-mark">P</span><span>皮皮的动作册<small>每个小动作，都认真对待</small></span></a
+        ><a href="./">回到小院 ↗</a>
+      </header>
+      <div class="intro">
+        <div>
+          <p class="eyebrow">LITTLE MOVES, BIG PERSONALITY</p>
+          <h1>看看皮皮，又学会了什么。</h1>
+          <p>播放完整动作，也可以停下来，仔细看每一帧。</p>
+        </div>
+      </div>
+      <div class="gallery">
+        <aside>
+          <div id="action-list" class="action-list"></div>
+          <p id="pack-status" class="preview-detail" role="status"></p>
+          <p class="preview-detail">进入、保持、退出三段动作支持自然收尾。右侧可比较不同背景上的透明边缘。</p>
+        </aside>
+        <section>
+          <div class="preview-stage" id="preview-stage"><canvas id="preview"></canvas></div>
+          <div class="preview-controls">
+            <button id="play">播放一次</button><button id="pause">暂停</button
+            ><button id="previous">上一帧</button><button id="next">下一帧</button
+            ><button id="sustain">持续动作</button><button id="release">自然收尾</button>
+          </div>
+          <div class="preview-controls">
+            <input type="range" id="timeline" aria-label="动作时间轴" min="0" max="1000" value="0" /><span
+              id="frame-info"
+              >站姿</span
+            >
+          </div>
+          <div class="preview-controls">
+            <button data-background="checker">棋盘格</button><button data-background="light">浅色</button
+            ><button data-background="dark">深色</button
+            ><label
+              >尺寸
+              <input id="preview-size" type="range" min="72" max="240" value="160" aria-label="预览身体高度"
+            /></label>
+          </div>
+          <div id="action-detail" class="preview-detail"></div>
+          <label><input id="effects" type="checkbox" checked /> 显示独立道具（葵花籽 / 木桩）</label>
+          <p id="error" class="notice" role="status"></p>
+        </section>
+      </div>
+    </main>
+    <script src="../../dist/pipi-engine.js"></script>
+    <script src="../../dist/pipi-companion.js"></script>
+    <script src="./animations.js"></script>
+  </body>
+</html>

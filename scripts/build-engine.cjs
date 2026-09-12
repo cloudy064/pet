@@ -40,6 +40,41 @@ async function build() {
   });
   if (fs.existsSync(path.join(root, 'engine/index.d.ts')))
     fs.copyFileSync(path.join(root, 'engine/index.d.ts'), path.join(root, 'dist/miniprogram/index.d.ts'));
+  for (const [file, format, extras] of [
+    ['companion/index.cjs', 'cjs', {}],
+    ['companion/index.mjs', 'esm', {}],
+    ['pipi-companion.js', 'iife', { globalName: 'PipiCompanion', minify: true }],
+    ['miniprogram/companion.js', 'cjs', {}],
+  ]) {
+    const entry =
+      format === 'esm'
+        ? {
+            stdin: {
+              contents:
+                "import api from './engine/companion/index.js'; export const {" +
+                Object.keys(require('../engine/companion')).join(',') +
+                '}=api; export default api;',
+              resolveDir: root,
+              sourcefile: 'companion-exports.mjs',
+            },
+          }
+        : { entryPoints: [path.join(root, 'engine/companion/index.js')] };
+    await esbuild.build({
+      ...entry,
+      bundle: true,
+      target: ['es2018'],
+      legalComments: 'none',
+      format,
+      outfile: path.join(root, 'dist', file),
+      ...extras,
+    });
+  }
+  const declarations = fs.readFileSync(path.join(root, 'engine/companion/index.d.ts'), 'utf8');
+  fs.writeFileSync(path.join(root, 'dist/companion/index.d.ts'), declarations);
+  fs.writeFileSync(
+    path.join(root, 'dist/miniprogram/companion.d.ts'),
+    declarations.replace("'../index'", "'./index'")
+  );
   console.log('Built CommonJS, ES module, browser global and WeChat entries.');
 }
 build().catch((error) => {

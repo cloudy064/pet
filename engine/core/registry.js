@@ -73,7 +73,7 @@ class ActionRegistry extends EventEmitter {
     if (action.speed !== undefined) positive(action.speed, 'Action speed');
     if (action.enabled !== undefined && typeof action.enabled !== 'boolean')
       throw new TypeError('enabled must be boolean');
-    this.validators.get(action.type)(action);
+    this.validators.get(action.type)(action, this.assetResolver);
     if (action.asset && this.assetResolver) {
       const asset = this.assetResolver(action.asset);
       if (action.type === 'wave' && asset.frameMap.length < 61)

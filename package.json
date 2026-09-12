@@ -18,26 +18,57 @@
       "require": "./dist/miniprogram/index.js"
     },
     "./browser": "./dist/pipi-engine.js",
+    "./companion": {
+      "types": "./dist/companion/index.d.ts",
+      "import": "./dist/companion/index.mjs",
+      "require": "./dist/companion/index.cjs"
+    },
+    "./companion/wechat": {
+      "types": "./dist/companion/index.d.ts",
+      "require": "./dist/miniprogram/companion.js"
+    },
+    "./companion/browser": "./dist/pipi-companion.js",
     "./package.json": "./package.json"
   },
   "files": [
-    "dist",
+    "dist/index.cjs",
+    "dist/index.mjs",
+    "dist/index.d.ts",
+    "dist/pipi-engine.js",
+    "dist/pipi-companion.js",
+    "dist/companion",
+    "dist/miniprogram",
     "docs/ENGINE_API.md",
     "docs/ENGINE_INTEGRATION.md",
-    "README.md"
+    "docs/PET_COMPANION_API.md",
+    "README.md",
+    "docs/GLOBAL_ASSET_OPTIMIZATION.md"
   ],
   "scripts": {
     "build": "node scripts/build-engine.cjs",
     "test": "node --test tests/engine/*.test.cjs",
     "test:browser": "python scripts/check-engine-browser.py",
+    "test:companion:browser": "python scripts/check-companion-browser.py",
     "test:package": "node scripts/check-engine-package.cjs",
     "test:types": "node scripts/check-engine-types.cjs",
     "test:wechat": "node scripts/check-engine-wechat.cjs",
     "example:wechat": "npm run build && node scripts/prepare-wechat-example.cjs",
     "export:assets": "node scripts/export-engine-assets.cjs",
+    "export:companion-assets": "node scripts/export-engine-assets.cjs --companion",
+    "build:companion-assets": "python scripts/build-companion-assets.py",
+    "test:companion-assets": "python scripts/check-companion-assets.py",
     "prepare": "npm run build",
     "dev": "node scripts/serve-engine.cjs",
-    "pack:engine": "node scripts/package-engine.cjs"
+    "demo": "node scripts/serve-engine.cjs --demo",
+    "pack:engine": "node scripts/package-engine.cjs",
+    "build:assets": "npm run build && node scripts/run-python.cjs scripts/optimize-animation-assets.py",
+    "compress:assets": "node scripts/run-python.cjs scripts/compress-atlas-tinyimg.py",
+    "compress:frames": "node scripts/run-python.cjs scripts/compress-animation-frames.py",
+    "optimize:assets": "npm run build:assets --",
+    "test:optimizer": "node scripts/run-python.cjs -m unittest discover -s tests/assets -v",
+    "test:optimized:browser": "node scripts/run-python.cjs scripts/check-optimized-browser.py",
+    "export:optimized-assets": "node scripts/export-engine-assets.cjs --optimized",
+    "compress:webp": "node scripts/run-python.cjs scripts/compress-animation-frames.py --format webp"
   },
   "repository": {
     "type": "git",

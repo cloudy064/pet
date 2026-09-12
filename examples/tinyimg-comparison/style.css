@@ -1,0 +1,147 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background: #f5f5ef;
+  color: #294634;
+  font:
+    15px/1.6 system-ui,
+    sans-serif;
+}
+main {
+  max-width: 1480px;
+  margin: 32px auto;
+  padding: 0 24px;
+}
+.badge {
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  color: #7e8b72;
+}
+h1 {
+  font-size: 30px;
+  margin: 8px 0;
+}
+header p,
+.footnote {
+  color: #71816b;
+}
+.controls,
+.timeline {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 24px 0;
+}
+button,
+select {
+  font: inherit;
+  color: inherit;
+  background: white;
+  border: 1px solid #cfdac8;
+  border-radius: 9px;
+  padding: 8px 12px;
+}
+button {
+  cursor: pointer;
+}
+button:hover {
+  background: #e8f0dc;
+}
+button:disabled,
+select:disabled {
+  opacity: 0.45;
+  cursor: wait;
+}
+.views {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.views section {
+  overflow: hidden;
+  background: #fffefa;
+  border: 1px solid #dfe6d6;
+  border-radius: 16px;
+}
+h2 {
+  font-size: 17px;
+  margin: 16px 18px 0;
+}
+h2 span {
+  display: block;
+  color: #7d8d75;
+  font-size: 12px;
+  font-weight: 400;
+}
+.weight {
+  margin: 6px 18px 14px;
+  color: #466d39;
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+canvas {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1/1;
+  background: repeating-conic-gradient(#e9eee5 0% 25%, #fff 0% 50%) 0/18px 18px;
+}
+body[data-background='dark'] canvas {
+  background: #1d2924;
+}
+body[data-background='light'] canvas {
+  background: #fffefa;
+}
+.note {
+  font-size: 12px;
+  color: #77856e;
+  margin: 12px 18px;
+  min-height: 40px;
+}
+#scrub {
+  flex: 1;
+  min-width: 140px;
+  accent-color: #547c39;
+}
+#time {
+  min-width: 155px;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+#status {
+  color: #57734b;
+  min-height: 24px;
+}
+.footnote {
+  font-size: 12px;
+}
+a {
+  color: #426b30;
+}
+button:focus-visible,
+select:focus-visible,
+input:focus-visible {
+  outline: 3px solid #a1ba89;
+  outline-offset: 2px;
+}
+@media (max-width: 800px) {
+  main {
+    padding: 0 14px;
+  }
+  .views {
+    grid-template-columns: 1fr;
+  }
+  .views section {
+    max-width: 520px;
+    width: 100%;
+    margin: auto;
+  }
+  h1 {
+    font-size: 24px;
+  }
+  .controls {
+    gap: 8px;
+  }
+}

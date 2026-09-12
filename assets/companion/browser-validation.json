@@ -1,0 +1,123 @@
+{
+  "logic": true,
+  "newImages": true,
+  "actions": [
+    {
+      "id": "nod",
+      "frames": 33,
+      "distinctRenders": 32,
+      "naturalRelease": null
+    },
+    {
+      "id": "sleep",
+      "frames": 33,
+      "distinctRenders": 32,
+      "naturalRelease": true
+    },
+    {
+      "id": "stretch",
+      "frames": 33,
+      "distinctRenders": 32,
+      "naturalRelease": null
+    },
+    {
+      "id": "eatSeed",
+      "frames": 33,
+      "distinctRenders": 32,
+      "naturalRelease": null
+    },
+    {
+      "id": "bath",
+      "frames": 33,
+      "distinctRenders": 32,
+      "naturalRelease": true
+    },
+    {
+      "id": "scratch",
+      "frames": 33,
+      "distinctRenders": 32,
+      "naturalRelease": null
+    },
+    {
+      "id": "kiss",
+      "frames": 33,
+      "distinctRenders": 32,
+      "naturalRelease": null
+    },
+    {
+      "id": "preen",
+      "frames": 33,
+      "distinctRenders": 32,
+      "naturalRelease": null
+    },
+    {
+      "id": "standOneFoot",
+      "frames": 43,
+      "distinctRenders": 31,
+      "naturalRelease": true
+    },
+    {
+      "id": "lookAround",
+      "frames": 33,
+      "distinctRenders": 32,
+      "naturalRelease": null
+    },
+    {
+      "id": "dance",
+      "frames": 33,
+      "distinctRenders": 32,
+      "naturalRelease": null
+    },
+    {
+      "id": "flap",
+      "frames": 33,
+      "distinctRenders": 32,
+      "naturalRelease": true
+    },
+    {
+      "id": "sneeze",
+      "frames": 33,
+      "distinctRenders": 32,
+      "naturalRelease": null
+    },
+    {
+      "id": "hiccup",
+      "frames": 33,
+      "distinctRenders": 32,
+      "naturalRelease": null
+    },
+    {
+      "id": "fart",
+      "frames": 33,
+      "distinctRenders": 32,
+      "naturalRelease": null
+    },
+    {
+      "id": "beakWipe",
+      "frames": 33,
+      "distinctRenders": 32,
+      "naturalRelease": null
+    }
+  ],
+  "audio": [
+    {
+      "id": "count-zh",
+      "nativePlayback": true,
+      "naturalEnd": true
+    },
+    {
+      "id": "count-en",
+      "nativePlayback": true,
+      "pageCancellation": true
+    }
+  ],
+  "errors": [],
+  "peakDecodedBytes": 47552672,
+  "webPerformance": {
+    "frames": 120,
+    "elapsedMs": 1984,
+    "meanFPS": 60,
+    "drawP95Ms": 0.699999988079071,
+    "scope": "Headless Chromium, 160px bird; CPU draw time excludes GPU presentation and is not a device benchmark"
+  }
+}

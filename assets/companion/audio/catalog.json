@@ -1,0 +1,314 @@
+{
+  "version": 1,
+  "voice": "Synthetic eSpeak NG + WORLD singing; not a human recording",
+  "tracks": [
+    {
+      "id": "count-zh",
+      "title": "皮皮数数歌",
+      "locale": "zh-CN",
+      "audioURL": "audio/count-zh.mp3",
+      "gesture": "talk",
+      "lyrics": "一二三四五 / 小小翅膀轻轻舞 / 六七八九十 / 天天学会新知识",
+      "durationMs": 14592,
+      "syllables": [
+        {
+          "text": "一",
+          "atMs": 480,
+          "durationMs": 480,
+          "midi": 72
+        },
+        {
+          "text": "二",
+          "atMs": 960,
+          "durationMs": 480,
+          "midi": 74
+        },
+        {
+          "text": "三",
+          "atMs": 1440,
+          "durationMs": 480,
+          "midi": 76
+        },
+        {
+          "text": "四",
+          "atMs": 1920,
+          "durationMs": 480,
+          "midi": 79
+        },
+        {
+          "text": "五",
+          "atMs": 2400,
+          "durationMs": 768,
+          "midi": 76
+        },
+        {
+          "text": "小",
+          "atMs": 3408,
+          "durationMs": 480,
+          "midi": 76
+        },
+        {
+          "text": "小",
+          "atMs": 3888,
+          "durationMs": 480,
+          "midi": 77
+        },
+        {
+          "text": "翅",
+          "atMs": 4368,
+          "durationMs": 480,
+          "midi": 79
+        },
+        {
+          "text": "膀",
+          "atMs": 4848,
+          "durationMs": 480,
+          "midi": 81
+        },
+        {
+          "text": "轻",
+          "atMs": 5328,
+          "durationMs": 480,
+          "midi": 79
+        },
+        {
+          "text": "轻",
+          "atMs": 5808,
+          "durationMs": 480,
+          "midi": 76
+        },
+        {
+          "text": "舞",
+          "atMs": 6288,
+          "durationMs": 768,
+          "midi": 74
+        },
+        {
+          "text": "六",
+          "atMs": 7296,
+          "durationMs": 480,
+          "midi": 79
+        },
+        {
+          "text": "七",
+          "atMs": 7776,
+          "durationMs": 480,
+          "midi": 81
+        },
+        {
+          "text": "八",
+          "atMs": 8256,
+          "durationMs": 480,
+          "midi": 79
+        },
+        {
+          "text": "九",
+          "atMs": 8736,
+          "durationMs": 480,
+          "midi": 76
+        },
+        {
+          "text": "十",
+          "atMs": 9216,
+          "durationMs": 768,
+          "midi": 74
+        },
+        {
+          "text": "天",
+          "atMs": 10224,
+          "durationMs": 480,
+          "midi": 76
+        },
+        {
+          "text": "天",
+          "atMs": 10704,
+          "durationMs": 480,
+          "midi": 74
+        },
+        {
+          "text": "学",
+          "atMs": 11184,
+          "durationMs": 480,
+          "midi": 72
+        },
+        {
+          "text": "会",
+          "atMs": 11664,
+          "durationMs": 480,
+          "midi": 74
+        },
+        {
+          "text": "新",
+          "atMs": 12144,
+          "durationMs": 480,
+          "midi": 76
+        },
+        {
+          "text": "知",
+          "atMs": 12624,
+          "durationMs": 480,
+          "midi": 74
+        },
+        {
+          "text": "识",
+          "atMs": 13104,
+          "durationMs": 768,
+          "midi": 72
+        }
+      ],
+      "sha256": "2a9ad4c57cf76a3b5bbdbf25d8f5915f33bfa5b88e2e6965aad8a87440a192a6",
+      "bytes": 176214
+    },
+    {
+      "id": "count-en",
+      "title": "Count with Pipi",
+      "locale": "en",
+      "audioURL": "audio/count-en.mp3",
+      "gesture": "talk",
+      "lyrics": "One two three count with me / Four five six clap with me / Seven eight nine and ten / We can count and sing again",
+      "durationMs": 14112,
+      "syllables": [
+        {
+          "text": "One",
+          "atMs": 480,
+          "durationMs": 480,
+          "midi": 72
+        },
+        {
+          "text": "two",
+          "atMs": 960,
+          "durationMs": 480,
+          "midi": 74
+        },
+        {
+          "text": "three",
+          "atMs": 1440,
+          "durationMs": 480,
+          "midi": 76
+        },
+        {
+          "text": "count",
+          "atMs": 1920,
+          "durationMs": 480,
+          "midi": 79
+        },
+        {
+          "text": "with",
+          "atMs": 2400,
+          "durationMs": 480,
+          "midi": 76
+        },
+        {
+          "text": "me",
+          "atMs": 2880,
+          "durationMs": 768,
+          "midi": 74
+        },
+        {
+          "text": "Four",
+          "atMs": 3888,
+          "durationMs": 480,
+          "midi": 76
+        },
+        {
+          "text": "five",
+          "atMs": 4368,
+          "durationMs": 480,
+          "midi": 77
+        },
+        {
+          "text": "six",
+          "atMs": 4848,
+          "durationMs": 480,
+          "midi": 79
+        },
+        {
+          "text": "clap",
+          "atMs": 5328,
+          "durationMs": 480,
+          "midi": 81
+        },
+        {
+          "text": "with",
+          "atMs": 5808,
+          "durationMs": 480,
+          "midi": 79
+        },
+        {
+          "text": "me",
+          "atMs": 6288,
+          "durationMs": 768,
+          "midi": 76
+        },
+        {
+          "text": "Seven",
+          "atMs": 7296,
+          "durationMs": 480,
+          "midi": 79
+        },
+        {
+          "text": "eight",
+          "atMs": 7776,
+          "durationMs": 480,
+          "midi": 81
+        },
+        {
+          "text": "nine",
+          "atMs": 8256,
+          "durationMs": 480,
+          "midi": 79
+        },
+        {
+          "text": "and",
+          "atMs": 8736,
+          "durationMs": 480,
+          "midi": 76
+        },
+        {
+          "text": "ten",
+          "atMs": 9216,
+          "durationMs": 768,
+          "midi": 74
+        },
+        {
+          "text": "We",
+          "atMs": 10224,
+          "durationMs": 480,
+          "midi": 76
+        },
+        {
+          "text": "can",
+          "atMs": 10704,
+          "durationMs": 480,
+          "midi": 74
+        },
+        {
+          "text": "count",
+          "atMs": 11184,
+          "durationMs": 480,
+          "midi": 72
+        },
+        {
+          "text": "and",
+          "atMs": 11664,
+          "durationMs": 480,
+          "midi": 74
+        },
+        {
+          "text": "sing",
+          "atMs": 12144,
+          "durationMs": 480,
+          "midi": 76
+        },
+        {
+          "text": "again",
+          "atMs": 12624,
+          "durationMs": 768,
+          "midi": 74
+        }
+      ],
+      "sha256": "1afd9d1896036eab22d26aa792899a9a116303bcb7152278ecdd9f0ba2fed0ab",
+      "bytes": 170572
+    }
+  ]
+}

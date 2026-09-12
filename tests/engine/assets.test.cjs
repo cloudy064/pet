@@ -81,3 +81,115 @@ test('refresh validates actions and keeps packaged welcome patches', async () =>
   assert.deepEqual(pet.exportProject(), before);
   pet.destroy();
 });
+
+test('cancelling one consumer preserves shared in-flight pages for another', async () => {
+  const adapter = new FakeAdapter(),
+    manager = new AssetManager(adapter);
+  adapter.defer = true;
+  manager.define('first', small());
+  manager.define('second', small());
+  const controller = new AbortController();
+  const first = manager.acquire(['first'], { signal: controller.signal });
+  const second = manager.acquire(['second']);
+  controller.abort();
+  await assert.rejects(first, { name: 'AbortError' });
+  adapter.flush();
+  const lease = await second;
+  assert.equal(adapter.loads.length, 1);
+  assert.equal(lease.assets.get('second').images.length, 1);
+  assert.equal(adapter.released.length, 0);
+  lease.release();
+  manager.dispose();
+  assert.equal(adapter.released.length, 1);
+});
+
+test('replacing a loading action aborts its download and never requests its remaining pages', async () => {
+  const { pet, adapter } = await make();
+  const requests = [];
+  const normalLoad = adapter.loadImage.bind(adapter);
+  adapter.loadImage = (page, base, { signal } = {}) => {
+    if (!page.url.includes('slow')) return normalLoad(page);
+    requests.push({ page, signal });
+    return new Promise((resolve, reject) =>
+      signal.addEventListener(
+        'abort',
+        () => {
+          reject(Object.assign(new Error('cancelled'), { name: 'AbortError' }));
+        },
+        { once: true }
+      )
+    );
+  };
+  const definition = small('slow-first.png');
+  definition.pages.push({ file: 'slow-second.png', width: 2, height: 2 });
+  pet.assets.define('slow', definition);
+  pet.actions.register({ id: 'slow', type: 'clip', asset: 'slow' });
+  const old = pet.play('slow');
+  await tick();
+  const next = pet.play('wave');
+  await next.ready;
+  await tick();
+  assert.equal((await old.finished).status, 'cancelled');
+  assert.equal(requests.length, 1);
+  assert.equal(requests[0].signal.aborted, true);
+  assert.equal(pet.assets.stats().pending, 0);
+  pet.destroy();
+});
+
+test('late cancelled image cannot evict a fresh request for the same atlas', async () => {
+  const adapter = new FakeAdapter(),
+    manager = new AssetManager(adapter);
+  manager.define('first', small());
+  adapter.defer = true;
+  const controller = new AbortController();
+  const old = manager.acquire(['first'], { signal: controller.signal });
+  controller.abort();
+  await assert.rejects(old, { name: 'AbortError' });
+  const next = manager.acquire(['first']);
+  adapter.flush();
+  const lease = await next;
+  assert.equal(manager.stats().pages, 1);
+  assert.equal(manager.stats().decoded, 1);
+  assert.equal(adapter.released.length, 1);
+  lease.release();
+  manager.dispose();
+  assert.equal(adapter.released.length, 2);
+});
+
+test('page progress counts shared physical images once and distinguishes partial download', async () => {
+  const adapter = new FakeAdapter(),
+    manager = new AssetManager(adapter);
+  manager.define('one', small());
+  manager.define('alias', small());
+  manager.define('two', small('second.png'));
+  assert.deepEqual(manager.progress(['one', 'alias', 'two']), { loaded: 0, total: 2 });
+  const lease = await manager.acquire(['one']);
+  assert.deepEqual(manager.progress(['one', 'alias', 'two']), { loaded: 1, total: 2 });
+  lease.release();
+  manager.dispose();
+});
+
+test('predownload deduplicates pages without decoding and disposal cancels pending work', async () => {
+  const adapter = new FakeAdapter(),
+    m = new AssetManager(adapter);
+  m.define('a', small());
+  m.define('b', small());
+  let count = 0;
+  adapter.prefetchImage = async () => {
+    count++;
+    return { size: 4 };
+  };
+  const result = await m.predownload(['a', 'b']);
+  assert.equal(count, 1);
+  assert.equal(result.total, 1);
+  assert.equal(m.stats().decoded, 0);
+  adapter.prefetchImage = (_, { signal }) =>
+    new Promise((resolve, reject) => {
+      signal.addEventListener('abort', () =>
+        reject(Object.assign(Error('cancelled'), { name: 'AbortError' }))
+      );
+    });
+  const pending = m.predownload(['a']);
+  m.dispose();
+  await assert.rejects(pending, { name: 'AbortError' });
+});

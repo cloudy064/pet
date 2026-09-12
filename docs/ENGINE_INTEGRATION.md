@@ -15,6 +15,24 @@ npm run dev
 
 工作台左侧管理动作，中间播放和定位，右侧修改名称、速度、中段停留及完整 JSON。改动保存在当前浏览器的本地动作库；跨设备使用“导出项目/导入项目”。删除仍被组合引用的动作会被拒绝。导入是事务操作，错误数据或站姿加载失败不会清掉现有项目。
 
+## 构建优化资源并接入
+
+安装 [优化依赖](GLOBAL_ASSET_OPTIMIZATION.md#使用) 后执行 `npm run build:assets`。该命令同时构建 SDK 和全局优化包；默认使用允许轻微差异的平衡档，支持 `-- --profile exact` 或 `-- --output /path/to/public/pet-assets`。输出目录可直接部署到静态资源服务。
+
+```js
+const pet = createWebPet(canvas, { assetPack: '/pet-assets' });
+try {
+  await pet.ready;
+  await pet.play('wave');
+} catch (error) {
+  pet.destroy();
+  throw error;
+}
+// 页面卸载时也要调用 pet.destroy()。
+```
+
+微信使用 `createWechatPet(canvasNode, wx, { assetPack: 'https://cdn.example.com/pet-assets' })`。SDK 自动读取清单、注册动作、首次加载全部单图图片并还原偏移（分页布局则按需加载）；调用者无需手动导入图集。未设置 `assetPack` 时保持现有默认素材行为。
+
 ## 生成和安装独立包
 
 ```sh

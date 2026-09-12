@@ -11,7 +11,7 @@ const pet = createWebPet(canvas, {
   width: 640, height: 480, size: 112,
   position: { x: 320, y: 360 },
   dpr: window.devicePixelRatio,
-  assetBaseURL: '/pet-assets'
+  assetPack: '/pet-assets'
 });
 await pet.ready;
 await pet.play('wave');
@@ -30,6 +30,7 @@ pet.destroy();
 | `dpr` | 1 | 画布像素倍率；不改变动作或位移坐标 |
 | `padding` | 8 | 全部动作最大展开边界之外的余量 |
 | `speed` | 1 | 动画和自由活动时钟倍率，音频不变速 |
+| `assetPack` | 不启用 | `build:assets` 输出目录；自动加载清单和打包动作，等待 `ready` 后播放；与 `assetBaseURL`、`manifest`、`assets` 互斥 |
 | `assetBaseURL` | 内置皮皮公共素材地址 | 其他 PNG 的目录，支持本地路径和 HTTPS |
 | `autoTick` | true | false 时由调用方按毫秒调用 `update(delta)` |
 | `autoBlink` | true | 空闲约 3.3 秒眨眼 |
@@ -153,7 +154,7 @@ pet.assets.define('custom:blink', {
 
 `tiles` 中每项为 `[页序号,x,y,宽,高]`；所有帧映射到相同虚拟 `crop`，以 `anchor` 对齐脚底。不同动作可以有不同宽度。`restFrames` 表示该帧应使用公共站姿；仅在它确实与默认站姿对应时设置。`patch:true` 是皮皮局部覆盖图，先绘制站姿再替换区域，不适合任意完整角色图。内置鸟喙和睁眼区域专门对应皮皮的虚拟坐标。
 
-清单为 `{version:1,assets:{id:definition}}`。PNG 推荐内容哈希文件名，并提供 `md5` 与 `bytes`。`await pet.preload(['wave','walk','flight'])` 预加载；方向动作会收集全部方向。它只是预热缓存：超过预算的非活动素材仍会回收，之后使用可能重新解码。
+清单为 `{version:1,assets:{id:definition}}`。PNG 推荐内容哈希文件名，并提供 `md5` 与 `bytes`。`await pet.preload(['wave','walk','flight'])` 预加载；方向动作会收集全部方向。分页包中它只是预热缓存：超过预算的非活动素材仍会回收，之后使用可能重新解码。`build:assets` 默认的单图包在 `ready` 前已加载完整图片，站姿引用使其持续驻留，后续动作不新增图片请求；销毁实例后释放。
 
 `await pet.refreshAssets(baseURL)` 检查服务器 `manifest.json` 并验证后切换项目；失败保留可用项目。内置站姿、招手、右翅和嘴部局部图随代码版本更新，刷新远程清单时保留它们，避免把完整角色图误作局部覆盖。直接操作 `assets.refresh/import` 属于低层 API；需要同时修改动作和素材时，使用 `importProject()` 做跨库校验。
 
@@ -168,3 +169,41 @@ Web 图片使用浏览器 HTTP 缓存。微信按 MD5 持久保存 PNG，并在�
 `exportProject()` 返回 `{version,actions,assets,settings}`。`importProject(json,{baseURL})` 先完整校验和加载新站姿，成功后原子替换；失败不破坏当前项目。导出图集路径已经包含原 `baseURL`，回导时默认不再次添加前缀；迁移到其他目录时可先调整导出的 `pages[].file`。不要把动态音频 URL、用户账号或密钥放进动作 JSON。
 
 `on(event,handler)` 返回取消订阅函数；支持 `once/off`。事件包括 `ready/start/finish/cancel/error/frame/move/scale/speed/pause/resume/seek/librarychange/speechstart/speechend/freemode/destroy`。`frame` 提供快照；`error` 提供 `{error,phase,action?}`。同步事件回调异常会转为 `error`，不破坏播放状态；异步业务回调自己的 Promise 由调用方处理。
+
+### Web 预下载与播放缓存
+
+Web SDK 的图片先通过 Fetch 完整下载，再从本地 Blob URL 解码播放。下载后的压缩文件独立于解码缓存保留，默认采用 64 MiB 的 LRU 内存缓存，按 URL、MD5 版本和文件大小区分。当前 WebP 全动作包约 15.63 MiB，可以全部保留；下载失败或长度不完整的文件不会进入缓存。图片解码失败会清除该文件并重试。
+
+```js
+const controller = new AbortController();
+await pet.predownload(['jump', 'wave', 'bath'], {
+  signal: controller.signal,
+  onProgress: ({ loaded, total, bytes, totalBytes }) => {
+    console.log(`已下载 ${loaded}/${total} 张`, bytes, totalBytes);
+  },
+});
+const playback = pet.play('jump');
+await playback.ready;
+```
+
+`predownload` 按序下载、合并共享图片，不提前解码；方向动作包含所有方向。进度中的 `loaded` 是已处理的完整文件数（包括缓存命中），`bytes` 包括这些文件的完整字节数，并非本次网络传输量；缺少清单大小时 `totalBytes` 可能不完整。调用方可以通过 `controller.abort()` 暂停，之后再次调用会复用已完成的文件。单个请求自动重试一次，仍失败则本次调用拒绝，已完成文件保留。销毁实例会取消其预下载任务。
+
+此接口目前支持 WebAdapter，其他适配器未实现 `prefetchImage` 时明确报错。`preload` 仍表示下载并预热解码缓存。两个接口都不会将超出缓存预算的所有图片永久固定在内存中。
+
+完整预览页在首个动作就绪后自动预下载，切换动作先取消后台下载，当前动作就绪后继续；页面隐藏时暂停，返回后恢复。SDK 本身不自动下载整个动作库，业务方按需求调用。`pet.clearCache()` 同时清除压缩文件缓存；页面刷新后内存缓存消失，浏览器可能复用普通 HTTP 缓存，**不保证刷新后离线启动**。
+
+### 点击身体部位
+
+`pet.hitTestPart({ x, y })` 接收逻辑画布坐标，返回 `head`（头）、`belly`（肚子）、`feet`（脚）、`wings`（翅膀）或 `null`。Web 画布先读取当前合成帧的透明度，排除透明留白，再按当前身体位置、大小与腾空高度划分近似区域；不改变现有 `hitTest` 和拖拽逻辑。无法读取像素的适配器退化为几何区域判断，跨域污染导致读取失败时返回 `null`。
+
+```js
+const rect = canvas.getBoundingClientRect();
+const part = pet.hitTestPart({
+  x: (event.clientX - rect.left) * pet.width / rect.width,
+  y: (event.clientY - rect.top) * pet.height / rect.height,
+});
+```
+
+此划分针对内置皮皮的身体比例，**不是逐帧解剖遮罩**。侧身、倒置、遮挡和大幅展翅时，部位交界可能不精确；替换角色或要求每帧精确识别时，需要额外提供逐帧区域标注。透明度检测仍以实际显示像素为准。
+
+完整预览页用 Pointer Events 绑定鼠标与触摸：头→摸摸、肚子→跳跃、脚→跳舞、翅膀→拍翅。单次点击触发一次，拖动超过 8 个 CSS 像素、取消手势和透明区点击不触发。点击部位会退出随机模式，再通过原有下载流程播放响应动作。预览页另发出 `bodyclick` 事件（`{part, point, action}`）并写入诊断日志；该事件由示例绑定产生，SDK 的 `hitTestPart` 本身只负责查询，不会自动播放或发事件。

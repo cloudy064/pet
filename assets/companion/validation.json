@@ -1,0 +1,121 @@
+{
+  "result": "PASS",
+  "frames": 538,
+  "runtimePNGBytes": 26245672,
+  "maxActionDecodedBytes": 6861888,
+  "audioTracks": 2,
+  "actions": [
+    {
+      "id": "nod",
+      "frames": 33,
+      "pages": 1,
+      "alphaAndBounds": true,
+      "idleEndpointsMatch": true
+    },
+    {
+      "id": "sleep",
+      "frames": 33,
+      "pages": 1,
+      "alphaAndBounds": true,
+      "idleEndpointsMatch": true
+    },
+    {
+      "id": "stretch",
+      "frames": 33,
+      "pages": 1,
+      "alphaAndBounds": true,
+      "idleEndpointsMatch": true
+    },
+    {
+      "id": "eatSeed",
+      "frames": 33,
+      "pages": 1,
+      "alphaAndBounds": true,
+      "idleEndpointsMatch": true
+    },
+    {
+      "id": "bath",
+      "frames": 33,
+      "pages": 1,
+      "alphaAndBounds": true,
+      "idleEndpointsMatch": true
+    },
+    {
+      "id": "scratch",
+      "frames": 33,
+      "pages": 1,
+      "alphaAndBounds": true,
+      "idleEndpointsMatch": true
+    },
+    {
+      "id": "kiss",
+      "frames": 33,
+      "pages": 1,
+      "alphaAndBounds": true,
+      "idleEndpointsMatch": true
+    },
+    {
+      "id": "preen",
+      "frames": 33,
+      "pages": 1,
+      "alphaAndBounds": true,
+      "idleEndpointsMatch": true
+    },
+    {
+      "id": "standOneFoot",
+      "frames": 43,
+      "pages": 2,
+      "alphaAndBounds": true,
+      "idleEndpointsMatch": true
+    },
+    {
+      "id": "lookAround",
+      "frames": 33,
+      "pages": 1,
+      "alphaAndBounds": true,
+      "idleEndpointsMatch": true
+    },
+    {
+      "id": "dance",
+      "frames": 33,
+      "pages": 1,
+      "alphaAndBounds": true,
+      "idleEndpointsMatch": true
+    },
+    {
+      "id": "flap",
+      "frames": 33,
+      "pages": 1,
+      "alphaAndBounds": true,
+      "idleEndpointsMatch": true
+    },
+    {
+      "id": "sneeze",
+      "frames": 33,
+      "pages": 1,
+      "alphaAndBounds": true,
+      "idleEndpointsMatch": true
+    },
+    {
+      "id": "hiccup",
+      "frames": 33,
+      "pages": 1,
+      "alphaAndBounds": true,
+      "idleEndpointsMatch": true
+    },
+    {
+      "id": "fart",
+      "frames": 33,
+      "pages": 1,
+      "alphaAndBounds": true,
+      "idleEndpointsMatch": true
+    },
+    {
+      "id": "beakWipe",
+      "frames": 33,
+      "pages": 1,
+      "alphaAndBounds": true,
+      "idleEndpointsMatch": true
+    }
+  ]
+}

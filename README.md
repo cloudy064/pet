@@ -1,5 +1,39 @@
 # 皮皮动画引擎与透明 PNG 调试台
 
+## 学习宠物扩展（开发中）
+
+新增可选的 `PetCompanion`：学习成长与存档、首页/做题/照料/休息模式、喂食与幂等钱包接口、香皂涂抹、连续抚摸、主动请求及中英台词。运行后打开 [皮皮的小院](examples/companion/index.html)，接口见 [宠物接入文档](docs/PET_COMPANION_API.md)，当前验证与待完成内容见 [扩展验收记录](docs/PET_COMPANION_VALIDATION.md)。
+
+16 个新动作已交付透明运行图集（538 帧），包含自然收尾的分段循环、独立葵花籽/木桩道具，以及中英文原创数数歌的合成歌声示例。打开 [宠物体验](examples/companion/index.html) 或 [动作逐帧预览](examples/companion/animations.html)；详见 [素材说明](assets/companion/README.md)。
+
+## 全局素材优化
+
+当前完整动作预览页仅运行 WebP，保留动作选择、循环播放、暂停、速度和时间轴；不会下载 PNG 或等待原图同步。
+
+Web 演示已默认采用 WebP 小图集：图片总量 **15.63 MiB**，相比原始 PNG 的 64.49 MiB 减少 **75.8%**。保留全部 1,849 个逻辑帧、计时、透明度和位置偏移，原始素材与 PNG 优化版本仍保留。
+
+安装 `requirements-optimization.txt` 并准备本机 tinyimg 后，运行 `npm run build`、`npm run compress:webp`。把 `dist/optimized-webp-frames/` 托管到 `/pet-assets/`，Web 接入方式为：
+
+```js
+const pet = Pipi.createWebPet(canvas, { assetPack: '/pet-assets' });
+await pet.ready;
+await pet.play('wave');
+```
+
+首屏只下载站姿与嘴部所需图片（约 20 KiB），其他动作按需加载。SDK 自动读取清单、注册动作并处理共享帧与偏移。页面卸载时调用 `pet.destroy()`。WebP 目前用于 Web；微信接入继续使用 PNG 资源包。
+
+运行 `npm run demo` 后，默认入口为 WebP 演示。`examples/sdk-demo/?assets=png` 可查看原 PNG 单图包；`?assets=tinyimg` 保留受保护 PNG 压缩版本。完整动作预览在 [WebP 动作预览](examples/optimization/index.html?profile=webp)。`npm run build:assets` 仍用于生成 PNG 单图，命令与历史方案详见 [全局优化文档](docs/GLOBAL_ASSET_OPTIMIZATION.md)。
+
+## 当前代码导航
+
+最小 SDK 示例在 [examples/sdk-demo](examples/sdk-demo/index.html)，仅加载引擎脚本并通过 `assetPack` 接入优化资源。已有构建产物时运行 `npm run demo`，访问 `http://localhost:8765/`；该命令默认绑定 `0.0.0.0`，局域网可用本机 IP 访问。可用 `PORT=9000 npm run demo` 改端口。首次使用先按优化文档安装依赖并执行 `npm run build` 和 `npm run compress:webp`。示例提供六种动作、暂停、调速和恢复站姿。
+
+新接入使用 `engine/`：`core/` 管播放与渲染，`adapters/` 管 Web/微信平台，`companion/` 管学习宠物；照料控制器在 `companion/care.js`，存档原子写入在 `companion/storage.js`。`examples/companion/ledger.js` 是示例专用的本地钱包和事件队列。
+
+根目录的 `pipi-*.js` 与中文调试页面属于保留的旧版播放器，供素材验证和历史体验使用。新增业务能力优先放入独立引擎，避免在两套播放器重复实现。下面的素材制作、外部项目集成记录包含历史信息，不是独立 SDK 的运行依赖。
+
+学习事件现在必须传稳定递增的 `revision`；自定义存储必须支持原子 `save(state, {expectedRevision})`。Web 内置存档需要 HTTPS/localhost 的 Web Locks，迁移步骤和冲突恢复见 [宠物接入文档](docs/PET_COMPANION_API.md#从旧调用迁移)。
+
 ## 获取与运行
 
 仓库：<https://github.com/cloudy064/pet>。代码、动作配置、原始素材、运行图集、制作记录和构建检查脚本均纳入版本管理；图片与姿态数组（NPZ/NPY）使用 Git LFS 保存完整内容。
@@ -63,13 +97,13 @@ await pet.moveTo({ x: 300, y: 320 }, { mode: 'flight' });
 
 `assets/pipi-point-right.png` 同样为 37 帧、每帧 480×512。右翅来自内置 image_gen 生成的关键姿态，身体和头部固定，再补齐局部过渡；没有整只镜像。详细提示词、生成原件与采用方式见 [制作记录](assets/pipi-point-right-generation.md)。原来 31 组动作的注册表、素材和压缩统计保留。
 
-`C:/Users/cloudy064/workspace/aiede/pipi/pipi-wxmp` 已接入两侧指字：按实际汉字边界停靠，右边界空间不足时站到字的左侧、用画面右侧翅膀指字，讲解中独立张合鸟喙。距离超过 `max(160px, 2×皮皮尺寸)` 时飞过去，并约有 25% 的选字机会优先选择远处目标；飞行按实际位移选择八方向，近处走路。拖动保持静态，单击延迟 350ms 触发抚摸，双击不播放动作。
+**历史外部小程序集成记录**（以下业务策略不由当前 SDK 自动启用）：识字小程序曾接入两侧指字，按实际汉字边界停靠，右边界空间不足时站到字的左侧、用画面右侧翅膀指字，讲解中独立张合鸟喙。距离超过 `max(160px, 2×皮皮尺寸)` 时飞过去，并约有 25% 的选字机会优先选择远处目标；飞行按实际位移选择八方向，近处走路。拖动保持静态，单击延迟 350ms 触发抚摸，双击不播放动作。
 
 小程序包内提供默认图、完整招手、右翅和鸟喙的区域 PNG，首屏招手不等待网络。欢迎过程循环一次完整挥翅、一次较小挥翅和停顿，讲话结束后自然收翅。首页、详情页和游戏页共用 58px 起始尺寸及星星成长曲线；获星先开心跳跃，落地后用 1.2 秒动画长大，结束保留增大的尺寸。当前本地 PNG 使用 256 色量化衍生图；完整原图保留。
 
-远程图集首次使用后保存到小程序本地，页面释放只清理解码内存。清单按 10 分钟间隔检查 ETag/Last-Modified，PNG 按 MD5 或现有带哈希的文件名复用；断网可使用已缓存的动作。缓存、发布和验证说明见小程序的 `README_MINIPROGRAM.md`。
+远程图集首次使用后保存到小程序本地，页面释放只清理解码内存。清单按 10 分钟间隔检查 ETag/Last-Modified，PNG 按 MD5 或现有带哈希的文件名复用；断网可使用已缓存的动作。当前 SDK 的缓存、发布和验证说明见 [接入与迁移](docs/ENGINE_INTEGRATION.md)。
 
-复现顺序：`python build_point_action.py` → `python prepare_point_right.py` → `python build_point_bundle.py` → `python build_miniprogram_welcome.py`。验证：`python check_point_preview.py`，以及小程序内 `npm test`、`python scripts/pet-visual-check.py`。指字检查结果为 `point-browser-check.json`，小程序截图位于 `pipi/.deploy-artifacts/ttt-20260911/`。
+复现顺序：`python build_point_action.py` → `python prepare_point_right.py` → `python build_point_bundle.py` → `python build_miniprogram_welcome.py`。本仓库指字素材验证：`python check_point_preview.py`，结果为 `point-browser-check.json`。外部小程序的测试和截图不属于本仓库交付；独立引擎使用本文及接入文档中的 `npm` 检查命令。
 
 ## 无损压缩运行素材
 

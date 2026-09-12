@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>皮皮的小院 · 一起学，一起长大</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main>
+      <header class="header">
+        <a class="brand" href="./"
+          ><span class="brand-mark" aria-hidden="true">P</span
+          ><span>皮皮的小院<small>一起学，一起长大</small></span></a
+        >
+        <div class="header-actions">
+          <span class="seed-balance"><span aria-hidden="true">🌻</span> <b id="balance">—</b> 颗葵花籽</span
+          ><button id="sound" class="quiet" aria-pressed="false">声音已关</button>
+        </div>
+      </header>
+      <div class="intro">
+        <div>
+          <p class="eyebrow">MY LITTLE LEARNING FRIEND</p>
+          <h1>今天，也陪皮皮长大一点。</h1>
+          <p>你教它一个小本领，它回赠你一份小欢喜。</p>
+        </div>
+        <span class="date-badge" id="date"></span>
+      </div>
+      <div class="layout">
+        <section class="garden-card" aria-label="皮皮的活动小院">
+          <nav class="modes" aria-label="活动模式">
+            <button data-mode="home" aria-pressed="true">小院</button
+            ><button data-mode="learning" aria-pressed="false">一起学习</button
+            ><button data-mode="care" aria-pressed="false">照顾皮皮</button
+            ><button data-mode="rest" aria-pressed="false">休息一下</button>
+          </nav>
+          <div class="garden" id="garden">
+            <div class="sun" aria-hidden="true"></div>
+            <div class="cloud cloud-one" aria-hidden="true"></div>
+            <div class="cloud cloud-two" aria-hidden="true"></div>
+            <div class="hill hill-back" aria-hidden="true"></div>
+            <div class="hill hill-front" aria-hidden="true"></div>
+            <div class="speech" id="speech" role="status" aria-live="polite">皮皮正在准备见你…</div>
+            <canvas id="pet-canvas" aria-label="可拖动的小鹦鹉皮皮，单击摸摸，双击回应"></canvas>
+            <canvas id="care-canvas" aria-label="在皮皮身体上涂抹香皂" hidden></canvas>
+            <div class="stage-label" id="stage-label">轻轻点它一下，也可以拖着它走。</div>
+          </div>
+          <div class="care-tools" id="care-tools" hidden>
+            <span id="bath-progress">用香皂轻轻涂抹身体</span
+            ><progress id="wash-progress" max="1" value="0"></progress
+            ><button id="rinse" disabled>冲一冲</button
+            ><button id="leave-bath" class="quiet">稍后再洗</button>
+          </div>
+          <div class="request" id="request" hidden>
+            <p id="request-text"></p>
+            <button id="accept-request">好呀</button
+            ><button id="dismiss-request" class="quiet">等一会儿</button>
+          </div>
+          <div class="garden-footer">
+            <span><i class="status-dot"></i><span id="mode-label">自在玩耍中</span></span
+            ><a href="./animations.html">看看皮皮的新动作 ↗</a>
+          </div>
+        </section>
+        <aside class="side">
+          <section class="growth card">
+            <p class="eyebrow">每一个小进步，都算数</p>
+            <h2>皮皮的成长日记</h2>
+            <div class="growth-number">
+              <strong id="points">0</strong><span>成长点</span><span class="height" id="height">58 px</span>
+            </div>
+            <progress id="growth-progress" max="320" value="0"></progress>
+            <p id="growth-caption">第一个小本领，从今天开始。</p>
+            <div class="needs">
+              <label
+                >饱饱的<span id="food-label">75%</span
+                ><progress id="food" max="100" value="75"></progress></label
+              ><label
+                >干净净<span id="clean-label">80%</span><progress id="clean" max="100" value="80"></progress
+              ></label>
+            </div>
+          </section>
+          <section class="card activity" id="activity">
+            <p class="eyebrow">和皮皮一起</p>
+            <h2 id="activity-title">来一点温柔的陪伴</h2>
+            <p id="activity-description">摸摸头，吃点香香的籽，再洗个泡泡澡。</p>
+            <div class="care-buttons">
+              <button id="pet">摸摸头 <span>免费陪伴</span></button
+              ><button id="feed">喂葵花籽 <span>每餐 3 颗</span></button
+              ><button id="bath">泡泡澡 <span>免费照料</span></button
+              ><button id="scratch">挠一挠 <span>让皮皮放松</span></button>
+            </div>
+            <button id="learn" class="primary">教皮皮一个小本领 <span>→</span></button>
+            <div class="care-buttons" aria-label="原创数数歌，合成歌声">
+              <button id="song-zh">中文数数歌 <span>和皮皮一起唱</span></button>
+              <button id="song-en">English song <span>Count with Pipi</span></button>
+            </div>
+            <small>原创数数歌 · 合成歌声</small>
+          </section>
+          <section class="card lesson" id="lesson" hidden>
+            <p class="eyebrow">小小数学家</p>
+            <h2>皮皮想学会加法</h2>
+            <p>帮它数一数，一共有多少？</p>
+            <div class="equation" id="equation"></div>
+            <div id="answers" class="answers"></div>
+            <p id="lesson-feedback" role="status"></p>
+            <button id="next-question" class="primary" hidden>再教一道</button
+            ><button id="finish-learning" class="quiet">今天先学到这里</button>
+          </section>
+          <section class="card rest" id="rest" hidden>
+            <p class="eyebrow">慢下来，也很好</p>
+            <h2>让眼睛和皮皮一起休息</h2>
+            <p>放下屏幕，看看远处。皮皮会安静地等你。</p>
+            <button id="wake" class="primary">休息好啦</button>
+          </section>
+        </aside>
+      </div>
+      <p id="notice" class="notice" role="status"></p>
+      <footer class="footer">
+        <span>学习的进步会一直保留。暂时不喂食，皮皮也不会变小。</span><span>体验示例 · 进度保存在本机</span>
+      </footer>
+    </main>
+    <script src="../../dist/pipi-engine.js"></script>
+    <script src="../../dist/pipi-companion.js"></script>
+    <script src="./ledger.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>

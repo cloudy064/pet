@@ -430,3 +430,52 @@ test('invalid frame durations, sequence timing and coordinates do not replace a 
   assert.equal(pet.current, wave);
   pet.destroy();
 });
+
+test('ready cannot report success when the initial action render fails', async () => {
+  const { pet } = await make();
+  const draw = pet.renderer.draw.bind(pet.renderer);
+  let fail = true;
+  pet.renderer.draw = (...args) => {
+    if (fail && pet.current?.status === 'playing') {
+      fail = false;
+      throw Error('injected initial render failure');
+    }
+    return draw(...args);
+  };
+  const first = pet.play('wave');
+  assert.equal((await first.ready).status, 'failed');
+  const recovered = pet.play('wave');
+  assert.equal((await recovered.ready).status, 'ready');
+  pet.destroy();
+});
+
+test('body part hit testing follows scale and altitude and rejects transparent pixels', async () => {
+  const { pet, adapter } = await make();
+  const sample = pet.lastState;
+  const point = (x, y) => ({
+    x: sample.x + x * sample.size,
+    y: sample.y - (sample.altitude || 0) - sample.size + y * sample.size,
+  });
+  assert.equal(pet.hitTestPart(point(0, 0.3)), 'head');
+  assert.equal(pet.hitTestPart(point(0, 0.72)), 'belly');
+  assert.equal(pet.hitTestPart(point(0.13, 0.95)), 'feet');
+  assert.equal(pet.hitTestPart(point(0.22, 0.72)), 'wings');
+  let pixel;
+  adapter.context.getImageData = (x, y) => {
+    pixel = { x, y };
+    return { data: [0, 0, 0, 255] };
+  };
+  sample.altitude = 60;
+  const q = point(0, 0.3);
+  assert.equal(pet.hitTestPart(q), 'head');
+  assert.equal(pixel.x, Math.floor((q.x * adapter.canvas.width) / pet.width));
+  assert.equal(pixel.y, Math.floor((q.y * adapter.canvas.height) / pet.height));
+  adapter.context.getImageData = () => ({ data: [0, 0, 0, 0] });
+  assert.equal(pet.hitTestPart(q), null);
+  adapter.context.getImageData = () => {
+    throw Error('tainted');
+  };
+  assert.equal(pet.hitTestPart(q), null);
+  pet.destroy();
+  assert.equal(pet.hitTestPart(q), null);
+});

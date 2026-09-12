@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="zh-CN">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>皮皮 · WebP 动作预览</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      background: #f4f6f1;
+      color: #203229;
+      font:
+        16px/1.6 system-ui,
+        sans-serif;
+    }
+    main {
+      max-width: 1200px;
+      margin: 32px auto;
+      padding: 0 20px;
+    }
+    h1 {
+      font-size: 28px;
+      margin-bottom: 4px;
+    }
+    p {
+      margin: 8px 0 20px;
+      color: #536257;
+    }
+    .controls {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin: 20px 0;
+    }
+    select,
+    button,
+    input {
+      font: inherit;
+    }
+    button,
+    select {
+      padding: 8px 14px;
+      border: 1px solid #b7c5b8;
+      border-radius: 8px;
+      background: white;
+    }
+    button {
+      cursor: pointer;
+    }
+    button.primary {
+      background: #245d3b;
+      color: white;
+    }
+    .views {
+      max-width: 600px;
+      margin: auto;
+    }
+    .view {
+      background: white;
+      border: 1px solid #dce4db;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .view h2 {
+      font-size: 17px;
+      padding: 12px 20px;
+      margin: 0;
+      border-bottom: 1px solid #e3e9e1;
+    }
+    canvas {
+      touch-action: manipulation;
+      display: block;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background: repeating-conic-gradient(#edf0eb 0% 25%, #fff 0% 50%) 0 / 20px 20px;
+    }
+    body.dark canvas {
+      background: #19241e;
+    }
+    #scrub {
+      flex: 1;
+      min-width: 150px;
+    }
+    #stats {
+      padding: 16px 20px;
+      border-radius: 12px;
+      background: #e4ecde;
+      font-variant-numeric: tabular-nums;
+    }
+    .view p {
+      padding: 8px 20px;
+      margin: 0;
+      min-height: 42px;
+      font-size: 14px;
+    }
+    #notice {
+      color: #8b3b27;
+    }
+    small {
+      color: #627165;
+    }
+    @media (max-width: 700px) {
+      .views {
+        grid-template-columns: 1fr;
+      }
+      main {
+        margin-top: 20px;
+      }
+    }
+  </style>
+  <main>
+    <h1>皮皮 · WebP 动作预览</h1>
+    <p>选择动作即可循环播放，也可以开启随机模式。走路和飞行支持八方向，其他动作不使用方向设置。</p>
+    <div id="stats">正在准备 WebP 素材……</div>
+    <p id="download-progress" role="status">首个动作就绪后，将自动预下载其他动作。</p>
+    <button id="download-toggle">暂停预下载</button>
+    <div class="controls">
+      <label
+        >动作
+        <select id="action"></select
+      ></label>
+      <label
+        >方向
+        <select id="direction" aria-label="移动方向">
+          <option value="n">↑ 上</option>
+          <option value="ne">↗ 右上</option>
+          <option value="e" selected>→ 右</option>
+          <option value="se">↘ 右下</option>
+          <option value="s">↓ 下</option>
+          <option value="sw">↙ 左下</option>
+          <option value="w">← 左</option>
+          <option value="nw">↖ 左上</option>
+        </select>
+      </label>
+      <label
+        >身体高度
+        <select id="size">
+          <option>58</option>
+          <option selected>112</option>
+          <option>216</option>
+        </select></label
+      >
+      <label
+        >速度
+        <select id="speed">
+          <option value="1">正常</option>
+          <option value="0.5">半速</option>
+          <option value="0.25">四分之一</option>
+        </select></label
+      >
+      <button id="random" aria-pressed="false">随机动作</button>
+      <button id="play" class="primary">重新播放</button><button id="pause">暂停</button
+      ><button id="background">切换深色背景</button>
+    </div>
+    <div class="views">
+      <section class="view">
+        <h2>动作预览</h2>
+        <p id="after-status" role="status">正在初始化……</p>
+        <canvas id="after" aria-label="皮皮，点击头、肚子、脚或翅膀互动"></canvas>
+        <p id="hit-status" role="status">点击头摸摸、肚子跳跃、脚跳舞、翅膀拍翅。</p>
+      </section>
+    </div>
+    <div class="controls">
+      <input type="range" id="scrub" min="0" max="1000" value="0" /><output id="time">0 ms</output>
+    </div>
+    <p id="notice" role="status"></p>
+    <small
+      >图片完整下载后再解码播放；后台仅保存压缩文件，不提前解码整套动作。缓存保留在当前页面，刷新后重新检查下载。</small
+    >
+  </main>
+  <script src="../../dist/pipi-engine.js?v=webp-body-click-1"></script>
+  <script src="./debug.js?v=webp-body-click-1"></script>
+  <script src="./app.js?v=webp-body-click-1"></script>
+</html>
